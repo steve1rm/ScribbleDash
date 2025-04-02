@@ -4,26 +4,27 @@ package me.androidbox.scribbledash.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import scribbledash.composeapp.generated.resources.Res
+import scribbledash.composeapp.generated.resources.home
 
 @Composable
 fun ScribbleDashLayout(
     modifier: Modifier = Modifier,
     toolBarTitle: String,
-    onNavigationClicked: (() -> Unit)? = null,
-    content: @Composable (paddingValue: PaddingValues) -> Unit
+    navigationIcon: @Composable (() -> Unit)? = null,
+    content: @Composable (paddingValue: PaddingValues) -> Unit,
+    bottomBar: @Composable (() -> Unit)? = null
 ) {
     Scaffold(
         modifier = modifier.background(color = MaterialTheme.colorScheme.background),
@@ -39,21 +40,15 @@ fun ScribbleDashLayout(
                     )
                 },
                 navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            onNavigationClicked?.invoke()
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Go back"
-                        )
-                    }
+                    navigationIcon?.invoke()
                 }
             )
         },
         content = { paddingValues ->
             content(paddingValues)
+        },
+        bottomBar = {
+            bottomBar?.invoke()
         }
     )
 }
