@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.androidbox.scribbledash.home.screens
 
 import androidx.compose.foundation.background
@@ -7,11 +9,14 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -22,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.home.model.listOfNavigationItems
 import me.androidbox.scribbledash.home.screens.components.HomeCard
@@ -38,7 +44,22 @@ fun HomeScreen(
     ScribbleDashLayout(
         modifier = modifier
             .background(color = MaterialTheme.colorScheme.background),
-        toolBarTitle = "ScribbleDash",
+        toolBar = {
+            TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                ),
+                title = {
+                    Text(
+                        text = "ScribbleDash",
+                        fontWeight = FontWeight.W400,
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontSize = 26.sp,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            )
+        },
         content = { paddingValues ->
             Column(
                 modifier = Modifier

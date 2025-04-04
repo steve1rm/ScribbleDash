@@ -29,11 +29,6 @@ fun DrawingScreen(
 ) {
     ScribbleDashLayout(
         modifier = modifier,
-        toolBarTitle = "",
-        navigationIcon = {
-            Icon(imageVector = vectorResource(Res.drawable.close_circle),
-                contentDescription = "Close the drawing screen")
-        },
         content = { paddingValues ->
             Column(
                 modifier = Modifier
