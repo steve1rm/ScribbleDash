@@ -2,7 +2,6 @@ package me.androidbox.scribbledash
 
 import androidx.compose.runtime.Composable
 import me.androidbox.scribbledash.draw.screens.DrawingScreen
-import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.theming.Theme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
