@@ -13,22 +13,22 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun ScribbleDashLayout(
     modifier: Modifier = Modifier,
-    toolBar: @Composable (() -> Unit)? = null,
+    toolBar: @Composable () -> Unit = {},
     content: @Composable (paddingValue: PaddingValues) -> Unit,
-    bottomBar: @Composable (() -> Unit)? = null
+    bottomBar: @Composable () -> Unit = {}
 ) {
     Scaffold(
         modifier = modifier.fillMaxWidth(),
         containerColor = Color.Transparent,
         topBar = {
-            toolBar?.invoke()
+            toolBar()
 
         },
         content = { paddingValues ->
             content(paddingValues)
         },
         bottomBar = {
-            bottomBar?.invoke()
+            bottomBar()
         }
     )
 }
