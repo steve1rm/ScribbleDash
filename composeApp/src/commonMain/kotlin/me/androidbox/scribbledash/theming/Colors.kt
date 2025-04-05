@@ -20,12 +20,17 @@ val lightSurfaceHigh = Color(0xffffffff)
 
 internal val lightColorScheme = lightColorScheme(
     primary = lightPrimary,
+    onPrimary = lightOnPrimary,
     background = lightBackground,
     onBackground = lightOnBackground,
     onSurface = lightOnSurface,
     secondary = lightSecondary,
     surfaceContainerHigh = lightSurfaceHigh,
-    surfaceContainerLowest = lightSurfaceLowest
+    surfaceContainerLowest = lightSurfaceLowest,
+    onSurfaceVariant = lightOnSurfaceVariant,
+    surfaceContainerLow = lightSurfaceLow,
+    tertiary = lightTertiary,
+    error = error
 )
 
 internal val darkColorScheme = lightColorScheme(
