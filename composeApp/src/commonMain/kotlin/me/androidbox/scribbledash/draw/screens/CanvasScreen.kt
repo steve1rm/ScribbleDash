@@ -4,9 +4,13 @@ package me.androidbox.scribbledash.draw.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,7 +35,7 @@ fun CanvasScreen(
     closeClicked: () -> Unit
 ) {
     ScribbleDashLayout(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         toolBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -45,7 +49,7 @@ fun CanvasScreen(
                             modifier = Modifier.size(32.dp),
                             imageVector = vectorResource(Res.drawable.close_circle),
                             contentDescription = "Close this screen",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
@@ -55,7 +59,7 @@ fun CanvasScreen(
         content = { paddingValues ->
             Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(120.dp))
@@ -66,9 +70,14 @@ fun CanvasScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
+                Spacer(modifier = Modifier.height(60.dp))
+
                 DrawingCanvas()
 
+                Spacer(modifier = Modifier.weight(1f))
+
                 DrawControls(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
                     onUndoClicked = {},
                     onRedoClicked = {},
                     onClearClicked = {}
