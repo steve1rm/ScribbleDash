@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.draw.screens.components.DrawControls
+import me.androidbox.scribbledash.draw.screens.components.DrawingCanvas
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
@@ -64,6 +65,8 @@ fun CanvasScreen(
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
+
+                DrawingCanvas()
 
                 DrawControls(
                     onUndoClicked = {},

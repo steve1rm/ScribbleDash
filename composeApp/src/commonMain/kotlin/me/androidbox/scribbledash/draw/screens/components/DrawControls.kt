@@ -75,7 +75,7 @@ fun DrawControls(
                 .height(height = 64.dp)
                 .width(width = 200.dp)
                 .border(
-                    width = 4.dp,
+                    width = 8.dp,
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     shape = RoundedCornerShape(size = 20.dp)
                 ),

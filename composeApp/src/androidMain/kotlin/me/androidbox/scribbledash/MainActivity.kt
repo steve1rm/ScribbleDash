@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import me.androidbox.scribbledash.draw.screens.components.DrawingCanvas
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,8 +17,14 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun DrawingCanvasPreview() {
+    DrawingCanvas()
+}
+
 @Preview
 @Composable
 fun AppAndroidPreview() {
-    App()
+   // App()
 }
