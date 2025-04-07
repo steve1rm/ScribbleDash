@@ -31,8 +31,11 @@ import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
 fun CanvasScreen(
-    modifier: Modifier = Modifier,
-    closeClicked: () -> Unit
+    paths: List<PathData>,
+    currentPath: PathData?,
+    onAction: (DrawingAction) -> Unit,
+    closeClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ScribbleDashLayout(
         modifier = modifier.fillMaxSize(),
@@ -59,6 +62,7 @@ fun CanvasScreen(
         content = { paddingValues ->
             Column(
                 modifier = Modifier
+                    .padding(paddingValues = paddingValues)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

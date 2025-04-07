@@ -3,6 +3,8 @@ package me.androidbox.scribbledash.draw.screens.components
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -11,12 +13,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import me.androidbox.scribbledash.draw.screens.DrawingAction
+import kotlin.math.abs
 
 @Composable
-fun DrawingCanvas(modifier: Modifier = Modifier) {
+fun DrawingCanvas(
+    onAction: (DrawingAction) -> Unit,
+    modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .size(size = 360.dp)
@@ -35,7 +45,27 @@ fun DrawingCanvas(modifier: Modifier = Modifier) {
                     shape = RoundedCornerShape(20.dp)),
         ) {
             Canvas(
-                modifier = Modifier.fillMaxSize()) {
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clipToBounds()
+                    .pointerInput(
+                        key1 = true,
+                        block = {
+                            this.detectDragGestures(
+                                onDragStart = {
+                                    onAction(DrawingAction.OnNewPathStart)
+                                },
+                                onDragEnd = {
+                                    onAction(DrawingAction.OnPathEnd)
+                                },
+                                onDrag = { change, _ ->
+                                    onAction(DrawingAction.OnDraw(change.position))
+                                },
+                                onDragCancel = {
+                                    onAction(DrawingAction.OnPathEnd)
+                                }
+                            )
+                        })) {
                 val stokeWidth = 1.dp.toPx()
 
                 // Vertical Lines
@@ -73,6 +103,36 @@ fun DrawingCanvas(modifier: Modifier = Modifier) {
                     end = Offset(x = size.width, y = y2),
                     strokeWidth = stokeWidth
                 )
+            }
+        }
+    }
+}
+
+private fun DrawScope.drawPath(
+    path: List<Offset>,
+    color: Color,
+    thickness: Float = 10F
+) {
+    val smoothedPath = Path().apply {
+        if(path.isNotEmpty()) {
+            this.moveTo(path.first().x, path.first().y)
+
+            val smoothness = 5
+
+            for(i in 1..path.lastIndex) {
+                val from = path[i - 1]
+                val to = path[i]
+                val dx = abs(from.x - to.x)
+                val dy = abs(from.y - to.y)
+
+                if(dx >= smoothness || dy >= smoothness) {
+                    quadraticTo(
+                        x1 = (from.x + to.x) / 2f,
+                        x2 = (from.y + to.y) / 2f,
+                        y1 = to.x,
+                        y2 = to.y
+                    )
+                }
             }
         }
     }

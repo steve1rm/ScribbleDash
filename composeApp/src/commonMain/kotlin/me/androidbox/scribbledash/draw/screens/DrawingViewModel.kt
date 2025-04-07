@@ -31,7 +31,14 @@ class DrawingViewModel : ViewModel() {
     }
 
     private fun onPathEnd() {
+        val currentPathData = drawingState.value.currentPath ?: return
 
+        _drawingState.update { drawingState ->
+            drawingState.copy(
+                currentPath = null,
+                paths = drawingState.paths + currentPathData
+            )
+        }
     }
 
     private fun onNewPathStart() {
@@ -56,8 +63,6 @@ class DrawingViewModel : ViewModel() {
                 )
             }
         }
-
-
     }
 
     private fun onClearCanvasClick() {
