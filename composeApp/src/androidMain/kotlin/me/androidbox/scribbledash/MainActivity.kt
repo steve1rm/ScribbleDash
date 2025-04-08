@@ -20,7 +20,11 @@ class MainActivity : ComponentActivity() {
 @Preview(showBackground = true)
 @Composable
 fun DrawingCanvasPreview() {
-    DrawingCanvas()
+    DrawingCanvas(
+        paths = emptyList(),
+        currentPath = null,
+        onAction = {}
+    )
 }
 
 @Preview

@@ -76,7 +76,11 @@ fun CanvasScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                DrawingCanvas()
+                DrawingCanvas(
+                    paths = paths,
+                    currentPath = currentPath,
+                    onAction = onAction
+                )
 
                 Spacer(modifier = Modifier.weight(1f))
 

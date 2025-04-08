@@ -17,14 +17,21 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import me.androidbox.scribbledash.draw.screens.DrawingAction
+import me.androidbox.scribbledash.draw.screens.PathData
 import kotlin.math.abs
 
 @Composable
 fun DrawingCanvas(
+    paths: List<PathData>,
+    currentPath: PathData?,
     onAction: (DrawingAction) -> Unit,
     modifier: Modifier = Modifier) {
     Box(
@@ -103,6 +110,20 @@ fun DrawingCanvas(
                     end = Offset(x = size.width, y = y2),
                     strokeWidth = stokeWidth
                 )
+
+                paths.fastForEach { pathData ->
+                    drawPath(
+                        path = pathData.path,
+                        color = pathData.color
+                    )
+                }
+
+                currentPath?.let { pathData ->
+                    drawPath(
+                        path = pathData.path,
+                        color = pathData.color
+                    )
+                }
             }
         }
     }
@@ -136,4 +157,14 @@ private fun DrawScope.drawPath(
             }
         }
     }
+
+    drawPath(
+        path = smoothedPath,
+        color = color,
+        style = Stroke(
+            width = thickness,
+            cap = StrokeCap.Round,
+            join = StrokeJoin.Round
+        )
+    )
 }
