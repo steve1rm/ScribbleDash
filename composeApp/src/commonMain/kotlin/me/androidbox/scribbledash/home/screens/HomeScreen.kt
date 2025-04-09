@@ -30,7 +30,8 @@ import me.androidbox.scribbledash.home.screens.components.HomeCard
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onGameCardClicked: () -> Unit
 ) {
 
     var selectedIndex by remember {
@@ -81,7 +82,8 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 HomeCard(
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    onGameCardClicked = onGameCardClicked
                 )
             }
         },

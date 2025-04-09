@@ -2,6 +2,7 @@ package me.androidbox.scribbledash.home.screens.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,7 +25,8 @@ import scribbledash.composeapp.generated.resources.one_round_wonder
 
 @Composable
 fun HomeCard(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onGameCardClicked: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -34,6 +36,9 @@ fun HomeCard(
                 color = success,
                 shape = RoundedCornerShape(16.dp),
                 width = 8.dp
+            )
+            .clickable(
+                onClick = onGameCardClicked
             ),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {

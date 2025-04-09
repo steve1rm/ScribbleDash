@@ -26,10 +26,13 @@ import scribbledash.composeapp.generated.resources.reply
 
 @Composable
 fun DrawControls(
-    modifier: Modifier = Modifier,
     onUndoClicked: () -> Unit,
     onRedoClicked: () -> Unit,
-    onClearClicked: () -> Unit
+    onClearClicked: () -> Unit,
+    unDoEnabled: Boolean,
+    redoEnabled: Boolean,
+    clearEnabled: Boolean,
+    modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp, alignment = Alignment.CenterHorizontally),
@@ -43,7 +46,8 @@ fun DrawControls(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLow
             ),
             contentPadding = PaddingValues(0.dp),
-            onClick = onUndoClicked
+            onClick = onUndoClicked,
+            enabled = unDoEnabled
         ) {
             Icon(
                 modifier = Modifier.size(28.dp),
@@ -60,7 +64,8 @@ fun DrawControls(
                 containerColor = MaterialTheme.colorScheme.surfaceContainerLow
             ),
             contentPadding = PaddingValues(0.dp),
-            onClick = onRedoClicked
+            onClick = onRedoClicked,
+            enabled = redoEnabled
         ) {
             Icon(
                 modifier = Modifier.size(28.dp),
@@ -79,7 +84,7 @@ fun DrawControls(
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,
                     shape = RoundedCornerShape(size = 20.dp)
                 ),
-            enabled = true,
+            enabled = clearEnabled,
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = success

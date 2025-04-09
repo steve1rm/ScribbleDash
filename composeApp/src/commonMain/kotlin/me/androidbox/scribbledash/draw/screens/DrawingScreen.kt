@@ -2,13 +2,11 @@
 
 package me.androidbox.scribbledash.draw.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -23,21 +21,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.draw.screens.components.DifficultyItem
+import me.androidbox.scribbledash.draw.screens.components.DrawControls
+import me.androidbox.scribbledash.draw.screens.components.DrawingCanvas
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
-import scribbledash.composeapp.generated.resources.brushes
 import scribbledash.composeapp.generated.resources.close_circle
-import scribbledash.composeapp.generated.resources.paints
-import scribbledash.composeapp.generated.resources.pencil
 
 @Composable
 fun DrawingScreen(
-    modifier: Modifier = Modifier,
+    paths: List<PathData>,
+    currentPath: PathData?,
+    onAction: (DrawingAction) -> Unit,
     closeClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     ScribbleDashLayout(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         toolBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -51,7 +50,7 @@ fun DrawingScreen(
                             modifier = Modifier.size(32.dp),
                             imageVector = vectorResource(Res.drawable.close_circle),
                             contentDescription = "Close this screen",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
@@ -61,68 +60,44 @@ fun DrawingScreen(
         content = { paddingValues ->
             Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(paddingValues = paddingValues),
+                    .padding(paddingValues = paddingValues)
+                    .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Spacer(modifier = Modifier.height(90.dp))
+                Spacer(modifier = Modifier.height(120.dp))
 
                 Text(
-                    text = "Start drawing!",
+                    text = "Time to draw!",
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                Text(
-                    text = "Choose a difficulty setting",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onBackground
+                Spacer(modifier = Modifier.height(32.dp))
+
+                DrawingCanvas(
+                    paths = paths,
+                    currentPath = currentPath,
+                    onAction = onAction
                 )
 
-                Spacer(modifier = Modifier.height(64.dp))
+                Spacer(modifier = Modifier.weight(1f))
 
-                Row(
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    DifficultyItem(
-                        modifier = Modifier.weight(1f),
-                        title = "Beginner",
-                        image = {
-                            Image(
-                                imageVector = vectorResource(resource = Res.drawable.pencil),
-                                contentDescription = "beginner difficulty"
-                            )
-                        }
-                    )
-
-                    DifficultyItem(
-                        modifier = Modifier
-                            .weight(1f)
-                            .offset(
-                                y = -(20).dp
-                            ),
-                        title = "Challenging",
-                        image = {
-                            Image(
-                                imageVector = vectorResource(resource = Res.drawable.brushes),
-                                contentDescription = "challenging difficulty"
-                            )
-                        }
-                    )
-
-                    DifficultyItem(
-                        modifier = Modifier.weight(1f),
-                        title = "Master",
-                        image = {
-                            Image(
-                                imageVector = vectorResource(resource = Res.drawable.paints),
-                                contentDescription = "master difficulty"
-                            )
-                        }
-                    )
-                }
+                DrawControls(
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
+                    clearEnabled = currentPath != null && paths.isNotEmpty(),
+                    redoEnabled = paths.isNotEmpty(),
+                    unDoEnabled = paths.isNotEmpty(),
+                    onUndoClicked = {
+                        onAction(DrawingAction.Undo)
+                    },
+                    onRedoClicked = {
+                        onAction(DrawingAction.Redo)
+                    },
+                    onClearClicked = {
+                        onAction(DrawingAction.OnClearCanvasClicked)
+                    },
+                )
             }
         }
     )
 }
-
