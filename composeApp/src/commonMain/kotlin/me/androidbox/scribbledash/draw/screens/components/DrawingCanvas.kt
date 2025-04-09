@@ -61,9 +61,11 @@ fun DrawingCanvas(
                             this.detectDragGestures(
                                 onDragStart = {
                                     onAction(DrawingAction.OnNewPathStart)
+                                    println("onDragStart ${currentPath?.path}")
                                 },
                                 onDragEnd = {
                                     onAction(DrawingAction.OnPathEnd)
+                                    println("onDragEnd ${currentPath?.path}")
                                 },
                                 onDrag = { change, _ ->
                                     onAction(DrawingAction.OnDraw(change.position))

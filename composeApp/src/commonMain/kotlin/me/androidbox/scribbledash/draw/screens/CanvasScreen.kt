@@ -86,8 +86,12 @@ fun CanvasScreen(
 
                 DrawControls(
                     modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
-                    onUndoClicked = {},
-                    onRedoClicked = {},
+                    onUndoClicked = {
+                        onAction(DrawingAction.Undo)
+                    },
+                    onRedoClicked = {
+                        onAction(DrawingAction.Redo)
+                    },
                     onClearClicked = {}
                 )
             }

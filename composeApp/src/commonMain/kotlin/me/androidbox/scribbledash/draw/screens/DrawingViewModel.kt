@@ -23,8 +23,52 @@ class DrawingViewModel : ViewModel() {
             DrawingAction.OnNewPathStart -> onNewPathStart()
             DrawingAction.OnPathEnd -> onPathEnd()
             is DrawingAction.OnSelectColor -> onSelectColor(drawingAction.color)
+            DrawingAction.Redo -> {
+                onRedo()
+            }
+            DrawingAction.Undo -> {
+                onUndo()
+            }
         }
     }
+
+    private fun onUndo() {
+        _drawingState.update { currentState ->
+            if (currentState.paths.isNotEmpty()) {
+                val pathToUndo = currentState.paths.last()
+                currentState.copy(
+                    paths = currentState.paths.dropLast(1), // Remove last path
+                    undonePaths = currentState.undonePaths + pathToUndo // Add to undone list
+                )
+            } else {
+                currentState // No change if nothing to undo
+            }
+        }
+    }
+
+    private fun onRedo() {
+        _drawingState.update { currentState ->
+            if (currentState.undonePaths.isNotEmpty()) {
+                val pathToRedo = currentState.undonePaths.last()
+                currentState.copy(
+                    undonePaths = currentState.undonePaths.dropLast(1), // Remove from undone list
+                    paths = currentState.paths + pathToRedo // Add back to visible paths
+                )
+            } else {
+                currentState // No change if nothing to redo
+            }
+        }
+    }
+
+    val canUndo: Boolean
+        get() {
+            return drawingState.value.paths.isNotEmpty()
+        }
+
+    val canRedo: Boolean
+        get() {
+            return drawingState.value.paths.isNotEmpty()
+        }
 
     private fun onSelectColor(color: Color) {
         TODO("Not yet implemented")
