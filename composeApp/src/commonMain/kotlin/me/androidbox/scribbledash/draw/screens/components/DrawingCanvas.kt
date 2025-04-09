@@ -111,6 +111,7 @@ fun DrawingCanvas(
                     strokeWidth = stokeWidth
                 )
 
+                // Draw paths
                 paths.fastForEach { pathData ->
                     drawPath(
                         path = pathData.path,
@@ -136,21 +137,19 @@ private fun DrawScope.drawPath(
 ) {
     val smoothedPath = Path().apply {
         if(path.isNotEmpty()) {
-            this.moveTo(path.first().x, path.first().y)
+            moveTo(path.first().x, path.first().y)
 
             val smoothness = 5
-
             for(i in 1..path.lastIndex) {
                 val from = path[i - 1]
                 val to = path[i]
                 val dx = abs(from.x - to.x)
                 val dy = abs(from.y - to.y)
-
                 if(dx >= smoothness || dy >= smoothness) {
                     quadraticTo(
                         x1 = (from.x + to.x) / 2f,
-                        x2 = (from.y + to.y) / 2f,
-                        y1 = to.x,
+                        y1 = (from.y + to.y) / 2f,
+                        x2 = to.x,
                         y2 = to.y
                     )
                 }
