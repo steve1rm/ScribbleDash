@@ -22,7 +22,7 @@ val listOfNavigationItems = listOf(
     ),
 
     ScribbleNavigationItem(
-        title = ScribbleDashCategories.DRAWING.titleRes,
+        title = ScribbleDashCategories.HOME.titleRes,
         selectedIcon = Res.drawable.home,
         unSelectedIcon = Res.drawable.home
     ),

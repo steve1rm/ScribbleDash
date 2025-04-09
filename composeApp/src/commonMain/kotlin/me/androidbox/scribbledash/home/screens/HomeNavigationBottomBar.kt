@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.model.ScribbleNavigationItem
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.resources.vectorResource
@@ -18,7 +19,7 @@ import org.jetbrains.compose.resources.vectorResource
 fun RowScope.HomeNavigationBottomBar(
     listOfNavigationItems: List<ScribbleNavigationItem>,
     selectedItemIndex: Int,
-    onItemClicked: (index: Int) -> Unit
+    onItemClicked: (category: ScribbleDashCategories) -> Unit
 ) {
     listOfNavigationItems.forEachIndexed { index, item ->
         this.NavigationBarItem(
@@ -27,7 +28,7 @@ fun RowScope.HomeNavigationBottomBar(
             ),
             selected = selectedItemIndex == index,
             onClick = {
-                onItemClicked(index)
+                onItemClicked(ScribbleDashCategories.entries[index])
             },
             icon = {
                 Icon(

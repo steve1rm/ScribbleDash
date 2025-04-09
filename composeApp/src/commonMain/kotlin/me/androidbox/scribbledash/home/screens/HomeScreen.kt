@@ -25,13 +25,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
+import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.model.listOfNavigationItems
 import me.androidbox.scribbledash.home.screens.components.HomeCard
 
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onGameCardClicked: () -> Unit
+    onGameCardClicked: () -> Unit,
+    onBottomNavigationClicked: (category: ScribbleDashCategories) -> Unit
 ) {
 
     var selectedIndex by remember {
@@ -95,8 +97,9 @@ fun HomeScreen(
                     this.HomeNavigationBottomBar(
                         listOfNavigationItems = listOfNavigationItems,
                         selectedItemIndex = selectedIndex,
-                        onItemClicked = { index ->
-                            selectedIndex = index
+                        onItemClicked = { scribbleDashCategories ->
+                            selectedIndex = scribbleDashCategories.ordinal
+                            onBottomNavigationClicked(scribbleDashCategories)
                         }
                     )
                 }

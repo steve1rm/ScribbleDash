@@ -53,7 +53,7 @@ fun DrawControls(
                 modifier = Modifier.size(28.dp),
                 imageVector = vectorResource(resource = Res.drawable.reply),
                 contentDescription = "undo",
-                tint = MaterialTheme.colorScheme.onBackground
+                tint = if(unDoEnabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
             )
         }
 
@@ -71,7 +71,7 @@ fun DrawControls(
                 modifier = Modifier.size(28.dp),
                 imageVector = vectorResource(resource = Res.drawable.forward),
                 contentDescription = "redo",
-                tint = MaterialTheme.colorScheme.onBackground
+                tint = if(unDoEnabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
             )
         }
 
@@ -87,7 +87,7 @@ fun DrawControls(
             enabled = clearEnabled,
             shape = RoundedCornerShape(20.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = success
+                containerColor = if(clearEnabled) success else MaterialTheme.colorScheme.surfaceContainerLowest
             ),
             onClick = onClearClicked
         ) {
