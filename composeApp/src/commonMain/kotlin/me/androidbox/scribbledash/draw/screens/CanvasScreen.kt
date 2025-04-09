@@ -92,7 +92,9 @@ fun CanvasScreen(
                     onRedoClicked = {
                         onAction(DrawingAction.Redo)
                     },
-                    onClearClicked = {}
+                    onClearClicked = {
+                        onAction(DrawingAction.OnClearCanvasClicked)
+                    }
                 )
             }
         }
