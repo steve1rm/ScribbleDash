@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,6 +23,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.draw.screens.components.DifficultyItem
@@ -97,6 +99,9 @@ fun DifficultyLevelScreen(
                         title = "Beginner",
                         image = {
                             Image(
+                                modifier = Modifier.shadow(
+                                    elevation = 4.dp,
+                                    shape = CircleShape),
                                 imageVector = vectorResource(resource = Res.drawable.pencil),
                                 contentDescription = "beginner difficulty"
                             )
@@ -115,6 +120,7 @@ fun DifficultyLevelScreen(
                         title = "Challenging",
                         image = {
                             Image(
+                                modifier = Modifier.shadow(elevation = 4.dp, shape = CircleShape),
                                 imageVector = vectorResource(resource = Res.drawable.brushes),
                                 contentDescription = "challenging difficulty"
                             )
@@ -130,6 +136,7 @@ fun DifficultyLevelScreen(
                         title = "Master",
                         image = {
                             Image(
+                                modifier = Modifier.shadow(elevation = 4.dp, shape = CircleShape),
                                 imageVector = vectorResource(resource = Res.drawable.paints),
                                 contentDescription = "master difficulty"
                             )

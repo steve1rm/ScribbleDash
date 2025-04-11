@@ -38,7 +38,7 @@ fun DrawingCanvas(
     Box(
         modifier = modifier
             .size(size = 360.dp)
-            .shadow(elevation = 2.dp, shape = MaterialTheme.shapes.large)
+            .shadow(elevation = 4.dp, shape = MaterialTheme.shapes.large)
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainerHigh,
                 shape = RoundedCornerShape(20.dp)
