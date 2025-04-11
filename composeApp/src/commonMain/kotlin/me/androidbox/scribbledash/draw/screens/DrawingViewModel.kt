@@ -32,16 +32,45 @@ class DrawingViewModel : ViewModel() {
         }
     }
 
+/*
+    private fun addToUndoList(newPath: PathData): List<PathData> {
+        val undoPaths = drawingState.value.undonePaths.toMutableList()
+
+        *//** Only keep the first 6 undo paths i.e. 0 ... 5 *//*
+        if(undoPaths.count() < 5) {
+            undoPaths.add(newPath)
+        }
+        else {
+            undoPaths.removeFirst()
+            undoPaths.add(newPath)
+        }
+
+        return undoPaths
+    }*/
+
     private fun onUndo() {
         _drawingState.update { currentState ->
             if (currentState.paths.isNotEmpty()) {
                 val pathToUndo = currentState.paths.last()
+
+                /** Only keep only 5 items in the undo list */
+                val undoList = if(currentState.undonePaths.count() < 5) {
+                    currentState.undonePaths + pathToUndo
+                }
+                else {
+                    /** When we reach the peak, start dropping items from the
+                     *  front of the list, and add the new item to the end */
+                    currentState.undonePaths.drop(1) + pathToUndo
+                }
+
                 currentState.copy(
-                    paths = currentState.paths.dropLast(1), // Remove last path
-                    undonePaths = currentState.undonePaths + pathToUndo // Add to undone list
+                    /** Remove last path */
+                    paths = currentState.paths.dropLast(1),
+                    /** Add to undone list */
+                    undonePaths = undoList
                 )
             } else {
-                currentState // No change if nothing to undo
+                currentState
             }
         }
     }
@@ -49,26 +78,20 @@ class DrawingViewModel : ViewModel() {
     private fun onRedo() {
         _drawingState.update { currentState ->
             if (currentState.undonePaths.isNotEmpty()) {
+                /** Get the last path added */
                 val pathToRedo = currentState.undonePaths.last()
                 currentState.copy(
-                    undonePaths = currentState.undonePaths.dropLast(1), // Remove from undone list
-                    paths = currentState.paths + pathToRedo // Add back to visible paths
+                    /** Remove from undone list */
+                    undonePaths = currentState.undonePaths.dropLast(1),
+                    /** Add back to visible paths */
+                    paths = currentState.paths + pathToRedo
                 )
             } else {
-                currentState // No change if nothing to redo
+                /**  No change if nothing to redo */
+                currentState
             }
         }
     }
-
-    val canUndo: Boolean
-        get() {
-            return drawingState.value.paths.isNotEmpty()
-        }
-
-    val canRedo: Boolean
-        get() {
-            return drawingState.value.paths.isNotEmpty()
-        }
 
     private fun onSelectColor(color: Color) {
         TODO("Not yet implemented")
@@ -113,7 +136,8 @@ class DrawingViewModel : ViewModel() {
         _drawingState.update { drawingState ->
             drawingState.copy(
                 currentPath = null,
-                paths = emptyList()
+                paths = emptyList(),
+                undonePaths = emptyList()
             )
         }
     }

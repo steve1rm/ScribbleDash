@@ -57,7 +57,7 @@ fun DifficultyLevelScreen(
                             modifier = Modifier.size(32.dp),
                             imageVector = vectorResource(Res.drawable.close_circle),
                             contentDescription = "Close this screen",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
