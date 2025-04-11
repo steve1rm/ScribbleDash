@@ -3,6 +3,9 @@ package me.androidbox.scribbledash.navigation
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import me.androidbox.scribbledash.draw.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.draw.screens.DrawingScreen
 import me.androidbox.scribbledash.draw.screens.DrawingViewModel
@@ -11,14 +14,14 @@ import me.androidbox.scribbledash.home.screens.HomeScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.drawingGraph(navController: NavController) {
-    navigation<Route.DrawingGraph>
-        startDestination = Route.HomeScreen
+    navigation<Route.DrawingGraph>(
+        startDestination = Route.HomeScreen)
     {
         this.composable<Route.HomeScreen> {
             HomeScreen(
                 onGameCardClicked = {
                     navController.navigate(
-                        route = Route.DrawingScreen
+                        route = Route.DifficultyLevelScreen
                     )
                 },
                 onBottomNavigationClicked = { scribbleDashCategories ->
@@ -37,7 +40,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.DifficultyLevelScreen> {
             DifficultyLevelScreen(
                 closeClicked = {
-                    navController.navigateUp(),
+                    navController.navigateUp()
                 },
                 beginnerClicked = {
                     navController.navigate(route = Route.DrawingScreen)
