@@ -84,7 +84,7 @@ fun DrawingScreen(
 
                 DrawControls(
                     modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
-                    clearEnabled = currentPath != null && paths.isNotEmpty(),
+                    clearEnabled = paths.isNotEmpty(),
                     redoEnabled = paths.isNotEmpty(),
                     unDoEnabled = paths.isNotEmpty(),
                     onUndoClicked = {
