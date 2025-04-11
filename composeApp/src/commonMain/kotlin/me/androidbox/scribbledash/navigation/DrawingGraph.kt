@@ -59,14 +59,12 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
 
             DrawingScreen(
-                paths = drawingState.paths,
-                currentPath = drawingState.currentPath,
+                drawingState = drawingState,
                 onAction = drawingViewModel::onAction,
                 closeClicked = {
                     navController.navigateUp()
                 }
             )
         }
-
     }
 }

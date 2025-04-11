@@ -29,8 +29,7 @@ import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
 fun DrawingScreen(
-    paths: List<PathData>,
-    currentPath: PathData?,
+    drawingState: DrawingState,
     onAction: (DrawingAction) -> Unit,
     closeClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -75,18 +74,20 @@ fun DrawingScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 DrawingCanvas(
-                    paths = paths,
-                    currentPath = currentPath,
+                    paths = drawingState.paths,
+                    currentPath = drawingState.currentPath,
                     onAction = onAction
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
                 DrawControls(
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 32.dp),
-                    clearEnabled = paths.isNotEmpty(),
-                    redoEnabled = paths.isNotEmpty(),
-                    unDoEnabled = paths.isNotEmpty(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 32.dp),
+                    clearEnabled = drawingState.paths.isNotEmpty(),
+                    unDoEnabled = drawingState.paths.isNotEmpty(),
+                    redoEnabled = drawingState.undonePaths.isNotEmpty(),
                     onUndoClicked = {
                         onAction(DrawingAction.Undo)
                     },
