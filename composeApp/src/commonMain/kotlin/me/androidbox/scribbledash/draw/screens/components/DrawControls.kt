@@ -11,12 +11,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
@@ -86,6 +88,7 @@ fun DrawControls(
                 ),
             enabled = clearEnabled,
             shape = RoundedCornerShape(20.dp),
+            elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = if(clearEnabled) success else MaterialTheme.colorScheme.surfaceContainerLowest
             ),
