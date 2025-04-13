@@ -71,7 +71,7 @@ fun DrawingScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 DrawingCanvas(
                     paths = drawingState.paths,
