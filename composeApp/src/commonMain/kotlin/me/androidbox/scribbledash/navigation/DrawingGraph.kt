@@ -6,9 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import me.androidbox.scribbledash.draw.screens.DifficultyLevelScreen
-import me.androidbox.scribbledash.draw.screens.DrawingScreen
-import me.androidbox.scribbledash.draw.screens.DrawingViewModel
+import me.androidbox.scribbledash.draw.presentation.screens.DifficultyLevelScreen
+import me.androidbox.scribbledash.draw.presentation.screens.DrawingScreen
+import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
 import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import org.koin.compose.viewmodel.koinViewModel

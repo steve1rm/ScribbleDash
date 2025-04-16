@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package me.androidbox.scribbledash.draw.screens
+package me.androidbox.scribbledash.draw.presentation.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.draw.screens.components.DrawControls
-import me.androidbox.scribbledash.draw.screens.components.DrawingCanvas
+import me.androidbox.scribbledash.draw.presentation.DrawingAction
+import me.androidbox.scribbledash.draw.presentation.DrawingState
+import me.androidbox.scribbledash.draw.presentation.screens.components.DrawControls
+import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle

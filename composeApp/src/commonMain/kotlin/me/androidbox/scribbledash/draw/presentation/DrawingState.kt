@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.screens
+package me.androidbox.scribbledash.draw.presentation
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color

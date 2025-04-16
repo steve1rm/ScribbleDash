@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package me.androidbox.scribbledash.draw.screens
+package me.androidbox.scribbledash.draw.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -26,7 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.draw.screens.components.DifficultyItem
+import me.androidbox.scribbledash.draw.presentation.screens.components.DifficultyItem
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.brushes

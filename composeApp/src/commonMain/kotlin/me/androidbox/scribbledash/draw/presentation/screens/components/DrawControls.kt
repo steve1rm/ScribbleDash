@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.screens.components
+package me.androidbox.scribbledash.draw.presentation.screens.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement

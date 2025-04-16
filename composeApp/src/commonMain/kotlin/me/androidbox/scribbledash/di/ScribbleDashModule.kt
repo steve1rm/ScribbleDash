@@ -1,6 +1,6 @@
 package me.androidbox.scribbledash.di
 
-import me.androidbox.scribbledash.draw.screens.DrawingViewModel
+import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
