@@ -108,7 +108,7 @@ fun parseXmlDrawable(context: Context, drawableId: Int): VectorData {
     var viewportHeight = 24f // Default
     val pathDataList = mutableListOf<String>()
     val androidNamespace = "http://schemas.android.com/apk/res/android"
-    var parser: XmlPullParser? = null // Declare parser outside try
+    var parser: XmlPullParser?
 
     try {
         parser = context.resources.getXml(drawableId)
@@ -118,28 +118,27 @@ fun parseXmlDrawable(context: Context, drawableId: Int): VectorData {
             when (eventType) {
                 XmlPullParser.START_TAG -> {
                     val tagName = parser.name // Get tag name once
-                    // Log.v(TAG, "Start Tag: $tagName") // Verbose logging if needed
+
                     when (tagName) {
                         "vector" -> {
                             val vwStr = parser.getAttributeValue(androidNamespace, "viewportWidth")
                             val vhStr = parser.getAttributeValue(androidNamespace, "viewportHeight")
+
                             viewportWidth = vwStr?.toFloatOrNull() ?: viewportWidth
                             viewportHeight = vhStr?.toFloatOrNull() ?: viewportHeight
                             Log.d(TAG, "Found <vector>: viewportWidth=$viewportWidth ($vwStr), viewportHeight=$viewportHeight ($vhStr)")
                         }
                         "path" -> {
                             val pathData = parser.getAttributeValue(androidNamespace, "pathData")
-                            // Log.v(TAG, "Found <path>: pathData=$pathData") // Verbose logging
+
                             if (!pathData.isNullOrBlank()) {
                                 pathDataList.add(pathData)
                             } else {
                                 Log.w(TAG, "Found <path> tag with null or blank pathData.")
                             }
                         }
-                        // Add handling for <group> if needed later
                     }
                 }
-                // Add other event types like END_TAG if needed for complex parsing
             }
             eventType = parser.next()
         }
@@ -155,12 +154,7 @@ fun parseXmlDrawable(context: Context, drawableId: Int): VectorData {
         Log.e(TAG, "Error parsing float for viewport dimensions", ex)
     } catch (ex: Exception) { // Catch general exceptions during parsing
         Log.e(TAG, "Unexpected error during parsing", ex)
-    } finally {
-        // Although getXml doesn't strictly require closing like an InputStream,
-        // checking for XmlResourceParser and calling close() is good practice if it implements it.
-        // However, in this simplified case, it might not be necessary.
     }
-
 
     return VectorData(viewportWidth, viewportHeight, pathDataList)
 }

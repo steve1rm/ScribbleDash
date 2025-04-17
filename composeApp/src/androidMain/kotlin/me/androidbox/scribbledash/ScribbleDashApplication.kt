@@ -15,6 +15,7 @@ class ScribbleDashApplication : Application() {
                 androidContext(this@ScribbleDashApplication)
                 androidLogger(Level.DEBUG)
             },
+            platformSpecificModules = arrayOf(androidSpecificModule)
         )
     }
 }

@@ -16,7 +16,7 @@ fun App() {
 
         NavHost(
             navController = navController,
-            startDestination = Route.StatisticsScreen
+            startDestination = Route.DrawingGraph
         ) {
             this.drawingGraph(navController)
 

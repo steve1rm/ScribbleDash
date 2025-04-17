@@ -1,5 +1,7 @@
 package me.androidbox.scribbledash
 
+import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
+import org.jetbrains.compose.resources.DrawableResource
 import platform.UIKit.UIDevice
 
 class IOSPlatform: Platform {
@@ -7,3 +9,9 @@ class IOSPlatform: Platform {
 }
 
 actual fun getPlatform(): Platform = IOSPlatform()
+
+actual class ParseXmlDrawableImp : ParseXmlDrawable {
+    actual override fun parser(drawableResource: DrawableResource) {
+        TODO("Not yet implemented")
+    }
+}
