@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.graphics.PathParser
 import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
+import me.androidbox.scribbledash.statistics.presentation.components.StatisticsItem
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
 import java.io.IOException
@@ -37,61 +38,67 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            val vectorData = remember { parseXmlDrawable(this, R.drawable.alien) }
+            App()
+            // drawSample()
+        }
+    }
+}
 
-            // Remember the parsed paths
-            val composePaths = remember(vectorData.paths) {
-                vectorData.paths.mapNotNull { pathData ->
-                    try {
-                        PathParser.createPathFromPathData(pathData).asComposePath()
-                    } catch (e: Exception) {
-                        // Handle potential parsing errors for individual paths
-                        println("Error parsing path data: $pathData \n $e")
-                        null
-                    }
-                }
-            }
+@Composable
+private fun MainActivity.drawSample() {
+    val vectorData = remember { parseXmlDrawable(this, R.drawable.alien) }
 
-            if (composePaths.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
-                Canvas(modifier = Modifier.fillMaxSize()) { // Fill the screen
-                    val canvasWidth = size.width
-                    val canvasHeight = size.height
-
-                    // Calculate scale factors
-                    val scaleX = canvasWidth / vectorData.viewportWidth
-                    val scaleY = canvasHeight / vectorData.viewportHeight
-
-                    // Use the smaller scale factor to fit entire image (maintaining aspect ratio)
-                    val scale = min(scaleX, scaleY)
-
-                    // Calculate translation to center the scaled image
-                    val scaledWidth = vectorData.viewportWidth * scale
-                    val scaledHeight = vectorData.viewportHeight * scale
-                    val translateX = (canvasWidth - scaledWidth) / 2f
-                    val translateY = (canvasHeight - scaledHeight) / 2f
-
-                    // Apply transformations: first translate, then scale
-                    // Origin for scaling is top-left (0,0) by default
-                    withTransform({
-                        translate(left = translateX, top = translateY)
-                        scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
-                    }) {
-                        composePaths.forEachIndexed { index, path ->
-                            Log.d(TAG, "Drawing path $index with thick Stroke")
-                            drawPath(
-                                path = path,
-                                color = Color.Red, // Bright color
-                                // Use a large width in the original coordinate space
-                                style = Stroke(width = 1f) // Try 5f, or even 10f relative to 100x100
-                            )
-                        }
-                    }
-                }
-            } else {
-                // Handle case where parsing failed or viewport is invalid
-                // Display placeholder or error message
+    // Remember the parsed paths
+    val composePaths = remember(vectorData.paths) {
+        vectorData.paths.mapNotNull { pathData ->
+            try {
+                PathParser.createPathFromPathData(pathData).asComposePath()
+            } catch (e: Exception) {
+                // Handle potential parsing errors for individual paths
+                println("Error parsing path data: $pathData \n $e")
+                null
             }
         }
+    }
+
+    if (composePaths.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
+        Canvas(modifier = Modifier.fillMaxSize()) { // Fill the screen
+            val canvasWidth = size.width
+            val canvasHeight = size.height
+
+            // Calculate scale factors
+            val scaleX = canvasWidth / vectorData.viewportWidth
+            val scaleY = canvasHeight / vectorData.viewportHeight
+
+            // Use the smaller scale factor to fit entire image (maintaining aspect ratio)
+            val scale = min(scaleX, scaleY)
+
+            // Calculate translation to center the scaled image
+            val scaledWidth = vectorData.viewportWidth * scale
+            val scaledHeight = vectorData.viewportHeight * scale
+            val translateX = (canvasWidth - scaledWidth) / 2f
+            val translateY = (canvasHeight - scaledHeight) / 2f
+
+            // Apply transformations: first translate, then scale
+            // Origin for scaling is top-left (0,0) by default
+            withTransform({
+                translate(left = translateX, top = translateY)
+                scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
+            }) {
+                composePaths.forEachIndexed { index, path ->
+                    Log.d(TAG, "Drawing path $index with thick Stroke")
+                    drawPath(
+                        path = path,
+                        color = Color.Red, // Bright color
+                        // Use a large width in the original coordinate space
+                        style = Stroke(width = 1f) // Try 5f, or even 10f relative to 100x100
+                    )
+                }
+            }
+        }
+    } else {
+        // Handle case where parsing failed or viewport is invalid
+        // Display placeholder or error message
     }
 }
 
@@ -157,6 +164,7 @@ fun parseXmlDrawable(context: Context, drawableId: Int): VectorData {
 
     return VectorData(viewportWidth, viewportHeight, pathDataList)
 }
+
 
 @Preview(showBackground = true)
 @Composable

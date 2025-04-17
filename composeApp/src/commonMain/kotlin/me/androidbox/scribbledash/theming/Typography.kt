@@ -27,6 +27,17 @@ val Typography.headLineXSmall: TextStyle
         )
     }
 
+
+val Typography.labelXLarge: TextStyle
+    @Composable
+    get() {
+        return TextStyle(
+            fontWeight = FontWeight.SemiBold,
+            lineHeight = 28.sp,
+            fontSize = 24.sp
+        )
+    }
+
 @Composable
 fun AppTypography(): Typography {
     val bagelFatOne = bagelFatOne
