@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.vector.PathParser
@@ -146,30 +147,39 @@ fun DrawingCanvas(
                     val scaleX = canvasWidth / vectorData.viewportWidth
                     val scaleY = canvasHeight / vectorData.viewportHeight
 
-                    // Use the smaller scale factor to fit entire image (maintaining aspect ratio)
-                    val scale = max(scaleX, scaleY)
-
-                    // Calculate translation to center the scaled image
+                    println("Canvas W/H: $canvasWidth / $canvasHeight")
+                    println("Vector VP W/H: ${vectorData.viewportWidth} / ${vectorData.viewportHeight}")
+                    println("Scale X/Y: $scaleX / $scaleY")
+                    val scale = min(scaleX, scaleY) // CORRECTED
+                    println("Chosen Scale (min): $scale") // Check this value
                     val scaledWidth = vectorData.viewportWidth * scale
                     val scaledHeight = vectorData.viewportHeight * scale
+                    println("Scaled W/H: $scaledWidth / $scaledHeight") // Should be <= canvas dimensions
                     val translateX = (canvasWidth - scaledWidth) / 2f
                     val translateY = (canvasHeight - scaledHeight) / 2f
+                    println("Translate X/Y: $translateX / $translateY") // Should be >= 0 if scale <= max(scaleX, scaleY)
 
-                    // Apply transformations: first translate, then scale
-                    // Origin for scaling is top-left (0,0) by default
-                   /* withTransform({
+                    withTransform({
                         translate(left = translateX, top = translateY)
                         scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
-                    }) {*/
+                    }) {
+                        println("Inside withTransform - Drawing sample paths...")
                         samplePath.forEachIndexed { index, path ->
+                            val bounds = path.getBounds() // Get the bounding box
+                            println("Drawing sample path index $index, Bounds: $bounds") // Print bounds
 
-                            drawPath(
-                                path = path,
-                                color = Color.Red, // Bright color
-                                // Use a large width in the original coordinate space
-                                style = Stroke(width = 1f) // Try 5f, or even 10f relative to 100x100
-                            )
-                 //       }
+                            // Only draw if the path has non-zero dimensions
+                            if (!bounds.isEmpty) {
+                                drawPath(
+                                    path = path,
+                                    color = Color.Magenta, // Use a different visible color
+                                    style = Stroke(width = 1f) // Use Fill instead of Stroke
+                                )
+
+                            } else {
+                                println("--> Path $index bounds are empty. Skipping draw.")
+                            }
+                        }
                     }
                 }
             }
