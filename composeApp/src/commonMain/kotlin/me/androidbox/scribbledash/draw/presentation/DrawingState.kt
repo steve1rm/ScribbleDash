@@ -2,12 +2,15 @@ package me.androidbox.scribbledash.draw.presentation
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 
 data class DrawingState(
     val selectedColor: Color = Color.Black,
     val currentPath: PathData? = null,
     val paths: List<PathData> = emptyList(),
-    val undonePaths: List<PathData> = emptyList()
+    val undonePaths: List<PathData> = emptyList(),
+    val samplePath: List<Path> = emptyList(),
+    val vectorData: VectorData = VectorData()
 )
 
 data class PathData(

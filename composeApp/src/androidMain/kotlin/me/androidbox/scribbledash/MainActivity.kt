@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -19,27 +20,40 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.core.graphics.PathParser
+import me.androidbox.scribbledash.draw.presentation.VectorData
 import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
 import me.androidbox.scribbledash.statistics.presentation.components.StatisticsItem
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException
+import scribbledash.composeapp.generated.resources.Res
+import scribbledash.composeapp.generated.resources.alien
+import scribbledash.composeapp.generated.resources.allDrawableResources
 import java.io.IOException
 import kotlin.math.min
 
+/*
 data class VectorData(
     val viewportWidth: Float = 24f, // Default values
     val viewportHeight: Float = 24f,
     val paths: List<String> = emptyList()
 )
+*/
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        val parser = ParseXmlDrawableImp(this)
+
+        val resource = Res.drawable.alien
+
+        parser.parser(Res.drawable.alien)
         setContent {
             App()
-            // drawSample()
+         /*   parser.parser(resource)
+            drawSample()*/
         }
     }
 }
@@ -62,7 +76,7 @@ private fun MainActivity.drawSample() {
     }
 
     if (composePaths.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
-        Canvas(modifier = Modifier.fillMaxSize()) { // Fill the screen
+        Canvas(modifier = Modifier.size(300.dp, 300.dp)) { // Fill the screen
             val canvasWidth = size.width
             val canvasHeight = size.height
 
@@ -166,7 +180,9 @@ fun DrawingCanvasPreview() {
     DrawingCanvas(
         paths = emptyList(),
         currentPath = null,
-        onAction = {}
+        onAction = {},
+        vectorData = VectorData(),
+        samplePath = emptyList()
     )
 }
 

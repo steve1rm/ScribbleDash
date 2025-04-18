@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.DrawingState
+import me.androidbox.scribbledash.draw.presentation.VectorData
 import me.androidbox.scribbledash.draw.presentation.screens.components.DrawControls
 import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
 import org.jetbrains.compose.resources.vectorResource
@@ -78,7 +79,9 @@ fun DrawingScreen(
                 DrawingCanvas(
                     paths = drawingState.paths,
                     currentPath = drawingState.currentPath,
-                    onAction = onAction
+                    onAction = onAction,
+                    samplePath = drawingState.samplePath,
+                    vectorData = VectorData()
                 )
 
                 Spacer(modifier = Modifier.weight(1f))

@@ -8,13 +8,27 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
+import scribbledash.composeapp.generated.resources.Res
+import scribbledash.composeapp.generated.resources.alien
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-class DrawingViewModel : ViewModel() {
+class DrawingViewModel(
+    parseXmlDrawable: ParseXmlDrawable
+) : ViewModel() {
 
     private val _drawingState = MutableStateFlow(DrawingState())
     val drawingState = _drawingState.asStateFlow()
+
+    init {
+        val pathData = parseXmlDrawable.parser(Res.drawable.alien)
+        _drawingState.update { drawingState ->
+            drawingState.copy(
+                samplePath = pathData
+            )
+        }
+    }
 
     fun onAction(drawingAction: DrawingAction) {
         when(drawingAction) {

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -21,19 +22,27 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.PathData
+import me.androidbox.scribbledash.draw.presentation.VectorData
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.min
 
 @Composable
 fun DrawingCanvas(
     paths: List<PathData>,
     currentPath: PathData?,
+    samplePath: List<Path>,
+    vectorData: VectorData,
     onAction: (DrawingAction) -> Unit,
     modifier: Modifier = Modifier) {
+
     Box(
         modifier = modifier
             .size(size = 360.dp)
@@ -127,6 +136,41 @@ fun DrawingCanvas(
                         path = pathData.path,
                         color = pathData.color
                     )
+                }
+
+                if (samplePath.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
+                    val canvasWidth = size.width
+                    val canvasHeight = size.height
+
+                    // Calculate scale factors
+                    val scaleX = canvasWidth / vectorData.viewportWidth
+                    val scaleY = canvasHeight / vectorData.viewportHeight
+
+                    // Use the smaller scale factor to fit entire image (maintaining aspect ratio)
+                    val scale = max(scaleX, scaleY)
+
+                    // Calculate translation to center the scaled image
+                    val scaledWidth = vectorData.viewportWidth * scale
+                    val scaledHeight = vectorData.viewportHeight * scale
+                    val translateX = (canvasWidth - scaledWidth) / 2f
+                    val translateY = (canvasHeight - scaledHeight) / 2f
+
+                    // Apply transformations: first translate, then scale
+                    // Origin for scaling is top-left (0,0) by default
+                   /* withTransform({
+                        translate(left = translateX, top = translateY)
+                        scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
+                    }) {*/
+                        samplePath.forEachIndexed { index, path ->
+
+                            drawPath(
+                                path = path,
+                                color = Color.Red, // Bright color
+                                // Use a large width in the original coordinate space
+                                style = Stroke(width = 1f) // Try 5f, or even 10f relative to 100x100
+                            )
+                 //       }
+                    }
                 }
             }
         }
