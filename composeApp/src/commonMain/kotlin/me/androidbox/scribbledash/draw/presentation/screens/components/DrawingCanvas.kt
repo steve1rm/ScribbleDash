@@ -150,14 +150,14 @@ fun DrawingCanvas(
                     println("Canvas W/H: $canvasWidth / $canvasHeight")
                     println("Vector VP W/H: ${vectorData.viewportWidth} / ${vectorData.viewportHeight}")
                     println("Scale X/Y: $scaleX / $scaleY")
-                    val scale = min(scaleX, scaleY) // CORRECTED
-                    println("Chosen Scale (min): $scale") // Check this value
+                    val scale = min(scaleX, scaleY)
+                    println("Chosen Scale (min): $scale")
                     val scaledWidth = vectorData.viewportWidth * scale
                     val scaledHeight = vectorData.viewportHeight * scale
-                    println("Scaled W/H: $scaledWidth / $scaledHeight") // Should be <= canvas dimensions
+                    println("Scaled W/H: $scaledWidth / $scaledHeight")
                     val translateX = (canvasWidth - scaledWidth) / 2f
                     val translateY = (canvasHeight - scaledHeight) / 2f
-                    println("Translate X/Y: $translateX / $translateY") // Should be >= 0 if scale <= max(scaleX, scaleY)
+                    println("Translate X/Y: $translateX / $translateY")
 
                     withTransform({
                         translate(left = translateX, top = translateY)
@@ -166,14 +166,14 @@ fun DrawingCanvas(
                         println("Inside withTransform - Drawing sample paths...")
                         samplePath.forEachIndexed { index, path ->
                             val bounds = path.getBounds() // Get the bounding box
-                            println("Drawing sample path index $index, Bounds: $bounds") // Print bounds
+                            println("Drawing sample path index $index, Bounds: $bounds")
 
                             // Only draw if the path has non-zero dimensions
                             if (!bounds.isEmpty) {
                                 drawPath(
                                     path = path,
-                                    color = Color.Magenta, // Use a different visible color
-                                    style = Stroke(width = 1f) // Use Fill instead of Stroke
+                                    color = Color.Black,
+                                    style = Stroke(width = 1f)
                                 )
 
                             } else {
