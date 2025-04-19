@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
@@ -21,10 +20,8 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.Fill
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.withTransform
-import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
@@ -32,14 +29,13 @@ import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.PathData
 import me.androidbox.scribbledash.draw.presentation.VectorData
 import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.min
 
 @Composable
 fun DrawingCanvas(
     paths: List<PathData>,
     currentPath: PathData?,
-    samplePath: List<Path>,
+    examplePath: List<Path>,
     vectorData: VectorData,
     onAction: (DrawingAction) -> Unit,
     modifier: Modifier = Modifier) {
@@ -126,20 +122,20 @@ fun DrawingCanvas(
 
                 // Draw paths
                 paths.fastForEach { pathData ->
-                    drawPath(
+                    drawOffsetPath(
                         path = pathData.path,
                         color = pathData.color
                     )
                 }
 
                 currentPath?.let { pathData ->
-                    drawPath(
+                    drawOffsetPath(
                         path = pathData.path,
                         color = pathData.color
                     )
                 }
 
-                if (samplePath.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
+                if (examplePath.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
                     val canvasWidth = size.width
                     val canvasHeight = size.height
 
@@ -164,9 +160,9 @@ fun DrawingCanvas(
                         scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
                     }) {
                         println("Inside withTransform - Drawing sample paths...")
-                        samplePath.forEachIndexed { index, path ->
+                        examplePath.forEach { path ->
                             val bounds = path.getBounds() // Get the bounding box
-                            println("Drawing sample path index $index, Bounds: $bounds")
+                            println("Drawing sample path Bounds: $bounds")
 
                             // Only draw if the path has non-zero dimensions
                             if (!bounds.isEmpty) {
@@ -177,7 +173,7 @@ fun DrawingCanvas(
                                 )
 
                             } else {
-                                println("--> Path $index bounds are empty. Skipping draw.")
+                                println("--> Path bounds are empty. Skipping draw.")
                             }
                         }
                     }
@@ -187,7 +183,7 @@ fun DrawingCanvas(
     }
 }
 
-private fun DrawScope.drawPath(
+private fun DrawScope.drawOffsetPath(
     path: List<Offset>,
     color: Color,
     thickness: Float = 10F

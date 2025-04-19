@@ -80,7 +80,7 @@ fun DrawingScreen(
                     paths = drawingState.paths,
                     currentPath = drawingState.currentPath,
                     onAction = onAction,
-                    samplePath = drawingState.samplePath,
+                    examplePath = drawingState.samplePath,
                     vectorData = VectorData()
                 )
 

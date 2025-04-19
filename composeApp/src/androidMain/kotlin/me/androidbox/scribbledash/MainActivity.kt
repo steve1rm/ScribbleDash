@@ -26,7 +26,7 @@ fun DrawingCanvasPreview() {
         currentPath = null,
         onAction = {},
         vectorData = VectorData(),
-        samplePath = emptyList()
+        examplePath = emptyList()
     )
 }
 
