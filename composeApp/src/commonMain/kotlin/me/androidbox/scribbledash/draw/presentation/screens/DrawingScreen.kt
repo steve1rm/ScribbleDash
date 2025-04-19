@@ -37,6 +37,7 @@ import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCa
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun DrawingScreen(
@@ -134,7 +135,7 @@ fun DrawingScreen(
 
                 if(!drawingState.isTimeToDraw) {
                     Text(
-                        text = "${drawingState.secondsRemaining} seconds left",
+                        text = "${drawingState.secondsRemaining.inWholeSeconds} " + if(drawingState.secondsRemaining == 1.seconds) "second left" else "seconds left",
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )
