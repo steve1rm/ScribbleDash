@@ -69,7 +69,7 @@ fun DrawingScreen(
                 Spacer(modifier = Modifier.height(120.dp))
 
                 Text(
-                    text = "Time to draw!",
+                    text = if(drawingState.isTimeToDraw) "Time to draw!" else "Ready, Set...",
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -80,29 +80,40 @@ fun DrawingScreen(
                     paths = drawingState.paths,
                     currentPath = drawingState.currentPath,
                     onAction = onAction,
-                    examplePath = drawingState.samplePath,
+                    examplePath = drawingState.examplePath,
                     vectorData = VectorData()
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                DrawControls(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 32.dp),
-                    clearEnabled = drawingState.paths.isNotEmpty(),
-                    unDoEnabled = drawingState.paths.isNotEmpty(),
-                    redoEnabled = drawingState.undonePaths.isNotEmpty(),
-                    onUndoClicked = {
-                        onAction(DrawingAction.Undo)
-                    },
-                    onRedoClicked = {
-                        onAction(DrawingAction.Redo)
-                    },
-                    onClearClicked = {
-                        onAction(DrawingAction.OnClearCanvasClicked)
-                    },
-                )
+                if(drawingState.isTimeToDraw) {
+                    DrawControls(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 32.dp),
+                        clearEnabled = drawingState.paths.isNotEmpty(),
+                        unDoEnabled = drawingState.paths.isNotEmpty(),
+                        redoEnabled = drawingState.undonePaths.isNotEmpty(),
+                        onUndoClicked = {
+                            onAction(DrawingAction.Undo)
+                        },
+                        onRedoClicked = {
+                            onAction(DrawingAction.Redo)
+                        },
+                        onClearClicked = {
+                            onAction(DrawingAction.OnClearCanvasClicked)
+                        },
+                    )
+                }
+                else {
+                    Text(
+                        text = "${drawingState.secondsRemaining} seconds left",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+
+                    Spacer(Modifier.height(32.dp))
+                }
             }
         }
     )

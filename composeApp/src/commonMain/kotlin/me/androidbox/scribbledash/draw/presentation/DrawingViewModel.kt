@@ -5,13 +5,19 @@ package me.androidbox.scribbledash.draw.presentation
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
+import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.alien
 import kotlin.time.Clock
+import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
 class DrawingViewModel(
@@ -25,9 +31,31 @@ class DrawingViewModel(
         val pathData = parseXmlDrawable.parser(Res.drawable.alien)
         _drawingState.update { drawingState ->
             drawingState.copy(
-                samplePath = pathData
+                examplePath = pathData
             )
         }
+
+        startCountdown()
+    }
+
+    private fun startCountdown() {
+        countDownTimer(3.seconds)
+            .onEach { second ->
+                _drawingState.update { drawingState ->
+                    drawingState.copy(
+                        secondsRemaining = second
+                    )
+                }
+            }
+            .onCompletion {
+                _drawingState.update { drawingState ->
+                    drawingState.copy(
+                        isTimeToDraw = true,
+                        examplePath = emptyList()
+                    )
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     fun onAction(drawingAction: DrawingAction) {
