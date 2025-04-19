@@ -2,6 +2,12 @@
 
 package me.androidbox.scribbledash.draw.presentation.screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -86,26 +92,35 @@ fun DrawingScreen(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                if(drawingState.isTimeToDraw) {
-                    DrawControls(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 32.dp),
-                        clearEnabled = drawingState.paths.isNotEmpty(),
-                        unDoEnabled = drawingState.paths.isNotEmpty(),
-                        redoEnabled = drawingState.undonePaths.isNotEmpty(),
-                        onUndoClicked = {
-                            onAction(DrawingAction.Undo)
-                        },
-                        onRedoClicked = {
-                            onAction(DrawingAction.Redo)
-                        },
-                        onClearClicked = {
-                            onAction(DrawingAction.OnClearCanvasClicked)
-                        },
-                    )
-                }
-                else {
+                AnimatedVisibility(
+                    visible = drawingState.isTimeToDraw,
+                    enter = slideInVertically(
+                        initialOffsetY = { fullHeight ->
+                            fullHeight
+                        }
+                    ),
+                    content = {
+                        DrawControls(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(bottom = 32.dp),
+                            clearEnabled = drawingState.paths.isNotEmpty(),
+                            unDoEnabled = drawingState.paths.isNotEmpty(),
+                            redoEnabled = drawingState.undonePaths.isNotEmpty(),
+                            onUndoClicked = {
+                                onAction(DrawingAction.Undo)
+                            },
+                            onRedoClicked = {
+                                onAction(DrawingAction.Redo)
+                            },
+                            onClearClicked = {
+                                onAction(DrawingAction.OnClearCanvasClicked)
+                            },
+                        )
+                    }
+                )
+
+                if(!drawingState.isTimeToDraw) {
                     Text(
                         text = "${drawingState.secondsRemaining} seconds left",
                         style = MaterialTheme.typography.headlineMedium,
