@@ -9,13 +9,14 @@ import androidx.navigation.navigation
 import me.androidbox.scribbledash.draw.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.draw.presentation.screens.DrawingScreen
 import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
+import me.androidbox.scribbledash.draw.presentation.screens.FeedbackScreen
 import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.drawingGraph(navController: NavController) {
     navigation<Route.DrawingGraph>(
-        startDestination = Route.HomeScreen)
+        startDestination = Route.FeedbackScreen)
     {
         this.composable<Route.HomeScreen> {
             HomeScreen(
@@ -59,6 +60,19 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
 
             DrawingScreen(
+                drawingState = drawingState,
+                onAction = drawingViewModel::onAction,
+                closeClicked = {
+                    navController.navigateUp()
+                }
+            )
+        }
+
+        this.composable<Route.FeedbackScreen> {
+            val drawingViewModel = koinViewModel<DrawingViewModel>()
+            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+
+            FeedbackScreen(
                 drawingState = drawingState,
                 onAction = drawingViewModel::onAction,
                 closeClicked = {
