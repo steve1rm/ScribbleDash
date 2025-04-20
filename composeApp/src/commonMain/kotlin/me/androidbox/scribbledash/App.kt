@@ -24,23 +24,5 @@ fun App() {
         ) {
             this.drawingGraph(navController)
         }
-
-     /*
-     //   HomeScreen()
-*//*        DrawingScreen(
-            closeClicked = {}
-        )*//*
-
-        val drawingViewModel = koinViewModel<DrawingViewModel>()
-        val state by drawingViewModel.drawingState.collectAsStateWithLifecycle()
-
-        DrawingScreen(
-            paths = state.paths,
-            currentPath = state.currentPath,
-            onAction = drawingViewModel::onAction,
-            closeClicked = {
-
-            }
-        )*/
     }
 }
