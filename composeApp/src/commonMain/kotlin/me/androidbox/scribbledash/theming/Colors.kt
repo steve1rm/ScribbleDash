@@ -1,7 +1,21 @@
 package me.androidbox.scribbledash.theming
 
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+
+val ColorScheme.onBackgroundVariant: Color
+    @Composable
+    get() {
+        return if(isSystemInDarkTheme()) {
+            Color(0xff7F7163)
+        }
+        else {
+            Color(0xff7F7163)
+        }
+    }
 
 val lightPrimary = Color(0xff238CFF)
 val lightSecondary = Color(0xffAB5CFA)
@@ -11,7 +25,7 @@ val success = Color(0xff0DD280)
 val lightOnPrimary = Color(0xffffffff)
 val lightBackground = Color(0xffFEFAF6)
 val lightOnBackground = Color(0xff514437)
-val lightOnBackgroundVariant = Color(0xff7F7163)
+
 val lightOnSurface = Color(0xffA5978A)
 val lightOnSurfaceVariant = Color(0xffF6F1EC)
 val lightSurfaceLow = Color(0xffEEE7E0)
@@ -30,7 +44,7 @@ internal val lightColorScheme = lightColorScheme(
     onSurfaceVariant = lightOnSurfaceVariant,
     surfaceContainerLow = lightSurfaceLow,
     tertiary = lightTertiary,
-    error = error
+    error = error,
 )
 
 internal val darkColorScheme = lightColorScheme(
