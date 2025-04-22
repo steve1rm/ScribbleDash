@@ -43,7 +43,7 @@ fun FeedbackImageItem(
             paths = drawingState.paths,
             currentPath = drawingState.currentPath,
             onAction = onAction,
-            examplePath = drawingState.examplePath,
+            examplePath = drawingState.exampleToDrawPath,
             vectorData = VectorData()
         )
     }

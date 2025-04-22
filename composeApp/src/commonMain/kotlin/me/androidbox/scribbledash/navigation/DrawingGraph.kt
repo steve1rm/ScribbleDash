@@ -16,7 +16,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.drawingGraph(navController: NavController) {
     navigation<Route.DrawingGraph>(
-        startDestination = Route.FeedbackScreen)
+        startDestination = Route.HomeScreen)
     {
         this.composable<Route.HomeScreen> {
             HomeScreen(

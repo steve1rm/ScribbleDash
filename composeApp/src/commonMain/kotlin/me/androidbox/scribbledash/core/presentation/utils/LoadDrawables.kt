@@ -101,5 +101,5 @@ enum class ExampleDrawings(
     STAR("Star", Res.drawable.star),
     TRAIN("Train", Res.drawable.train),
     UMBRELLA("Umbrella", Res.drawable.umbrella),
-    WHALE("Whale", Res.drawable.whale)
+    WHALE("whale", Res.drawable.whale)
 }

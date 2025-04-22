@@ -2,7 +2,6 @@ package me.androidbox.scribbledash.draw.presentation
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import kotlin.time.Duration
 
 sealed interface DrawingAction {
     data object OnNewPathStart : DrawingAction
@@ -12,4 +11,5 @@ sealed interface DrawingAction {
     data object Redo : DrawingAction
     data object OnClearCanvasClicked: DrawingAction
     data class OnSelectColor(val color: Color) : DrawingAction
+    data object OnDone : DrawingAction
 }

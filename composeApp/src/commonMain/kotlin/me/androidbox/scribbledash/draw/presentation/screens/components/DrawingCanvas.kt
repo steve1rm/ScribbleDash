@@ -29,6 +29,7 @@ import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.PathData
 import me.androidbox.scribbledash.draw.presentation.VectorData
 import kotlin.math.abs
+import kotlin.math.max
 import kotlin.math.min
 
 @Composable
@@ -136,18 +137,23 @@ fun DrawingCanvas(
                 }
 
                 if (examplePath.isNotEmpty() && vectorData.viewportWidth > 0 && vectorData.viewportHeight > 0) {
-                    val canvasWidth = size.width
-                    val canvasHeight = size.height
+                    val canvasWidth = this.size.width
+                    val canvasHeight = this.size.height
 
                     // Calculate scale factors
                     val scaleX = canvasWidth / vectorData.viewportWidth
                     val scaleY = canvasHeight / vectorData.viewportHeight
 
+                    println("Before scaling:")
+                    println("Canvas W/H: $canvasWidth / $canvasHeight")
+                    println("Viewport W/H: ${vectorData.viewportWidth} / ${vectorData.viewportHeight}")
+                    println("Scale X/Y: $scaleX / $scaleY")
+
                     println("Canvas W/H: $canvasWidth / $canvasHeight")
                     println("Vector VP W/H: ${vectorData.viewportWidth} / ${vectorData.viewportHeight}")
                     println("Scale X/Y: $scaleX / $scaleY")
-                    val scale = min(scaleX, scaleY)
-                    println("Chosen Scale (min): $scale")
+                    val scale = max(scaleX, scaleY)
+                    println("Chosen Scale (max): $scale")  // Note: We're using max now
                     val scaledWidth = vectorData.viewportWidth * scale
                     val scaledHeight = vectorData.viewportHeight * scale
                     println("Scaled W/H: $scaledWidth / $scaledHeight")
@@ -156,7 +162,7 @@ fun DrawingCanvas(
                     println("Translate X/Y: $translateX / $translateY")
 
                     withTransform({
-                        translate(left = translateX, top = translateY)
+              //          translate(left = translateX, top = translateY)
                         scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
                     }) {
                         println("Inside withTransform - Drawing sample paths...")
