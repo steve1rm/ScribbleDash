@@ -23,7 +23,6 @@ fun App() {
             composable<Route.StatisticsScreen> {
                 StatisticsScreen()
             }
-
         }
     }
 }
