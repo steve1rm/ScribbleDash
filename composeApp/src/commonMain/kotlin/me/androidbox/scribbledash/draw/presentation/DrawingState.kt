@@ -8,7 +8,7 @@ import kotlin.time.Duration
 
 data class DrawingState(
     val selectedColor: Color = Color.Black,
-    val currentPath: PathData? = null,
+    val currentPath: PaintPath? = null,
     val paths: List<PathData> = emptyList(),
     val undonePaths: List<PathData> = emptyList(),
     val exampleToDrawPath: List<Path> = emptyList(),
@@ -19,10 +19,17 @@ data class DrawingState(
     val bitmapToSave: ImageBitmap? = null
 )
 
-data class PathData(
+/*data class PathData(
     val id: String,
     val color: Color,
     val path: List<Offset>
+)*/
+
+data class PathData(
+    val pathData: String,
+    val strokeWidth: Float,
+    val fillColor: String,
+    val strokeColor: String
 )
 
 val allColors = listOf(
