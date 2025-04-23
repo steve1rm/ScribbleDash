@@ -152,7 +152,7 @@ fun DrawingCanvas(
                     println("Canvas W/H: $canvasWidth / $canvasHeight")
                     println("Vector VP W/H: ${vectorData.viewportWidth} / ${vectorData.viewportHeight}")
                     println("Scale X/Y: $scaleX / $scaleY")
-                    val scale = max(scaleX, scaleY)
+                    val scale = min(scaleX, scaleY)
                     println("Chosen Scale (max): $scale")  // Note: We're using max now
                     val scaledWidth = vectorData.viewportWidth * scale
                     val scaledHeight = vectorData.viewportHeight * scale
@@ -162,7 +162,7 @@ fun DrawingCanvas(
                     println("Translate X/Y: $translateX / $translateY")
 
                     withTransform({
-              //          translate(left = translateX, top = translateY)
+                        translate(left = translateX, top = translateY)
                         scale(scaleX = scale, scaleY = scale, pivot = Offset.Zero)
                     }) {
                         println("Inside withTransform - Drawing sample paths...")

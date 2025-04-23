@@ -238,10 +238,11 @@ class DrawingViewModel(
     private fun onNewPathStart() {
         _drawingState.update { drawingState ->
             drawingState.copy(
-                currentPath = PathData(
+                currentPath = PaintPath(
                     id = Clock.System.now().nanosecondsOfSecond.toString(),
                     color = drawingState.selectedColor,
-                    path = emptyList()
+                    points = emptyList(),
+                    strokeWidth = 1f
                 )
             )
         }
