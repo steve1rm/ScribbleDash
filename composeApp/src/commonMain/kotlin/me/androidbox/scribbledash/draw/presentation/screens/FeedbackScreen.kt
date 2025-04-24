@@ -2,6 +2,7 @@
 
 package me.androidbox.scribbledash.draw.presentation.screens
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -20,11 +25,15 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.DrawingState
+import me.androidbox.scribbledash.draw.presentation.FeedbackAction
+import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.screens.components.FeedbackImageItem
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
@@ -32,8 +41,9 @@ import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
 fun FeedbackScreen(
-    drawingState: DrawingState,
-    onAction: (DrawingAction) -> Unit,
+    paths: List<PaintPath> = emptyList(),
+    exampleToDrawPath: List<Path> = listOf(),
+    onAction: (FeedbackAction) -> Unit,
     closeClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -79,7 +89,7 @@ fun FeedbackScreen(
                         modifier = Modifier.graphicsLayer {
                             this.rotationZ = -10f
                         },
-                        drawingState = drawingState,
+                        exampleToDrawPath = exampleToDrawPath,
                         title = "Example",
                         onAction = {}
                     )
@@ -92,9 +102,54 @@ fun FeedbackScreen(
                             .offset(
                                 y = 30.dp
                             ),
-                        drawingState = drawingState,
+                        paths = paths,
                         title = "Drawing",
                         onAction = {}
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(64.dp))
+
+                Text(
+                    text = "Woohoo",
+                    style = MaterialTheme.typography.displayMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Text(
+                    text = "if this were a food, it would be a gourmet meal",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Button(
+                    modifier = Modifier
+                        .height(height = 64.dp)
+                        .fillMaxWidth()
+                        .border(
+                            width = 8.dp,
+                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            shape = RoundedCornerShape(size = 20.dp)
+                        )
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 64.dp),
+                    shape = RoundedCornerShape(20.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Blue
+                    ),
+                    onClick = {
+                        onAction(FeedbackAction.OnRetry)
+                    }
+                ) {
+                    Text(
+                        text = "Clear Canvas".uppercase(),
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             }

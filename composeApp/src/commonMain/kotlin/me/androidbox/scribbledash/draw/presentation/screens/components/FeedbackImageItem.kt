@@ -10,16 +10,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
-import me.androidbox.scribbledash.draw.presentation.DrawingState
+import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.VectorData
 
 @Composable
 fun FeedbackImageItem(
-    drawingState: DrawingState,
+    paths: List<PaintPath> = emptyList(),
+    exampleToDrawPath: List<Path> = emptyList(),
     onAction: (DrawingAction) -> Unit,
     title: String,
     modifier: Modifier = Modifier,
@@ -40,10 +42,10 @@ fun FeedbackImageItem(
 
         DrawingCanvas(
             modifier = Modifier.size(160.dp),
-            paths = drawingState.paths,
-            currentPath = drawingState.currentPath,
+            paths = paths,
+            currentPath = null,
             onAction = onAction,
-            examplePath = drawingState.exampleToDrawPath,
+            examplePath = exampleToDrawPath,
             vectorData = VectorData()
         )
     }
