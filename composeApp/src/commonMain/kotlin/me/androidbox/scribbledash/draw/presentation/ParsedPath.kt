@@ -19,7 +19,7 @@ data class ParsedPath(
 
 data class PaintPath(
     val id: String = Clock.System.now().toEpochMilliseconds().toString(),
-    val points: List<Offset>,
+    val path: List<Offset>,
     val color: Color = Color.Black,
     val strokeWidth: Float,
     val strokeCap: StrokeCap = StrokeCap.Round,

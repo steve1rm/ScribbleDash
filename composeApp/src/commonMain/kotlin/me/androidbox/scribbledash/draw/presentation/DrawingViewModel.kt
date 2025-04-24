@@ -241,7 +241,7 @@ class DrawingViewModel(
                 currentPath = PaintPath(
                     id = Clock.System.now().nanosecondsOfSecond.toString(),
                     color = drawingState.selectedColor,
-                    points = emptyList(),
+                    path = emptyList(),
                     strokeWidth = 1f
                 )
             )

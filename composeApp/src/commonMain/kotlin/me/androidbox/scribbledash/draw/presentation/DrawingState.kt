@@ -1,6 +1,5 @@
 package me.androidbox.scribbledash.draw.presentation
 
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
@@ -9,8 +8,8 @@ import kotlin.time.Duration
 data class DrawingState(
     val selectedColor: Color = Color.Black,
     val currentPath: PaintPath? = null,
-    val paths: List<PathData> = emptyList(),
-    val undonePaths: List<PathData> = emptyList(),
+    val paths: List<PaintPath> = emptyList(),
+    val undonePaths: List<PaintPath> = emptyList(),
     val exampleToDrawPath: List<Path> = emptyList(),
     val exampleToSavePath: List<Path> = emptyList(),
     val vectorData: VectorData = VectorData(),

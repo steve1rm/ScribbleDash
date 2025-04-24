@@ -26,6 +26,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
+import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.PathData
 import me.androidbox.scribbledash.draw.presentation.VectorData
 import kotlin.math.abs
@@ -34,8 +35,8 @@ import kotlin.math.min
 
 @Composable
 fun DrawingCanvas(
-    paths: List<PathData>,
-    currentPath: PathData?,
+    paths: List<PaintPath>,
+    currentPath: PaintPath?,
     examplePath: List<Path>,
     vectorData: VectorData,
     onAction: (DrawingAction) -> Unit,
