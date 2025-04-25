@@ -9,6 +9,7 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.draw.presentation.DrawingEvent
 import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
@@ -63,7 +64,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.DrawingScreen> {
-            val drawingViewModel = koinViewModel<DrawingViewModel>()
+            val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
 
             observeEvents(
@@ -72,9 +73,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(event) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
-                            navController.navigate(Route.FeedbackScreen(
-                                userDrawnPath = event.userPath
-                            ))
+                            navController.navigate(Route.FeedbackScreen)
                         }
                     }
                 }
@@ -92,14 +91,14 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.FeedbackScreen>(
 
         ) {
-            val drawingViewModel = koinViewModel<FeedbackViewModel>()
-        //    val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
-
-          //  val name = it.toRoute<Route.FeedbackScreen>().exampleToDrawPath
+            val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
+            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+            val feedbackViewModel = koinViewModel<FeedbackViewModel>()
 
             FeedbackScreen(
-     //           drawingState = drawingState,
-                onAction = drawingViewModel::onAction,
+                paths = drawingState.paths,
+                exampleToDrawPath = drawingState.exampleToSavePath,
+                onAction = feedbackViewModel::onAction,
                 closeClicked = {
                     navController.navigateUp()
                 }

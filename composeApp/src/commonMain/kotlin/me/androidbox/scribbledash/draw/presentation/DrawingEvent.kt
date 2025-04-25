@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.Path
 
 sealed interface DrawingEvent {
     data class OnDone(
-        val userPath: String,
+        val userPath: List<PaintPath>,
         val exampleDrawing: List<Path>
     ) : DrawingEvent
 }

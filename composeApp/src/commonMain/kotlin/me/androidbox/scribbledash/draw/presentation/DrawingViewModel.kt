@@ -93,9 +93,9 @@ class DrawingViewModel(
             DrawingAction.OnDone -> {
                 viewModelScope.launch {
                     println("PATH ${drawingState.value.paths.count()}")
-                    val userDrawnPath = Json.encodeToString(drawingState.value.paths)
+
                     _eventChannel.send(DrawingEvent.OnDone(
-                        userPath = userDrawnPath,
+                        userPath = drawingState.value.paths,
                         exampleDrawing = drawingState.value.exampleToSavePath
                     ))
                 }
