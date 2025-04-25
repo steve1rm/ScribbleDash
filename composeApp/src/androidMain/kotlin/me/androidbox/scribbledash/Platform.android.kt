@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalResourceApi::class, ExperimentalTime::class)
+@file:OptIn(ExperimentalResourceApi::class, ExperimentalTime::class, ExperimentalTime::class)
 
 package me.androidbox.scribbledash
 

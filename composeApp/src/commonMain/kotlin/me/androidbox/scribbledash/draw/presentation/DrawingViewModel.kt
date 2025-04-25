@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.serialization.json.Json
 import me.androidbox.scribbledash.core.presentation.utils.ExampleDrawings
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.draw.data.SaveBitmapDrawing
@@ -92,8 +93,9 @@ class DrawingViewModel(
             DrawingAction.OnDone -> {
                 viewModelScope.launch {
                     println("PATH ${drawingState.value.paths.count()}")
+                    val userDrawnPath = Json.encodeToString(drawingState.value.paths)
                     _eventChannel.send(DrawingEvent.OnDone(
-                        userPath = drawingState.value.paths,
+                        userPath = userDrawnPath,
                         exampleDrawing = drawingState.value.exampleToSavePath
                     ))
                 }

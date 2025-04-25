@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
             implementation(libs.navigation.compose)
+            implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
         }
     }
 }
