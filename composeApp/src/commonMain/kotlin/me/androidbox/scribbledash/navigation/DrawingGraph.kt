@@ -92,12 +92,14 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
         ) {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
-            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
             val feedbackViewModel = koinViewModel<FeedbackViewModel>()
+            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+            val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
 
             FeedbackScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
+                feedbackState= feedbackState,
                 onAction = feedbackViewModel::onAction,
                 closeClicked = {
                     navController.navigateUp()

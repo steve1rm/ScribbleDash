@@ -33,6 +33,7 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.draw.presentation.DrawingAction
 import me.androidbox.scribbledash.draw.presentation.DrawingState
 import me.androidbox.scribbledash.draw.presentation.FeedbackAction
+import me.androidbox.scribbledash.draw.presentation.FeedbackState
 import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.screens.components.FeedbackImageItem
 import org.jetbrains.compose.resources.vectorResource
@@ -43,6 +44,7 @@ import scribbledash.composeapp.generated.resources.close_circle
 fun FeedbackScreen(
     paths: List<PaintPath> = emptyList(),
     exampleToDrawPath: List<Path> = listOf(),
+    feedbackState: FeedbackState,
     onAction: (FeedbackAction) -> Unit,
     closeClicked: () -> Unit,
     modifier: Modifier = Modifier
@@ -74,7 +76,7 @@ fun FeedbackScreen(
                 Spacer(modifier = Modifier.height(128.dp))
 
                 Text(
-                    text = "100%",
+                    text = feedbackState.ratingPercent.toString(),
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -111,7 +113,7 @@ fun FeedbackScreen(
                 Spacer(modifier = Modifier.height(64.dp))
 
                 Text(
-                    text = "Woohoo",
+                    text = feedbackState.ratingText,
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -119,7 +121,7 @@ fun FeedbackScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 Text(
-                    text = "if this were a food, it would be a gourmet meal",
+                    text = feedbackState.ratingText,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
