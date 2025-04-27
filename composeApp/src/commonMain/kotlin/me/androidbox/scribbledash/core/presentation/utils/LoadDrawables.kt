@@ -50,6 +50,7 @@ import scribbledash.composeapp.generated.resources.star
 import scribbledash.composeapp.generated.resources.train
 import scribbledash.composeapp.generated.resources.umbrella
 import scribbledash.composeapp.generated.resources.whale
+
 enum class ExampleDrawings(
     val drawableName: String,
     val drawableResource: DrawableResource

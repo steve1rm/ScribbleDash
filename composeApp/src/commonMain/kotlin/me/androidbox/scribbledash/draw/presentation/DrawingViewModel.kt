@@ -44,7 +44,7 @@ class DrawingViewModel(
 
     init {
         println("INIT VIEWMODEL")
-        val pathData = parseXmlDrawable.parser(ExampleDrawings.ALIEN.drawableName.lowercase())
+        val pathData = parseXmlDrawable.parser()
 
         _drawingState.update { drawingState ->
             drawingState.copy(

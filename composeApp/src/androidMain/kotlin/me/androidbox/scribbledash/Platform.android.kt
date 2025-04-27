@@ -2,6 +2,7 @@
 
 package me.androidbox.scribbledash
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.res.Resources
@@ -14,6 +15,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
@@ -480,7 +482,8 @@ actual class ParseXmlDrawableImp(private val context: Context) : ParseXmlDrawabl
         )
     }
 
-    actual override fun parser(drawableName: String): List<Path> {
+    @SuppressLint("ResourceType")
+    actual override fun parser(): List<Path> {
 
         val TAG = "VectorParse" // Tag for logging
         var viewportWidth = 24f // Default
@@ -492,9 +495,7 @@ actual class ParseXmlDrawableImp(private val context: Context) : ParseXmlDrawabl
         var paths = emptyList<Path>()
 
         try {
-            val id = context.resources.getIdentifier(drawableName, "drawable", context.packageName)
-
-            parser = context.resources.getXml(id)
+            parser = context.resources.getXml(R.drawable.fish)
             var eventType = parser.eventType
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
@@ -531,7 +532,7 @@ actual class ParseXmlDrawableImp(private val context: Context) : ParseXmlDrawabl
                 PathParser.createPathFromPathData(pathData).asComposePath()
             }
         } catch (ex: Resources.NotFoundException) {
-            Log.e(TAG, "Drawable resource not found: $drawableName", ex)
+            Log.e(TAG, "Drawable resource not found", ex)
         } catch (ex: XmlPullParserException) {
             Log.e(TAG, "XML parsing error", ex)
         } catch (ex: IOException) {

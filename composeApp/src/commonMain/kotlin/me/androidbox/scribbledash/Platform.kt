@@ -8,7 +8,7 @@ import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
 expect fun getPlatform(): Platform
 
 expect class ParseXmlDrawableImp : ParseXmlDrawable {
-    override fun parser(drawableName: String): List<Path>
+    override fun parser(): List<Path>
 }
 
 expect class SaveBitmapDrawingImp : SaveBitmapDrawing {
