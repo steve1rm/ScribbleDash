@@ -36,6 +36,7 @@ import me.androidbox.scribbledash.draw.presentation.FeedbackAction
 import me.androidbox.scribbledash.draw.presentation.FeedbackState
 import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.screens.components.FeedbackImageItem
+import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
@@ -138,24 +139,23 @@ fun FeedbackScreen(
                             width = 8.dp,
                             color = MaterialTheme.colorScheme.surfaceContainerHigh,
                             shape = RoundedCornerShape(size = 20.dp)
-                        )
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 64.dp),
+                        ),
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Blue
-                    ),
+                        containerColor = success),
                     onClick = {
                         onAction(FeedbackAction.OnRetry)
                     }
                 ) {
                     Text(
-                        text = "Clear Canvas".uppercase(),
+                        text = "Try Again".uppercase(),
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
+
+                Spacer(modifier = Modifier.height(16.dp))
             }
         }
     )
