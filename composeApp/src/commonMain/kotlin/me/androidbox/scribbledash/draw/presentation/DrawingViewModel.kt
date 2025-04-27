@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -42,7 +43,7 @@ class DrawingViewModel(
     val drawingState = _drawingState.asStateFlow()
 
     private val _eventChannel = Channel<DrawingEvent>()
-    val eventChannel = _eventChannel.consumeAsFlow()
+    val eventChannel = _eventChannel.receiveAsFlow()
 
     init {
         println("INIT VIEWMODEL")

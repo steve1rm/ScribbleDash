@@ -494,8 +494,22 @@ actual class ParseXmlDrawableImp(private val context: Context) : ParseXmlDrawabl
 
         var paths = emptyList<Path>()
 
+        val listOfDrawings = listOf(
+            R.drawable.alien,
+            R.drawable.boat,
+            R.drawable.book,
+            R.drawable.camera,
+            R.drawable.car,
+            R.drawable.castle,
+            R.drawable.cup,
+            R.drawable.dog,
+            R.drawable.envelope,
+            R.drawable.eye,
+            R.drawable.fish,
+        )
+
         try {
-            parser = context.resources.getXml(R.drawable.fish)
+            parser = context.resources.getXml(listOfDrawings.random())
             var eventType = parser.eventType
 
             while (eventType != XmlPullParser.END_DOCUMENT) {

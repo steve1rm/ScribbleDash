@@ -93,7 +93,7 @@ fun DrawControls(
             onClick = onClearClicked
         ) {
             Text(
-                text = "Clear Canvas".uppercase(),
+                text = "Done".uppercase(),
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onPrimary
             )

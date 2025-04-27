@@ -13,6 +13,7 @@ import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.draw.presentation.DrawingEvent
 import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
+import me.androidbox.scribbledash.draw.presentation.FeedbackAction
 import me.androidbox.scribbledash.draw.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.draw.presentation.PaintPath
 import me.androidbox.scribbledash.draw.presentation.screens.DifficultyLevelScreen
@@ -100,7 +101,13 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
                 feedbackState= feedbackState,
-                onAction = feedbackViewModel::onAction,
+                onAction = { action ->
+                    when(action) {
+                        is FeedbackAction.OnRetry -> {
+                            navController.navigate(Route.DrawingGraph)
+                        }
+                    }
+                },
                 closeClicked = {
                     navController.navigateUp()
                 }
