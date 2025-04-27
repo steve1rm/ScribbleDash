@@ -104,11 +104,19 @@ class FeedbackViewModel : ViewModel() {
                 else -> null
             }
 
-            val ratingText = ratingArray?.random() ?: Res.string.feedback_oops_1
+            val ratingTitle = when(rate) {
+                in 0..40 -> "Oops"
+                in 40..90 -> "Good"
+                in 100..100 -> "Woohoo"
+                else -> "Unknown"
+            }
+
+            val ratingText = ratingArray?.random() ?: Res.string.feedback_good_6
 
             _feedbackState.update { feedbackState ->
                 feedbackState.copy(
                     ratingText = getString(ratingText),
+                    ratingTitle = ratingTitle,
                     ratingPercent = rate
                 )
             }

@@ -71,13 +71,14 @@ fun FeedbackScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(paddingValues = paddingValues),
+                    .padding(paddingValues = paddingValues)
+                    .padding(horizontal = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Spacer(modifier = Modifier.height(128.dp))
 
                 Text(
-                    text = feedbackState.ratingPercent.toString(),
+                    text = "${feedbackState.ratingPercent}%",
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
@@ -114,7 +115,7 @@ fun FeedbackScreen(
                 Spacer(modifier = Modifier.height(64.dp))
 
                 Text(
-                    text = feedbackState.ratingText,
+                    text = feedbackState.ratingTitle,
                     style = MaterialTheme.typography.displayMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
