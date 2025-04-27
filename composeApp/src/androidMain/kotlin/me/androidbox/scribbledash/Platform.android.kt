@@ -258,7 +258,7 @@ private fun normalizeAndDrawUserPaths(
     }
 }
 
-suspend fun getResultScore(
+actual suspend fun getResultScore(
     userPaths: List<PaintPath>,
     exampleParsedPath: ParsedPath,
     difficultyLevelOption: DifficultyLevelOptions

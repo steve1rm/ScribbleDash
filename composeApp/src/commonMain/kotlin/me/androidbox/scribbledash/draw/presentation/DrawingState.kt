@@ -18,12 +18,6 @@ data class DrawingState(
     val bitmapToSave: ImageBitmap? = null
 )
 
-/*data class PathData(
-    val id: String,
-    val color: Color,
-    val path: List<Offset>
-)*/
-
 data class PathData(
     val pathData: String,
     val strokeWidth: Float,

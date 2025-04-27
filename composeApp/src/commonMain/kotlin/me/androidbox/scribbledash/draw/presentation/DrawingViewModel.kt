@@ -23,10 +23,12 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
+import me.androidbox.scribbledash.core.presentation.utils.DifficultyLevelOptions
 import me.androidbox.scribbledash.core.presentation.utils.ExampleDrawings
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.draw.data.SaveBitmapDrawing
 import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
+import me.androidbox.scribbledash.getResultScore
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
