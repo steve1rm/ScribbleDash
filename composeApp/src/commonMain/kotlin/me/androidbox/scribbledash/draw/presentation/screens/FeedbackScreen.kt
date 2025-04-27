@@ -49,6 +49,7 @@ fun FeedbackScreen(
     closeClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+
     ScribbleDashLayout(
         modifier = modifier,
         toolBar = {
