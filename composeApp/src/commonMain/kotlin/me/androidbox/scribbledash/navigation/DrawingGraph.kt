@@ -17,6 +17,7 @@ import me.androidbox.scribbledash.draw.presentation.screens.DrawingScreen
 import me.androidbox.scribbledash.draw.presentation.screens.FeedbackScreen
 import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.HomeScreen
+import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
 fun NavGraphBuilder.drawingGraph(navController: NavController) {
@@ -41,6 +42,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     }
                 }
             )
+        }
+
+        composable<Route.StatisticsScreen> {
+            StatisticsScreen()
         }
 
         this.composable<Route.DifficultyLevelScreen> {

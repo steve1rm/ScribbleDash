@@ -23,7 +23,7 @@ import me.androidbox.scribbledash.theming.onBackgroundVariant
 fun StatisticsItem(
     icon: @Composable () -> Unit,
     title: String,
-    percentage: Int,
+    percentage: String,
     modifier: Modifier = Modifier,
 ) {
     Card(
@@ -54,7 +54,7 @@ fun StatisticsItem(
                 modifier = Modifier
                     .wrapContentWidth(Alignment.End)
                     .weight(1f),
-                text = "$percentage%",
+                text = percentage,
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
