@@ -88,22 +88,6 @@ fun HomeScreen(
                     onGameCardClicked = onGameCardClicked
                 )
             }
-        },
-        bottomBar = {
-            NavigationBar(
-                modifier = Modifier.fillMaxWidth(),
-                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-                content = {
-                    this.HomeNavigationBottomBar(
-                        listOfNavigationItems = listOfNavigationItems,
-                        selectedItemIndex = selectedIndex,
-                        onItemClicked = { scribbleDashCategories ->
-                            selectedIndex = scribbleDashCategories.ordinal
-                            onBottomNavigationClicked(scribbleDashCategories)
-                        }
-                    )
-                }
-            )
         }
     )
 }
