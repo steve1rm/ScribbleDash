@@ -27,3 +27,6 @@ sealed interface Route {
     @Serializable
     data object DrawingGraph : Route
 }
+
+val Route.routeName: String
+    get() = this::class.simpleName ?: this.toString()
