@@ -63,7 +63,7 @@ fun App() {
 
                                 when (category) {
                                     ScribbleDashCategories.CHART -> {
-                                        if(currentDestinationRoute.endsWith(Route.HomeScreen.routeName)) {
+                                        if(currentDestinationRoute?.endsWith(Route.HomeScreen::class.simpleName.toString()) != true) {
                                             navController.navigate(Route.HomeScreen) {
                                                 launchSingleTop = true
                                                 popUpTo(Route.HomeScreen) { inclusive = false }
@@ -71,7 +71,7 @@ fun App() {
                                         }
                                     }
                                     ScribbleDashCategories.HOME -> {
-                                        if(currentDestinationRoute.endsWith(Route.StatisticsScreen.routeName)) {
+                                        if(currentDestinationRoute?.endsWith(Route.StatisticsScreen::class.simpleName.toString()) != true) {
                                             navController.navigate(Route.StatisticsScreen) {
                                                 launchSingleTop = true
                                                 popUpTo(Route.HomeScreen)

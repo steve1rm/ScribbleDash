@@ -28,7 +28,7 @@ fun RowScope.HomeNavigationBottomBar(
             ),
             selected = selectedItemIndex == index,
             onClick = {
-       //         onItemClicked(ScribbleDashCategories.entries[index])
+                onItemClicked(ScribbleDashCategories.entries[index])
             },
             icon = {
                 Icon(
