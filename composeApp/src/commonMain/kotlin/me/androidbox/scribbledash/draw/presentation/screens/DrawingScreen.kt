@@ -102,6 +102,7 @@ fun DrawingScreen(
                 Spacer(modifier = Modifier.weight(1f))
 
                 AnimatedVisibility(
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     visible = drawingState.isTimeToDraw,
                     enter = slideInVertically(
                         initialOffsetY = { fullHeight ->
@@ -111,7 +112,6 @@ fun DrawingScreen(
                     content = {
                         DrawControls(
                             modifier = Modifier
-                                .fillMaxWidth()
                                 .padding(bottom = 32.dp),
                             clearEnabled = drawingState.paths.isNotEmpty(),
                             unDoEnabled = drawingState.paths.isNotEmpty(),

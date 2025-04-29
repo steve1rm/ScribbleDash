@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -75,10 +76,12 @@ fun DrawControls(
             )
         }
 
+        Spacer(modifier = Modifier.weight(1f))
+
         Button(
             modifier = Modifier
                 .height(height = 64.dp)
-                .width(width = 200.dp)
+                .width(width = 128.dp)
                 .border(
                     width = 8.dp,
                     color = MaterialTheme.colorScheme.surfaceContainerHigh,

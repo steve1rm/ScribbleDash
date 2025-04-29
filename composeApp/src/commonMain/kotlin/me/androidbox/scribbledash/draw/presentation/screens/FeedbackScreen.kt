@@ -139,7 +139,7 @@ fun FeedbackScreen(
                     shape = RoundedCornerShape(20.dp),
                     elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = success),
+                        containerColor = MaterialTheme.colorScheme.primary),
                     onClick = {
                         onAction(FeedbackAction.OnRetry)
                     }
