@@ -110,7 +110,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     }
                 },
                 closeClicked = {
-                    navController.navigateUp()
+                    navController.navigate(Route.HomeScreen) {
+                        this.popUpTo(navController.graph.id) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
