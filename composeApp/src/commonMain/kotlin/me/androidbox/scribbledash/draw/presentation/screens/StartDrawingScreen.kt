@@ -1,13 +1,10 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
-package me.androidbox.scribbledash.home.screens
+package me.androidbox.scribbledash.draw.presentation.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.home.screens.components.HomeCard
 
 @Composable
-fun HomeScreen(
+fun StartDrawingScreen(
     modifier: Modifier = Modifier,
     onGameCardClicked: () -> Unit
 ) {
@@ -50,4 +47,3 @@ fun HomeScreen(
         )
     }
 }
-
