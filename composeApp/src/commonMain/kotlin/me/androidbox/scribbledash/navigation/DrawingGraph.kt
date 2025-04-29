@@ -105,14 +105,18 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { action ->
                     when(action) {
                         is FeedbackAction.OnRetry -> {
-                            navController.navigate(Route.DrawingGraph)
+                            navController.navigate(Route.DrawingGraph) {
+                                this.popUpTo(Route.DrawingGraph) {
+                                    this.inclusive = true
+                                }
+                            }
                         }
                     }
                 },
                 closeClicked = {
                     navController.navigate(Route.HomeScreen) {
                         this.popUpTo(navController.graph.id) {
-                            inclusive = true
+                            this.inclusive = true
                         }
                     }
                 }
