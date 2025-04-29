@@ -20,6 +20,7 @@ import me.androidbox.scribbledash.home.model.listOfNavigationItems
 import me.androidbox.scribbledash.home.screens.HomeNavigationBottomBar
 import me.androidbox.scribbledash.navigation.Route
 import me.androidbox.scribbledash.navigation.drawingGraph
+import me.androidbox.scribbledash.navigation.routeName
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
 
 @Composable
@@ -30,8 +31,8 @@ fun App() {
 
         // Type-safe route check using destination.route
         val currentDestinationRoute = navBackStackEntry?.destination?.route
-        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen::class.simpleName.toString()) == true ||
-                currentDestinationRoute?.endsWith(Route.StatisticsScreen::class.simpleName.toString()) == true
+        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) == true ||
+                currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) == true
 
         println("currentDestinationRoute $currentDestinationRoute | ${Route.StatisticsScreen::class.simpleName}")
         ScribbleDashLayout(
@@ -62,7 +63,7 @@ fun App() {
 
                                 when (category) {
                                     ScribbleDashCategories.CHART -> {
-                                        if(currentDestinationRoute?.endsWith(Route.HomeScreen::class.simpleName.toString()) != true) {
+                                        if(currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) != true) {
                                             navController.navigate(Route.HomeScreen) {
                                                 launchSingleTop = true
                                                 popUpTo(Route.HomeScreen) { inclusive = false }
@@ -70,7 +71,7 @@ fun App() {
                                         }
                                     }
                                     ScribbleDashCategories.HOME -> {
-                                        if(currentDestinationRoute?.endsWith(Route.StatisticsScreen::class.simpleName.toString()) != true) {
+                                        if(currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) != true) {
                                             navController.navigate(Route.StatisticsScreen) {
                                                 launchSingleTop = true
                                                 popUpTo(Route.HomeScreen)
