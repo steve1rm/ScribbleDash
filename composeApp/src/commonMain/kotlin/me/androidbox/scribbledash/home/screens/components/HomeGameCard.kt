@@ -1,6 +1,5 @@
 package me.androidbox.scribbledash.home.screens.components
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,18 +13,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.theming.success
-import org.jetbrains.compose.resources.vectorResource
-import scribbledash.composeapp.generated.resources.Res
-import scribbledash.composeapp.generated.resources.one_round_wonder
 
 @Composable
-fun HomeCard(
+fun HomeGameCard(
     modifier: Modifier = Modifier,
+    title: String,
+    borderColor: Color,
+    image: @Composable () -> Unit,
     onGameCardClicked: () -> Unit
 ) {
     Row(
@@ -33,7 +32,7 @@ fun HomeCard(
             .height(128.dp)
             .fillMaxWidth()
             .border(
-                color = success,
+                color = borderColor,
                 shape = RoundedCornerShape(16.dp),
                 width = 8.dp
             )
@@ -49,16 +48,11 @@ fun HomeCard(
         ) {
             Text(
                 modifier = Modifier.padding(start = 22.dp),
-                text = "One Round\nWonder",
+                text = title,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.W400)
         }
 
-        Image(
-            modifier = Modifier
-                .align(Alignment.Bottom),
-            imageVector = vectorResource(resource = Res.drawable.one_round_wonder),
-            contentDescription = null
-        )
+        image()
     }
 }
