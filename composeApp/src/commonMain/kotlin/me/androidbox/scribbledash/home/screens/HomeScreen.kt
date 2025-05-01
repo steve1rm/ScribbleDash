@@ -30,7 +30,9 @@ import me.androidbox.scribbledash.home.screens.components.HomeGameCard
 import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
+import scribbledash.composeapp.generated.resources.endless_mode
 import scribbledash.composeapp.generated.resources.one_round_wonder
+import scribbledash.composeapp.generated.resources.speed_draw
 
 @Composable
 fun HomeScreen(
@@ -95,6 +97,40 @@ fun HomeScreen(
                             modifier = Modifier
                                 .align(Alignment.End),
                             imageVector = vectorResource(resource = Res.drawable.one_round_wonder),
+                            contentDescription = null
+                        )
+                    },
+                    onGameCardClicked = onGameCardClicked
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HomeGameCard(
+                    title = "Speed\nDraw",
+                    borderColor = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    image = {
+                        Image(
+                            modifier = Modifier
+                                .align(Alignment.End),
+                            imageVector = vectorResource(resource = Res.drawable.speed_draw),
+                            contentDescription = null
+                        )
+                    },
+                    onGameCardClicked = onGameCardClicked
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                HomeGameCard(
+                    title = "Endless\nMode",
+                    borderColor = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    image = {
+                        Image(
+                            modifier = Modifier
+                                .align(Alignment.End),
+                            imageVector = vectorResource(resource = Res.drawable.endless_mode),
                             contentDescription = null
                         )
                     },
