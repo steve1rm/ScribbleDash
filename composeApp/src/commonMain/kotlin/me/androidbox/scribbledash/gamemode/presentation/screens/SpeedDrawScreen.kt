@@ -27,11 +27,16 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
 import me.androidbox.scribbledash.gamemode.presentation.DrawingState
 import me.androidbox.scribbledash.gamemode.presentation.VectorData
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.DisplayCounter
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawControls
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCanvas
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCountdownTimer
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
+import scribbledash.composeapp.generated.resources.paints
+import scribbledash.composeapp.generated.resources.plalet
+import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -48,15 +53,29 @@ fun SpeedDrawScreen(
                     containerColor = MaterialTheme.colorScheme.background
                 ),
                 actions = {
+                    // Timer
+                    DrawingCountdownTimer(
+                        duration = 2.minutes,
+                        finalSegmentDuration = 30.seconds,
+                        onFinish = {
+
+                        }
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    DisplayCounter(
+                        imageRes = Res.drawable.plalet,
+                        drawingCount = "5"
+                    )
+
+                    Spacer(modifier = Modifier.weight(1f))
+
                     IconButton(
                         onClick = {
                             onAction(DrawingAction.OnClose)
                         }
                     ) {
-                        // Timer
-
-                        // Number of drawings
-
                         Icon(
                             modifier = Modifier.size(32.dp),
                             imageVector = vectorResource(Res.drawable.close_circle),
