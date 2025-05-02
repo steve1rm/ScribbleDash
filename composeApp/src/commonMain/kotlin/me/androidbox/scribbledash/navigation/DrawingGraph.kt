@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
+import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
 import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent
 import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
@@ -15,7 +16,6 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
-import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
@@ -44,18 +44,18 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     navController.navigateUp()
                 },
                 beginnerClicked = {
-                    navController.navigate(route = Route.DrawingScreen)
+                    navController.navigate(route = Route.OneRoundWonderScreen)
                 },
                 challengingClicked = {
-                    navController.navigate(route = Route.DrawingScreen)
+                    navController.navigate(route = Route.OneRoundWonderScreen)
                 },
                 masterClicked = {
-                    navController.navigate(route = Route.DrawingScreen)
+                    navController.navigate(route = Route.OneRoundWonderScreen)
                 }
             )
         }
 
-        this.composable<Route.DrawingScreen> {
+        this.composable<Route.OneRoundWonderScreen> {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
 
@@ -73,9 +73,46 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
             OneGameWonderScreen(
                 drawingState = drawingState,
-                onAction = drawingViewModel::onAction,
-                closeClicked = {
-                    navController.navigateUp()
+                onAction = { drawingAction ->
+                    when(drawingAction) {
+                        is DrawingAction.OnClose -> {
+                            navController.navigateUp()
+                        }
+                        else -> {
+                            drawingViewModel.onAction(drawingAction)
+                        }
+                    }
+                }
+            )
+        }
+
+        this.composable<Route.SpeedDrawScreen> {
+            val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
+            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+
+            observeEvents(
+                flow = drawingViewModel.eventChannel,
+                onEvent = { event ->
+                    when(event) {
+                        is DrawingEvent.OnDone -> {
+                            println("EVENT ${event.exampleDrawing} : ${event.userPath}")
+                            navController.navigate(Route.FeedbackScreen)
+                        }
+                    }
+                }
+            )
+
+            OneGameWonderScreen(
+                drawingState = drawingState,
+                onAction = { drawingAction ->
+                    when(drawingAction) {
+                        is DrawingAction.OnClose -> {
+                            navController.navigateUp()
+                        }
+                        else -> {
+                            drawingViewModel.onAction(drawingAction)
+                        }
+                    }
                 }
             )
         }

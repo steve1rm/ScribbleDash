@@ -38,7 +38,6 @@ import kotlin.time.Duration.Companion.seconds
 fun OneGameWonderScreen(
     drawingState: DrawingState,
     onAction: (DrawingAction) -> Unit,
-    closeClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     ScribbleDashLayout(
@@ -50,7 +49,9 @@ fun OneGameWonderScreen(
                 ),
                 actions = {
                     IconButton(
-                        onClick = closeClicked
+                        onClick = {
+                            onAction(DrawingAction.OnClose)
+                        }
                     ) {
                         Icon(
                             modifier = Modifier.size(32.dp),

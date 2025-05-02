@@ -12,7 +12,10 @@ sealed interface Route {
     data object DifficultyLevelScreen : Route
 
     @Serializable
-    data object DrawingScreen : Route
+    data object OneRoundWonderScreen : Route
+
+    @Serializable
+    data object SpeedDrawScreen : Route
 
     @Serializable
     data object StatisticsScreen : Route
