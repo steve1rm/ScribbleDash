@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package me.androidbox.scribbledash.draw.presentation.screens
+package me.androidbox.scribbledash.gamemode.presentation.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,11 +28,10 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.draw.presentation.FeedbackAction
-import me.androidbox.scribbledash.draw.presentation.FeedbackState
-import me.androidbox.scribbledash.draw.presentation.PaintPath
-import me.androidbox.scribbledash.draw.presentation.screens.components.FeedbackImageItem
-import me.androidbox.scribbledash.theming.success
+import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
+import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
+import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle

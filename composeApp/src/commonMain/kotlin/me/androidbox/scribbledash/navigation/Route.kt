@@ -1,9 +1,6 @@
 package me.androidbox.scribbledash.navigation
 
-import androidx.compose.ui.graphics.Path
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import me.androidbox.scribbledash.draw.presentation.PaintPath
 
 @Serializable
 sealed interface Route {

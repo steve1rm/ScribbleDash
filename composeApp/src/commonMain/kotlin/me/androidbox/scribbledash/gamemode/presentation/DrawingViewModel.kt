@@ -1,35 +1,23 @@
 @file:OptIn(ExperimentalTime::class)
 
-package me.androidbox.scribbledash.draw.presentation
+package me.androidbox.scribbledash.gamemode.presentation
 
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Canvas
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.Paint
-import androidx.compose.ui.graphics.PaintingStyle
-import androidx.compose.ui.graphics.Path
-import androidx.compose.ui.graphics.PathMeasure
-import androidx.compose.ui.graphics.StrokeCap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
-import me.androidbox.scribbledash.core.presentation.utils.DifficultyLevelOptions
-import me.androidbox.scribbledash.core.presentation.utils.ExampleDrawings
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
-import me.androidbox.scribbledash.draw.data.SaveBitmapDrawing
-import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
-import me.androidbox.scribbledash.getResultScore
+import me.androidbox.scribbledash.gamemode.data.SaveBitmapDrawing
+import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime

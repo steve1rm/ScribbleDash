@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import me.androidbox.scribbledash.draw.presentation.VectorData
-import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
+import me.androidbox.scribbledash.gamemode.presentation.VectorData
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCanvas
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation.screens.components
+package me.androidbox.scribbledash.gamemode.presentation.screens.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

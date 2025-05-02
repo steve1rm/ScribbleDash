@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTime::class)
 
-package me.androidbox.scribbledash.draw.presentation
+package me.androidbox.scribbledash.gamemode.presentation
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color

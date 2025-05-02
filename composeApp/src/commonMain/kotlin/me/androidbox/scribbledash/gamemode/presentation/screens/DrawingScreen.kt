@@ -1,13 +1,12 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package me.androidbox.scribbledash.draw.presentation.screens
+package me.androidbox.scribbledash.gamemode.presentation.screens
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,11 +24,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.draw.presentation.DrawingAction
-import me.androidbox.scribbledash.draw.presentation.DrawingState
-import me.androidbox.scribbledash.draw.presentation.VectorData
-import me.androidbox.scribbledash.draw.presentation.screens.components.DrawControls
-import me.androidbox.scribbledash.draw.presentation.screens.components.DrawingCanvas
+import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
+import me.androidbox.scribbledash.gamemode.presentation.DrawingState
+import me.androidbox.scribbledash.gamemode.presentation.VectorData
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawControls
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCanvas
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle

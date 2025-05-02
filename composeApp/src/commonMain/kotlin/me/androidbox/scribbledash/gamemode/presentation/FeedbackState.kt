@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation
+package me.androidbox.scribbledash.gamemode.presentation
 
 data class FeedbackState(
     val ratingPercent: Int = 0,

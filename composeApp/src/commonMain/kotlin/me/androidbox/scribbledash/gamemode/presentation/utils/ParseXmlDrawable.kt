@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation.utils
+package me.androidbox.scribbledash.gamemode.presentation.utils
 
 import androidx.compose.ui.graphics.Path
 

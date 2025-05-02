@@ -1,9 +1,8 @@
 package me.androidbox.scribbledash
 
 import androidx.compose.ui.graphics.Path
-import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
+import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import platform.UIKit.UIDevice
-import UIKit
 
 class IOSPlatform: Platform {
     override val name: String = UIDevice.currentDevice.systemName() + " " + UIDevice.currentDevice.systemVersion
@@ -75,8 +74,6 @@ class ParseXmlDrawableImp: NSObject, XMLParserDelegate {
 To support SVG path parsing, you may need a helper extension for `UIBezierPath`. Here's a simple example using a third-party library like PocketSVG or similar:
 
 ```swift
-import UIKit
-import PocketSVG
 
 extension UIBezierPath {
     convenience init?(svgPath: String) {

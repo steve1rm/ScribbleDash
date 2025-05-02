@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation.screens.components
+package me.androidbox.scribbledash.gamemode.presentation.screens.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -25,12 +25,10 @@ import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
-import me.androidbox.scribbledash.draw.presentation.DrawingAction
-import me.androidbox.scribbledash.draw.presentation.PaintPath
-import me.androidbox.scribbledash.draw.presentation.PathData
-import me.androidbox.scribbledash.draw.presentation.VectorData
+import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
+import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.VectorData
 import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.min
 
 @Composable

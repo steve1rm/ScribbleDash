@@ -1,7 +1,7 @@
 package me.androidbox.scribbledash.di
 
-import me.androidbox.scribbledash.draw.presentation.DrawingViewModel
-import me.androidbox.scribbledash.draw.presentation.FeedbackViewModel
+import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
+import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 

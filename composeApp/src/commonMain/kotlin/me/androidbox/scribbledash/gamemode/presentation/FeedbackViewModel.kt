@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation
+package me.androidbox.scribbledash.gamemode.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

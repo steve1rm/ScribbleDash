@@ -1,4 +1,4 @@
-package me.androidbox.scribbledash.draw.presentation
+package me.androidbox.scribbledash.gamemode.presentation
 
 data class VectorData(
     val viewportWidth: Float = 100f, // Default values
