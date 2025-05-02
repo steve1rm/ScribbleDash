@@ -16,6 +16,7 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
@@ -47,7 +48,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     navController.navigate(route = Route.OneRoundWonderScreen)
                 },
                 challengingClicked = {
-                    navController.navigate(route = Route.OneRoundWonderScreen)
+                    navController.navigate(route = Route.SpeedDrawScreen)
                 },
                 masterClicked = {
                     navController.navigate(route = Route.OneRoundWonderScreen)
@@ -102,7 +103,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 }
             )
 
-            OneGameWonderScreen(
+            SpeedDrawScreen(
                 drawingState = drawingState,
                 onAction = { drawingAction ->
                     when(drawingAction) {
