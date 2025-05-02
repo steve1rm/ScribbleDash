@@ -15,7 +15,8 @@ data class DrawingState(
     val vectorData: VectorData = VectorData(),
     val isTimeToDraw: Boolean = false,
     val secondsRemaining: Duration = Duration.ZERO,
-    val bitmapToSave: ImageBitmap? = null
+    val bitmapToSave: ImageBitmap? = null,
+    val drawingCount: Int = 0
 )
 
 data class PathData(

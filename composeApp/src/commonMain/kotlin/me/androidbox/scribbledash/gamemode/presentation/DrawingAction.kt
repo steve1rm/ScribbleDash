@@ -12,4 +12,5 @@ sealed interface DrawingAction {
     data object OnClearCanvasClicked: DrawingAction
     data class OnSelectColor(val color: Color) : DrawingAction
     data object OnDone : DrawingAction
+    data object OnClose : DrawingAction
 }
