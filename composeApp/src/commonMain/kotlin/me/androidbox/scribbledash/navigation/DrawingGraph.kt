@@ -30,16 +30,6 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     navController.navigate(
                         route = Route.DifficultyLevelScreen
                     )
-                },
-                onBottomNavigationClicked = { scribbleDashCategories ->
-                    when(scribbleDashCategories) {
-                        ScribbleDashCategories.HOME -> {
-                            navController.navigate(Route.HomeScreen)
-                        }
-                        ScribbleDashCategories.CHART -> {
-                            navController.navigate(Route.StatisticsScreen)
-                        }
-                    }
                 }
             )
         }

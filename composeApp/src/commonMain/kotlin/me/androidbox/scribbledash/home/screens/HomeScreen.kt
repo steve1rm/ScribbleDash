@@ -15,17 +15,12 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
-import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.components.HomeGameCard
 import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
@@ -37,13 +32,8 @@ import scribbledash.composeapp.generated.resources.speed_draw
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onGameCardClicked: () -> Unit,
-    onBottomNavigationClicked: (category: ScribbleDashCategories) -> Unit
+    onGameCardClicked: () -> Unit
 ) {
-
-    var selectedIndex by remember {
-        mutableIntStateOf(0)
-    }
 
     ScribbleDashLayout(
         modifier = modifier
