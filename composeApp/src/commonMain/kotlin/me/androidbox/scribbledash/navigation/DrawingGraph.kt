@@ -13,7 +13,7 @@ import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.DrawingScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
 import me.androidbox.scribbledash.home.model.ScribbleDashCategories
 import me.androidbox.scribbledash.home.screens.HomeScreen
@@ -81,7 +81,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 }
             )
 
-            DrawingScreen(
+            OneGameWonderScreen(
                 drawingState = drawingState,
                 onAction = drawingViewModel::onAction,
                 closeClicked = {

@@ -35,7 +35,7 @@ import scribbledash.composeapp.generated.resources.close_circle
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun DrawingScreen(
+fun OneGameWonderScreen(
     drawingState: DrawingState,
     onAction: (DrawingAction) -> Unit,
     closeClicked: () -> Unit,
