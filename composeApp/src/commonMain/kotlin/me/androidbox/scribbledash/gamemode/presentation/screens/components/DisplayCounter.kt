@@ -5,10 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -32,27 +33,38 @@ fun DisplayCounter(
         modifier = modifier
             .width(76.dp)
             .height(28.dp),
+        contentAlignment = Alignment.Center
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(align = Alignment.CenterVertically)
-                .background(
-                color = MaterialTheme.colorScheme.surfaceContainerLow,
-                shape = RoundedCornerShape(100f)),
-                    horizontalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = drawingCount,
-                style = MaterialTheme.typography.headlineSmall,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-        Image(
-            modifier = Modifier.align(Alignment.CenterStart),
-            imageVector = vectorResource(resource = imageRes),
-            contentDescription = null
-        )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 1.dp, bottom = 1.dp),
+            ) {
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Row(
+                    modifier = Modifier
+                        .width(60.dp)
+                        .background(
+                            color = MaterialTheme.colorScheme.surfaceContainerLow,
+                            shape = RoundedCornerShape(100f)),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.Top
+                ) {
+
+                    Text(
+                        text = drawingCount,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+            }
+
+         Image(
+             modifier = Modifier.align(Alignment.CenterStart),
+             imageVector = vectorResource(resource = imageRes),
+             contentDescription = null
+         )
     }
 }
 
