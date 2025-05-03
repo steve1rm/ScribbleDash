@@ -13,6 +13,7 @@ import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent
 import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
+import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
@@ -88,11 +89,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.SpeedDrawScreen> {
-            val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
-            val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+            val speedDrawViewModel = koinViewModel<SpeedDrawViewModel>()
+            val drawingState by speedDrawViewModel.drawingState.collectAsStateWithLifecycle()
 
             observeEvents(
-                flow = drawingViewModel.eventChannel,
+                flow = speedDrawViewModel.eventChannel,
                 onEvent = { event ->
                     when(event) {
                         is DrawingEvent.OnDone -> {
@@ -111,7 +112,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                             navController.navigateUp()
                         }
                         else -> {
-                            drawingViewModel.onAction(drawingAction)
+                            speedDrawViewModel.onAction(drawingAction)
                         }
                     }
                 }

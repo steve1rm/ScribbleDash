@@ -14,7 +14,10 @@ data class DrawingState(
     val exampleToSavePath: List<Path> = emptyList(),
     val vectorData: VectorData = VectorData(),
     val isTimeToDraw: Boolean = false,
-    val secondsRemaining: Duration = Duration.ZERO,
+    val timeToDrawSecondsRemaining: Duration = Duration.ZERO,
+    val drawingSecondsRemaining: Duration = Duration.ZERO,
+    val countDownSecondsTextColor: Color = Color.Black,
+    val hasReachedFinalDuration: Boolean = false,
     val bitmapToSave: ImageBitmap? = null,
     val drawingCount: Int = 0
 )

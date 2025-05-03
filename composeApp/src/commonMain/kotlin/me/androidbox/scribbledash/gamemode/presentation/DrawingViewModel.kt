@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.gamemode.data.SaveBitmapDrawing
-import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent.*
+import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent.OnDone
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
@@ -53,7 +53,7 @@ class DrawingViewModel(
             .onEach { second ->
                 _drawingState.update { drawingState ->
                     drawingState.copy(
-                        secondsRemaining = second
+                        timeToDrawSecondsRemaining = second
                     )
                 }
             }

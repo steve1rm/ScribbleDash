@@ -73,5 +73,5 @@ fun DisplayCounter(
 fun DisplayCounterPreview() {
     DisplayCounter(
         imageRes = Res.drawable.paints,
-        drawingCount = "12")
+        drawingCount = "5")
 }

@@ -11,17 +11,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import me.androidbox.scribbledash.core.presentation.utils.toFormattedTime
 import me.androidbox.scribbledash.theming.headLineXSmall
 import kotlin.time.Duration
 
 @Composable
 fun DrawingCountdownTimer(
     duration: Duration,
-    finalSegmentDuration: Duration,
-    onFinish: () -> Unit,
+    hasReachedFinalDuration: Boolean,
     modifier: Modifier = Modifier
 ) {
-
 
     Box(
         modifier = modifier
@@ -32,9 +31,9 @@ fun DrawingCountdownTimer(
     ) {
 
         Text(
-            text = duration.inWholeSeconds.toString(),
+            text = duration.toFormattedTime(),
             style = MaterialTheme.typography.headLineXSmall,
-            color = MaterialTheme.colorScheme.onBackground
+            color = if(hasReachedFinalDuration) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onBackground
         )
     }
 }

@@ -131,7 +131,7 @@ fun OneGameWonderScreen(
 
                 if(!drawingState.isTimeToDraw) {
                     Text(
-                        text = "${drawingState.secondsRemaining.inWholeSeconds} " + if(drawingState.secondsRemaining == 1.seconds) "second left" else "seconds left",
+                        text = "${drawingState.timeToDrawSecondsRemaining.inWholeSeconds} " + if(drawingState.timeToDrawSecondsRemaining == 1.seconds) "second left" else "seconds left",
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )

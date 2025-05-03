@@ -34,9 +34,7 @@ import me.androidbox.scribbledash.gamemode.presentation.screens.components.Drawi
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
-import scribbledash.composeapp.generated.resources.paints
 import scribbledash.composeapp.generated.resources.plalet
-import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
@@ -55,11 +53,8 @@ fun SpeedDrawScreen(
                 actions = {
                     // Timer
                     DrawingCountdownTimer(
-                        duration = 2.minutes,
-                        finalSegmentDuration = 30.seconds,
-                        onFinish = {
-
-                        }
+                        duration = drawingState.drawingSecondsRemaining,
+                        hasReachedFinalDuration = drawingState.hasReachedFinalDuration
                     )
 
                     Spacer(modifier = Modifier.weight(1f))
@@ -154,7 +149,7 @@ fun SpeedDrawScreen(
 
                 if(!drawingState.isTimeToDraw) {
                     Text(
-                        text = "${drawingState.secondsRemaining.inWholeSeconds} " + if(drawingState.secondsRemaining == 1.seconds) "second left" else "seconds left",
+                        text = "${drawingState.timeToDrawSecondsRemaining.inWholeSeconds} " + if(drawingState.timeToDrawSecondsRemaining == 1.seconds) "second left" else "seconds left",
                         style = MaterialTheme.typography.headlineMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )
