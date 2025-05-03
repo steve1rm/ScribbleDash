@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.minutes
 
 data class DrawingState(
     val selectedColor: Color = Color.Black,
@@ -15,7 +16,7 @@ data class DrawingState(
     val vectorData: VectorData = VectorData(),
     val isTimeToDraw: Boolean = false,
     val timeToDrawSecondsRemaining: Duration = Duration.ZERO,
-    val drawingSecondsRemaining: Duration = Duration.ZERO,
+    val drawingSecondsRemaining: Duration = 2.minutes,
     val countDownSecondsTextColor: Color = Color.Black,
     val hasReachedFinalDuration: Boolean = false,
     val bitmapToSave: ImageBitmap? = null,

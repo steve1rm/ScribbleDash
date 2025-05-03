@@ -46,7 +46,6 @@ class SpeedDrawViewModel(
         }
 
         startCountdown()
-        drawingCountdown()
     }
 
     private fun drawingCountdown() {
@@ -81,6 +80,7 @@ class SpeedDrawViewModel(
                         exampleToDrawPath = emptyList()
                     )
                 }
+                drawingCountdown()
             }
             .launchIn(viewModelScope)
     }
