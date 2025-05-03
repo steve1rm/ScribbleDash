@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.utils.toFormattedTime
 import me.androidbox.scribbledash.theming.headLineXSmall
@@ -24,9 +25,9 @@ fun DrawingCountdownTimer(
 
     Box(
         modifier = modifier
-            .size(56.dp)
-            .background(color = MaterialTheme.colorScheme.surfaceContainerLow, shape = CircleShape)
-            .shadow(elevation = 4.dp, shape = CircleShape, ambientColor = MaterialTheme.colorScheme.surfaceContainerHigh),
+            .shadow(elevation = 8.dp, shape = CircleShape, ambientColor = Color.Black)
+            .size(48.dp)
+            .background(color = MaterialTheme.colorScheme.surfaceContainerHigh, shape = CircleShape),
         contentAlignment = Alignment.Center
     ) {
 
