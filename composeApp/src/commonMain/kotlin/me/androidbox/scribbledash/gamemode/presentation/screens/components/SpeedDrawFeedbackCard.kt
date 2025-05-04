@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
+import me.androidbox.scribbledash.theming.pink
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.plalet
@@ -67,7 +68,8 @@ fun SpeedDrawFeedbackCard(
 
             DisplayCounter(
                 imageRes = Res.drawable.plalet,
-                drawingCount = drawingCount
+                drawingCount = drawingCount,
+                backgroundColor = MaterialTheme.colorScheme.pink
             )
         }
     }

@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -27,6 +28,7 @@ import scribbledash.composeapp.generated.resources.paints
 fun DisplayCounter(
     imageRes: DrawableResource,
     drawingCount: String,
+    backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -46,7 +48,7 @@ fun DisplayCounter(
                     modifier = Modifier
                         .width(60.dp)
                         .background(
-                            color = MaterialTheme.colorScheme.surfaceContainerLow,
+                            color = backgroundColor,
                             shape = RoundedCornerShape(100f)),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Top

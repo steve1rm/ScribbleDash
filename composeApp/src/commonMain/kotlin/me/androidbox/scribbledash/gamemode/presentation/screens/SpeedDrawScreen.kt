@@ -64,7 +64,8 @@ fun SpeedDrawScreen(
 
                     DisplayCounter(
                         imageRes = Res.drawable.plalet,
-                        drawingCount = "5"
+                        drawingCount = "5",
+                        backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow
                     )
 
                     Spacer(modifier = Modifier.weight(1f))

@@ -17,6 +17,17 @@ val ColorScheme.onBackgroundVariant: Color
         }
     }
 
+val ColorScheme.pink: Color
+    @Composable
+    get() {
+        return if(isSystemInDarkTheme()) {
+            Color(0xffED6363)
+        }
+        else {
+            Color(0xffED6363)
+        }
+    }
+
 val lightPrimary = Color(0xff238CFF)
 val lightSecondary = Color(0xffAB5CFA)
 val lightTertiary = Color(0xffFA852C)
