@@ -19,12 +19,10 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
-
 @OptIn(ExperimentalTime::class)
 class SpeedDrawViewModel(
     private val parseXmlDrawable: ParseXmlDrawable,
 ) : ViewModel() {
-
 
     private val _drawingState = MutableStateFlow(DrawingState())
     val drawingState = _drawingState.asStateFlow()
@@ -43,7 +41,8 @@ class SpeedDrawViewModel(
         _drawingState.update { drawingState ->
             drawingState.copy(
                 exampleToDrawPath = pathData,
-                exampleToSavePath = pathData
+                exampleToSavePath = pathData,
+                drawingCount = drawingState.drawingCount + 1
             )
         }
 
@@ -51,7 +50,8 @@ class SpeedDrawViewModel(
     }
 
     private fun drawingCountdown() {
-        /** keep the initial time */
+        /** update the initial time so its continuous countdown until the end, otherwise the initial time will
+         *  always reset at 2.minutes */
         countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, !drawingState.value.isTimeToDraw)
             .onEach { duration ->
                 _drawingState.update { drawingState ->
@@ -91,6 +91,7 @@ class SpeedDrawViewModel(
                         exampleToDrawPath = emptyList()
                     )
                 }
+                println("DRAWING RESUMED")
                 drawingCountdown()
             }
             .launchIn(viewModelScope)
@@ -98,7 +99,7 @@ class SpeedDrawViewModel(
 
     fun onAction(drawingAction: DrawingAction) {
         when(drawingAction) {
-            DrawingAction.OnClearCanvasClicked -> onClearCanvasClick()
+            DrawingAction.OnClearCanvasClicked -> onClearCanvas()
             is DrawingAction.OnDraw -> onDraw(drawingAction.offset)
             DrawingAction.OnNewPathStart -> onNewPathStart()
             DrawingAction.OnPathEnd -> onPathEnd()
@@ -112,22 +113,8 @@ class SpeedDrawViewModel(
 
             DrawingAction.OnDone -> {
                 /** For each click of done add another random example drawing */
-                onClearCanvasClick()
+                onClearCanvas()
                 getExampleDrawing()
-
-
-/*
-                viewModelScope.launch {
-                    println("PATH ${drawingState.value.paths.count()}")
-
-                    _eventChannel.send(
-                        OnDone(
-                            userPath = drawingState.value.paths,
-                            exampleDrawing = drawingState.value.exampleToSavePath
-                        )
-                    )
-                }
-*/
             }
 
             DrawingAction.OnClose -> {
@@ -221,7 +208,7 @@ class SpeedDrawViewModel(
         }
     }
 
-    private fun onClearCanvasClick() {
+    private fun onClearCanvas() {
         _drawingState.update { drawingState ->
             drawingState.copy(
                 currentPath = null,

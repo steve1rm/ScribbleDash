@@ -64,7 +64,7 @@ fun SpeedDrawScreen(
 
                     DisplayCounter(
                         imageRes = Res.drawable.plalet,
-                        drawingCount = "5",
+                        drawingCount = drawingState.drawingCount.toString(),
                         backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow
                     )
 
