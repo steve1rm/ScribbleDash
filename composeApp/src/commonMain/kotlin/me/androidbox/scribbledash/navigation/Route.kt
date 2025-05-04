@@ -18,6 +18,9 @@ sealed interface Route {
     data object SpeedDrawScreen : Route
 
     @Serializable
+    data object FeedbackSpeedDrawScreen : Route
+
+    @Serializable
     data object StatisticsScreen : Route
 
     @Serializable

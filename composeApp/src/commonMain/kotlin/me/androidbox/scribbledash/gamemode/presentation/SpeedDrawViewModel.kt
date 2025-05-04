@@ -112,7 +112,9 @@ class SpeedDrawViewModel(
                 }
             }
 
-            DrawingAction.OnClose -> TODO()
+            DrawingAction.OnClose -> {
+
+            }
         }
     }
 

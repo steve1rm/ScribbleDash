@@ -15,8 +15,9 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
@@ -36,7 +37,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             )
         }
 
-        composable<Route.StatisticsScreen> {
+        this.composable<Route.StatisticsScreen> {
             StatisticsScreen()
         }
 
@@ -119,9 +120,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             )
         }
 
-        this.composable<Route.FeedbackScreen>(
+        this.composable<Route.FeedbackSpeedDrawScreen>() {
+            FeedbackSpeedDrawScreen() {}
+        }
 
-        ) {
+        this.composable<Route.FeedbackScreen>() {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val feedbackViewModel = koinViewModel<FeedbackViewModel>()
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()

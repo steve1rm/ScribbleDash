@@ -64,7 +64,7 @@ fun App() {
                                 when (category) {
                                     ScribbleDashCategories.CHART -> {
                                         if (currentDestinationRoute != Route.HomeScreen.routeName) {
-                                            navController.navigate(Route.HomeScreen) {
+                                            navController.navigate(Route.FeedbackSpeedDrawScreen) {
                                                 launchSingleTop = true
                                                 popUpTo(Route.HomeScreen.routeName) {
                                                     inclusive = false
