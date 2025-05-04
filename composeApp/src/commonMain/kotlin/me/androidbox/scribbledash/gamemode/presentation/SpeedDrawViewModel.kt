@@ -10,11 +10,10 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
-import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent.OnDone
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.minutes
@@ -24,7 +23,7 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 class SpeedDrawViewModel(
-    parseXmlDrawable: ParseXmlDrawable,
+    private val parseXmlDrawable: ParseXmlDrawable,
 ) : ViewModel() {
 
 
@@ -36,6 +35,10 @@ class SpeedDrawViewModel(
 
     init {
         println("INIT VIEWMODEL")
+        getExampleDrawing()
+    }
+
+    private fun getExampleDrawing() {
         val pathData = parseXmlDrawable.parser()
 
         _drawingState.update { drawingState ->
@@ -64,8 +67,16 @@ class SpeedDrawViewModel(
             .launchIn(viewModelScope)
     }
 
+    /** When the countdown for 3 seconds to start drawing, start the 2 minute countdown timer */
     private fun startCountdown() {
         countDownTimer(3.seconds)
+            .onStart {
+                _drawingState.update { drawingState ->
+                    drawingState.copy(
+                        isTimeToDraw = false,
+                    )
+                }
+            }
             .onEach { second ->
                 _drawingState.update { drawingState ->
                     drawingState.copy(
@@ -80,7 +91,7 @@ class SpeedDrawViewModel(
                         exampleToDrawPath = emptyList()
                     )
                 }
-                drawingCountdown()
+          //      drawingCountdown()
             }
             .launchIn(viewModelScope)
     }
@@ -100,6 +111,12 @@ class SpeedDrawViewModel(
             }
 
             DrawingAction.OnDone -> {
+                /** For each click of done add another random example drawing */
+                onClearCanvasClick()
+                getExampleDrawing()
+
+
+/*
                 viewModelScope.launch {
                     println("PATH ${drawingState.value.paths.count()}")
 
@@ -110,6 +127,7 @@ class SpeedDrawViewModel(
                         )
                     )
                 }
+*/
             }
 
             DrawingAction.OnClose -> {

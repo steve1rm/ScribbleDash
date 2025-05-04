@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import me.androidbox.scribbledash.theming.pink
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -75,5 +76,6 @@ fun DisplayCounter(
 fun DisplayCounterPreview() {
     DisplayCounter(
         imageRes = Res.drawable.paints,
-        drawingCount = "5")
+        drawingCount = "5",
+        backgroundColor = MaterialTheme.colorScheme.pink)
 }
