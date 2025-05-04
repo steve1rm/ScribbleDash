@@ -30,6 +30,9 @@ class SpeedDrawViewModel(
     private val _eventChannel = Channel<DrawingEvent>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
+    private val _shouldPause = MutableStateFlow(false)
+    private val shouldPause = _shouldPause.asStateFlow()
+
     init {
         println("INIT VIEWMODEL")
         getExampleDrawing()
@@ -52,7 +55,7 @@ class SpeedDrawViewModel(
     private fun drawingCountdown() {
         /** update the initial time so its continuous countdown until the end, otherwise the initial time will
          *  always reset at 2.minutes */
-        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, !drawingState.value.isTimeToDraw)
+        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, shouldPause)
             .onEach { duration ->
                 _drawingState.update { drawingState ->
                     drawingState.copy(
@@ -76,9 +79,11 @@ class SpeedDrawViewModel(
     private fun startCountdown() {
         countDownTimer(3.seconds)
             .onStart {
+                _shouldPause.update { true }
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         isTimeToDraw = false,
+                        shouldPauseDrawingCountdown = true
                     )
                 }
             }
@@ -93,9 +98,11 @@ class SpeedDrawViewModel(
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         isTimeToDraw = true,
+                        shouldPauseDrawingCountdown = false,
                         exampleToDrawPath = emptyList()
                     )
                 }
+                _shouldPause.update { false }
                 println("DRAWING RESUMED")
                 drawingCountdown()
             }
