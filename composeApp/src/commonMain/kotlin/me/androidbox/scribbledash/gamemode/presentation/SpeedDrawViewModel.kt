@@ -30,8 +30,8 @@ class SpeedDrawViewModel(
     private val _eventChannel = Channel<DrawingEvent>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
-    private val _shouldPause = MutableStateFlow(false)
-    private val shouldPause = _shouldPause.asStateFlow()
+    private val _shouldPauseDrawingCountdown: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    private val shouldPauseDrawingCountdown = _shouldPauseDrawingCountdown.asStateFlow()
 
     init {
         println("INIT VIEWMODEL")
@@ -55,7 +55,7 @@ class SpeedDrawViewModel(
     private fun drawingCountdown() {
         /** update the initial time so its continuous countdown until the end, otherwise the initial time will
          *  always reset at 2.minutes */
-        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, shouldPause)
+        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, shouldPauseDrawingCountdown)
             .onEach { duration ->
                 _drawingState.update { drawingState ->
                     drawingState.copy(
@@ -79,13 +79,12 @@ class SpeedDrawViewModel(
     private fun startCountdown() {
         countDownTimer(3.seconds)
             .onStart {
-                _shouldPause.update { true }
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         isTimeToDraw = false,
-                        shouldPauseDrawingCountdown = true
                     )
                 }
+                _shouldPauseDrawingCountdown.value = true
             }
             .onEach { second ->
                 _drawingState.update { drawingState ->
@@ -98,11 +97,11 @@ class SpeedDrawViewModel(
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         isTimeToDraw = true,
-                        shouldPauseDrawingCountdown = false,
                         exampleToDrawPath = emptyList()
                     )
                 }
-                _shouldPause.update { false }
+                _shouldPauseDrawingCountdown.value = false
+
                 println("DRAWING RESUMED")
                 drawingCountdown()
             }
