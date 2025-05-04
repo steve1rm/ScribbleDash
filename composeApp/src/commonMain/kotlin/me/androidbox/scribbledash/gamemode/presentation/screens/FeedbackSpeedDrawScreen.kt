@@ -27,6 +27,7 @@ import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
 fun FeedbackSpeedDrawScreen(
+    drawingCount: Int,
     modifier: Modifier = Modifier,
     onCloseClicked: () -> Unit
 ) {
@@ -68,7 +69,7 @@ fun FeedbackSpeedDrawScreen(
                     percent = "80",
                     rating = "Woohoo!",
                     description = "You've officially raised the bar!\nI'm going to need a ladder to reach it!\"",
-                    drawingCount = "5"
+                    drawingCount = drawingCount.toString()
                 )
             }
         }

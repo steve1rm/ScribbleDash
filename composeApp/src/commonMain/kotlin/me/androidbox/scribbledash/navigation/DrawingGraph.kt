@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import androidx.navigation.toRoute
 import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
@@ -99,7 +100,9 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(event) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
-                            navController.navigate(Route.FeedbackScreen)
+                            navController.navigate(Route.FeedbackSpeedDrawScreen(
+                                drawingCount = event.numberOfDrawings
+                            ))
                         }
                     }
                 }
@@ -121,7 +124,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.FeedbackSpeedDrawScreen>() {
-            FeedbackSpeedDrawScreen() {}
+
+            val drawingCount = it.toRoute<Route.FeedbackSpeedDrawScreen>().drawingCount
+            FeedbackSpeedDrawScreen(
+                drawingCount = drawingCount
+            ) {}
         }
 
         this.composable<Route.FeedbackScreen>() {

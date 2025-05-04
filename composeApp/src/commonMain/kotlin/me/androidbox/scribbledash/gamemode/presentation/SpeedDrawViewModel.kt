@@ -62,7 +62,12 @@ class SpeedDrawViewModel(
                 }
             }
             .onCompletion {
-
+                /** Navigate to the result screen */
+                _eventChannel.send(
+                    DrawingEvent.OnDone(
+                        numberOfDrawings = drawingState.value.drawingCount
+                    )
+                )
             }
             .launchIn(viewModelScope)
     }

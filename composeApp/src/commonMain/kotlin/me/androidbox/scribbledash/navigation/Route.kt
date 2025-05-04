@@ -18,7 +18,9 @@ sealed interface Route {
     data object SpeedDrawScreen : Route
 
     @Serializable
-    data object FeedbackSpeedDrawScreen : Route
+    data class FeedbackSpeedDrawScreen(
+        val drawingCount: Int
+    ) : Route
 
     @Serializable
     data object StatisticsScreen : Route

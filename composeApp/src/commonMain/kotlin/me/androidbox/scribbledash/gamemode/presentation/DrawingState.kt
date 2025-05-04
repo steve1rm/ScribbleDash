@@ -16,7 +16,7 @@ data class DrawingState(
     val vectorData: VectorData = VectorData(),
     val isTimeToDraw: Boolean = false,
     val timeToDrawSecondsRemaining: Duration = Duration.ZERO,
-    val drawingSecondsRemaining: Duration = 2.minutes,
+    val drawingSecondsRemaining: Duration = 1.minutes,
     val countDownSecondsTextColor: Color = Color.Black,
     val hasReachedFinalDuration: Boolean = false,
     val bitmapToSave: ImageBitmap? = null,
@@ -28,14 +28,4 @@ data class PathData(
     val strokeWidth: Float,
     val fillColor: String,
     val strokeColor: String
-)
-
-val allColors = listOf(
-    Color.Black,
-    Color.Red,
-    Color.Blue,
-    Color.Green,
-    Color.Yellow,
-    Color.Magenta,
-    Color.Cyan
 )
