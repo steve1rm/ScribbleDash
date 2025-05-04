@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.update
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import kotlin.time.Clock
-import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
@@ -52,7 +51,8 @@ class SpeedDrawViewModel(
     }
 
     private fun drawingCountdown() {
-        countDownTimer(initialTime = 2.minutes)
+        /** keep the initial time */
+        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining, !drawingState.value.isTimeToDraw)
             .onEach { duration ->
                 _drawingState.update { drawingState ->
                     drawingState.copy(
@@ -67,7 +67,7 @@ class SpeedDrawViewModel(
             .launchIn(viewModelScope)
     }
 
-    /** When the countdown for 3 seconds to start drawing, start the 2 minute countdown timer */
+    /** When the countdown for 3 seconds completes for start drawing, start the 2 minute countdown timer */
     private fun startCountdown() {
         countDownTimer(3.seconds)
             .onStart {
@@ -91,7 +91,7 @@ class SpeedDrawViewModel(
                         exampleToDrawPath = emptyList()
                     )
                 }
-          //      drawingCountdown()
+                drawingCountdown()
             }
             .launchIn(viewModelScope)
     }

@@ -6,16 +6,18 @@ import kotlinx.coroutines.flow.flow
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
-fun countDownTimer(initialTime: Duration): Flow<Duration> {
+fun countDownTimer(initialTime: Duration, isPaused: Boolean = false): Flow<Duration> {
     return flow {
         var timeRemaining = initialTime
 
-        while(timeRemaining > Duration.ZERO) {
-            emit(timeRemaining)
-            delay(1.seconds)
-            timeRemaining -= 1.seconds
-        }
+        if (!isPaused) {
+            while (timeRemaining > Duration.ZERO) {
+                emit(timeRemaining)
+                delay(1.seconds)
+                timeRemaining -= 1.seconds
+            }
 
-        emit(Duration.ZERO)
+            emit(Duration.ZERO)
+        }
     }
 }
