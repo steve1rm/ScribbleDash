@@ -37,7 +37,7 @@ import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
-fun FeedbackScreen(
+fun FeedbackOneGameWonderScreen(
     paths: List<PaintPath> = emptyList(),
     exampleToDrawPath: List<Path> = listOf(),
     feedbackState: FeedbackState,

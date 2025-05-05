@@ -31,7 +31,6 @@ import me.androidbox.scribbledash.gamemode.presentation.VectorData
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.DisplayCounter
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawControls
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCanvas
-import me.androidbox.scribbledash.gamemode.presentation.screens.components.DrawingCountdownTimer
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
@@ -56,10 +55,7 @@ fun EndlessModeScreen(
                     // Timer
                     Spacer(modifier = Modifier.width(16.dp))
 
-                    DrawingCountdownTimer(
-                        duration = drawingState.drawingSecondsRemaining,
-                        hasReachedFinalDuration = drawingState.hasReachedFinalDuration
-                    )
+                    Spacer(modifier.width(0.dp))
 
                     Spacer(modifier = Modifier.weight(1f))
 

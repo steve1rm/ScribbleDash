@@ -18,7 +18,7 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
@@ -53,7 +53,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     navController.navigate(route = Route.OneRoundWonderScreen)
                 },
                 challengingClicked = {
-                    navController.navigate(route = Route.SpeedDrawScreen)
+                    navController.navigate(route = Route.EndlessModeScreen)
                 },
                 masterClicked = {
                     navController.navigate(route = Route.OneRoundWonderScreen)
@@ -139,7 +139,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
             val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
 
-            FeedbackScreen(
+            FeedbackOneGameWonderScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
                 feedbackState= feedbackState,
