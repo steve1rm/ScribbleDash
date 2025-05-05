@@ -23,6 +23,9 @@ sealed interface Route {
     ) : Route
 
     @Serializable
+    data object EndlessModeScreen : Route
+
+    @Serializable
     data object StatisticsScreen : Route
 
     @Serializable

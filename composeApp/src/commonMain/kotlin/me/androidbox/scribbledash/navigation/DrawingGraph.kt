@@ -12,10 +12,12 @@ import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
 import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent
 import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
+import me.androidbox.scribbledash.gamemode.presentation.EndlessModeViewModel
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
@@ -123,7 +125,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             )
         }
 
-        this.composable<Route.FeedbackSpeedDrawScreen>() {
+        this.composable<Route.FeedbackSpeedDrawScreen> {
 
             val drawingCount = it.toRoute<Route.FeedbackSpeedDrawScreen>().drawingCount
             FeedbackSpeedDrawScreen(
@@ -131,7 +133,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             ) {}
         }
 
-        this.composable<Route.FeedbackScreen>() {
+        this.composable<Route.FeedbackScreen> {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val feedbackViewModel = koinViewModel<FeedbackViewModel>()
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
@@ -159,6 +161,16 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                         }
                     }
                 }
+            )
+        }
+
+        this.composable<Route.EndlessModeScreen> {
+            val endlessModeViewModel = koinViewModel<EndlessModeViewModel>()
+            val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
+
+            EndlessModeScreen(
+                drawingState = drawingState,
+                onAction = endlessModeViewModel::onAction
             )
         }
     }
