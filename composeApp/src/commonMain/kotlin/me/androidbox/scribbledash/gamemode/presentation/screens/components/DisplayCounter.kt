@@ -54,7 +54,6 @@ fun DisplayCounter(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.Top
                 ) {
-
                     Text(
                         text = drawingCount,
                         style = MaterialTheme.typography.headlineSmall,
