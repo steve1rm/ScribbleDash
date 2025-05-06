@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package me.androidbox.scribbledash.gamemode.presentation
 
 import androidx.compose.ui.geometry.Offset
@@ -19,7 +21,6 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
 class SpeedDrawViewModel(
     private val parseXmlDrawable: ParseXmlDrawable,
 ) : ViewModel() {
