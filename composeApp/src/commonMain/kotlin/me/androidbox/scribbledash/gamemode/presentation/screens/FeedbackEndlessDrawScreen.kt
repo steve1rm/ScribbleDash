@@ -5,6 +5,7 @@ package me.androidbox.scribbledash.gamemode.presentation.screens
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,8 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
 import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.models.FeedbackIconType
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackIcon
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
 import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
@@ -82,30 +85,40 @@ fun FeedbackEndlessModeScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                Row(
+                Box(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.CenterHorizontally)
                 ) {
-                    FeedbackImageItem(
-                        modifier = Modifier.graphicsLayer {
-                            this.rotationZ = -10f
-                        },
-                        exampleToDrawPath = exampleToDrawPath,
-                        title = "Example",
-                        onAction = {}
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.CenterHorizontally)
+                    ) {
+                        FeedbackImageItem(
+                            modifier = Modifier.graphicsLayer {
+                                this.rotationZ = -10f
+                            },
+                            exampleToDrawPath = exampleToDrawPath,
+                            title = "Example",
+                            onAction = {}
+                        )
 
-                    FeedbackImageItem(
-                        modifier = Modifier
-                            .graphicsLayer {
-                                this.rotationZ = 10f
-                            }
-                            .offset(
-                                y = 30.dp
-                            ),
-                        paths = paths,
-                        title = "Drawing",
-                        onAction = {}
+                        FeedbackImageItem(
+                            modifier = Modifier
+                                .graphicsLayer {
+                                    this.rotationZ = 10f
+                                }
+                                .offset(
+                                    y = 30.dp
+                                ),
+                            paths = paths,
+                            title = "Drawing",
+                            onAction = {}
+                        )
+                    }
+
+                    FeedbackIcon(
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        icon = FeedbackIconType.CORRECT.iconRes,
+                        background = FeedbackIconType.CORRECT.background()
                     )
                 }
 
