@@ -28,11 +28,21 @@ val ColorScheme.pink: Color
         }
     }
 
+val ColorScheme.success: Color
+    @Composable
+    get() {
+        return if(isSystemInDarkTheme()) {
+            Color(0xff0DD280)
+        }
+        else {
+            Color(0xff0DD280)
+        }
+    }
+
 val lightPrimary = Color(0xff238CFF)
 val lightSecondary = Color(0xffAB5CFA)
 val lightTertiary = Color(0xffFA852C)
 val error = Color(0xffEF1242)
-val success = Color(0xff0DD280)
 val lightOnPrimary = Color(0xffffffff)
 val lightBackground = Color(0xffFEFAF6)
 val lightOnBackground = Color(0xff514437)

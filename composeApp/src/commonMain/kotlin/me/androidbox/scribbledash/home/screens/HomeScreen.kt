@@ -80,7 +80,7 @@ fun HomeScreen(
 
                 HomeGameCard(
                     title = "One Round\nWonder",
-                    borderColor = success,
+                    borderColor = MaterialTheme.colorScheme.success,
                     modifier = Modifier.padding(horizontal = 16.dp),
                     image = {
                         Image(
