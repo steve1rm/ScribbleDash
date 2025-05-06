@@ -22,8 +22,8 @@ val Typography.headLineXSmall: TextStyle
         return TextStyle(
             fontFamily = bagelFatOne,
             fontWeight = FontWeight.Normal,
-            lineHeight = 26.sp,
-            fontSize = 18.sp
+            lineHeight = 18.sp,
+            fontSize = 14.sp
         )
     }
 

@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
-import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
@@ -32,11 +31,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
 import me.androidbox.scribbledash.core.presentation.utils.DifficultyLevelOptions
-import me.androidbox.scribbledash.draw.data.SaveBitmapDrawing
-import me.androidbox.scribbledash.draw.presentation.PaintPath
-import me.androidbox.scribbledash.draw.presentation.ParsedPath
-import me.androidbox.scribbledash.draw.presentation.PathData
-import me.androidbox.scribbledash.draw.presentation.utils.ParseXmlDrawable
+import me.androidbox.scribbledash.gamemode.data.SaveBitmapDrawing
+import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.ParsedPath
+import me.androidbox.scribbledash.gamemode.presentation.PathData
+import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserException

@@ -1,9 +1,6 @@
 package me.androidbox.scribbledash.navigation
 
-import androidx.compose.ui.graphics.Path
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import me.androidbox.scribbledash.draw.presentation.PaintPath
 
 @Serializable
 sealed interface Route {
@@ -15,7 +12,18 @@ sealed interface Route {
     data object DifficultyLevelScreen : Route
 
     @Serializable
-    data object DrawingScreen : Route
+    data object OneRoundWonderScreen : Route
+
+    @Serializable
+    data object SpeedDrawScreen : Route
+
+    @Serializable
+    data class FeedbackSpeedDrawScreen(
+        val drawingCount: Int
+    ) : Route
+
+    @Serializable
+    data object EndlessModeScreen : Route
 
     @Serializable
     data object StatisticsScreen : Route
@@ -27,3 +35,6 @@ sealed interface Route {
     @Serializable
     data object DrawingGraph : Route
 }
+
+val Route.routeName: String
+    get() = this::class.simpleName ?: this.toString()

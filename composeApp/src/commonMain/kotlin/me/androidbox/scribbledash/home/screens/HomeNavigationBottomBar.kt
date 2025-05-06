@@ -28,7 +28,7 @@ fun RowScope.HomeNavigationBottomBar(
             ),
             selected = selectedItemIndex == index,
             onClick = {
-       //         onItemClicked(ScribbleDashCategories.entries[index])
+                onItemClicked(ScribbleDashCategories.entries[index])
             },
             icon = {
                 Icon(
@@ -38,7 +38,10 @@ fun RowScope.HomeNavigationBottomBar(
                     else
                         vectorResource(resource = item.unSelectedIcon),
                     contentDescription = stringResource(item.title),
-                    tint = if (selectedItemIndex == index) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceContainerLowest
+                    tint = if (selectedItemIndex == index) {
+                        if(index == 0) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.primary
+                    }
+                    else MaterialTheme.colorScheme.surfaceContainerLowest
                 )
             }
         )
