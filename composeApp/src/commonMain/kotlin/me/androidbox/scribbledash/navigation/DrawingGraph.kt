@@ -18,6 +18,7 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackEndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
@@ -142,7 +143,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             FeedbackOneGameWonderScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
-                feedbackState= feedbackState,
+                feedbackState = feedbackState,
                 onAction = { action ->
                     when(action) {
                         is FeedbackAction.OnRetry -> {
@@ -165,12 +166,52 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.EndlessModeScreen> {
-            val endlessModeViewModel = koinViewModel<EndlessModeViewModel>()
+            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
             val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
 
             EndlessModeScreen(
                 drawingState = drawingState,
-                onAction = endlessModeViewModel::onAction
+                onAction = { drawingAction ->
+                    when(drawingAction) {
+                        DrawingAction.OnDone -> {
+                            navController.navigate(Route.FeedbackEndlessModeScreen)
+                        }
+                        else -> {
+                            endlessModeViewModel.onAction(drawingAction)
+                        }
+                    }
+                }
+            )
+        }
+
+        this.composable<Route.FeedbackEndlessModeScreen> {
+            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
+            val feedbackViewModel = koinViewModel<FeedbackViewModel>()
+            val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
+            val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
+
+            FeedbackEndlessModeScreen(
+                paths = drawingState.paths,
+                exampleToDrawPath = drawingState.exampleToSavePath,
+                feedbackState= feedbackState,
+                onAction = { action ->
+                    when(action) {
+                        is FeedbackAction.OnRetry -> {
+                            navController.navigate(Route.DrawingGraph) {
+                                this.popUpTo(Route.DrawingGraph) {
+                                    this.inclusive = true
+                                }
+                            }
+                        }
+                    }
+                },
+                closeClicked = {
+                    navController.navigate(Route.HomeScreen) {
+                        this.popUpTo(navController.graph.id) {
+                            this.inclusive = true
+                        }
+                    }
+                }
             )
         }
     }

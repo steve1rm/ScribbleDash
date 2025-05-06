@@ -32,6 +32,7 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
 import me.androidbox.scribbledash.gamemode.presentation.PaintPath
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
+import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
@@ -144,7 +145,33 @@ fun FeedbackEndlessModeScreen(
                     }
                 ) {
                     Text(
-                        text = "Try Again".uppercase(),
+                        text = "Finish".uppercase(),
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    modifier = Modifier
+                        .height(height = 64.dp)
+                        .fillMaxWidth()
+                        .border(
+                            width = 8.dp,
+                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                            shape = RoundedCornerShape(size = 20.dp)
+                        ),
+                    shape = RoundedCornerShape(20.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.success),
+                    onClick = {
+                        onAction(FeedbackAction.OnRetry)
+                    }
+                ) {
+                    Text(
+                        text = "Next Drawing".uppercase(),
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
