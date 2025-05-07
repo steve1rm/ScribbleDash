@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import kotlinx.serialization.json.Json
 import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
@@ -197,11 +198,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { action ->
                     when(action) {
                         is FeedbackAction.OnRetry -> {
-                            navController.navigate(Route.DrawingGraph) {
-                                this.popUpTo(Route.DrawingGraph) {
-                                    this.inclusive = true
-                                }
-                            }
+                            endlessModeViewModel.initializeDrawing()
+                            navController.popBackStack()
                         }
                     }
                 },

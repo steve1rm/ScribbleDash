@@ -20,7 +20,7 @@ data class DrawingState(
     val countDownSecondsTextColor: Color = Color.Black,
     val hasReachedFinalDuration: Boolean = false,
     val bitmapToSave: ImageBitmap? = null,
-    val drawingCount: Int = 0,
+    val drawingCount: Int = 0
 )
 
 data class PathData(

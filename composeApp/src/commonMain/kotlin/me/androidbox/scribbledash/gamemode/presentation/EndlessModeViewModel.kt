@@ -33,6 +33,10 @@ class EndlessModeViewModel(
 
     init {
         println("INIT VIEWMODEL")
+        initializeDrawing()
+    }
+
+    fun initializeDrawing() {
         getExampleDrawing()
     }
 
@@ -43,6 +47,7 @@ class EndlessModeViewModel(
             drawingState.copy(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
+                paths = emptyList(),
                 drawingCount = drawingState.drawingCount + 1
             )
         }
@@ -124,7 +129,7 @@ class EndlessModeViewModel(
             }
 
             DrawingAction.OnClose -> {
-
+                /** no-op */
             }
         }
     }

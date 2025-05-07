@@ -32,7 +32,6 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
 import me.androidbox.scribbledash.gamemode.presentation.PaintPath
-import me.androidbox.scribbledash.gamemode.presentation.models.FeedbackIconType
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackIcon
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
 import me.androidbox.scribbledash.theming.success
@@ -117,8 +116,8 @@ fun FeedbackEndlessModeScreen(
 
                     FeedbackIcon(
                         modifier = Modifier.align(Alignment.BottomCenter),
-                        icon = FeedbackIconType.CORRECT.iconRes,
-                        background = FeedbackIconType.CORRECT.background()
+                        icon = feedbackState.feedbackIconType.iconRes,
+                        background = feedbackState.feedbackIconType.background()
                     )
                 }
 
