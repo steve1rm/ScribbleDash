@@ -154,7 +154,7 @@ fun FeedbackEndlessModeScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary),
                     onClick = {
-                        onAction(FeedbackAction.OnRetry)
+                        onAction(FeedbackAction.OnFinish)
                     }
                 ) {
                     Text(

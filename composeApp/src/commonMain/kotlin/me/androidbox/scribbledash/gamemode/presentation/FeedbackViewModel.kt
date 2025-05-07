@@ -93,6 +93,10 @@ class FeedbackViewModel : ViewModel() {
             FeedbackAction.OnRetry -> {
                 /* no-op */
             }
+
+            FeedbackAction.OnFinish -> {
+                /* no-op */
+            }
         }
     }
 

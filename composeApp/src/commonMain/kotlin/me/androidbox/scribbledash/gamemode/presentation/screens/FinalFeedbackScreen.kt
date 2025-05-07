@@ -26,7 +26,7 @@ import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
 
 @Composable
-fun FeedbackSpeedDrawScreen(
+fun FinalFeedbackScreen(
     drawingCount: Int,
     modifier: Modifier = Modifier,
     onCloseClicked: () -> Unit

@@ -7,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
-import kotlinx.serialization.json.Json
 import me.androidbox.scribbledash.core.presentation.utils.getSharedViewModel
 import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
@@ -21,7 +20,7 @@ import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelS
 import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackEndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameWonderScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FinalFeedbackScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
 import me.androidbox.scribbledash.home.screens.HomeScreen
@@ -104,7 +103,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(event) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
-                            navController.navigate(Route.FeedbackSpeedDrawScreen(
+                            navController.navigate(Route.FinalFeedbackScreen(
                                 drawingCount = event.numberOfDrawings
                             ))
                         }
@@ -127,10 +126,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             )
         }
 
-        this.composable<Route.FeedbackSpeedDrawScreen> {
+        this.composable<Route.FinalFeedbackScreen> {
 
-            val drawingCount = it.toRoute<Route.FeedbackSpeedDrawScreen>().drawingCount
-            FeedbackSpeedDrawScreen(
+            val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
+            FinalFeedbackScreen(
                 drawingCount = drawingCount
             ) {}
         }
@@ -153,6 +152,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                                     this.inclusive = true
                                 }
                             }
+                        }
+
+                        FeedbackAction.OnFinish -> {
+                            /* no-op */
                         }
                     }
                 },
@@ -200,6 +203,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                         is FeedbackAction.OnRetry -> {
                             endlessModeViewModel.initializeDrawing()
                             navController.popBackStack()
+                        }
+
+                        FeedbackAction.OnFinish -> {
+                            navController.navigate(Route.FinalFeedbackScreen(10))
                         }
                     }
                 },
