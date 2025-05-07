@@ -32,6 +32,7 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
 import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.models.FeedbackIconType
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackIcon
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
 import me.androidbox.scribbledash.theming.success
@@ -165,31 +166,34 @@ fun FeedbackEndlessModeScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Button(
-                    modifier = Modifier
-                        .height(height = 64.dp)
-                        .fillMaxWidth()
-                        .border(
-                            width = 8.dp,
-                            color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                            shape = RoundedCornerShape(size = 20.dp)
+                if(feedbackState.feedbackIconType == FeedbackIconType.CORRECT) {
+                    Button(
+                        modifier = Modifier
+                            .height(height = 64.dp)
+                            .fillMaxWidth()
+                            .border(
+                                width = 8.dp,
+                                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                shape = RoundedCornerShape(size = 20.dp)
+                            ),
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.success
                         ),
-                    shape = RoundedCornerShape(20.dp),
-                    elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.success),
-                    onClick = {
-                        onAction(FeedbackAction.OnRetry)
+                        onClick = {
+                            onAction(FeedbackAction.OnRetry)
+                        }
+                    ) {
+                        Text(
+                            text = "Next Drawing".uppercase(),
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
                     }
-                ) {
-                    Text(
-                        text = "Next Drawing".uppercase(),
-                        style = MaterialTheme.typography.headlineSmall,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
-                }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     )
