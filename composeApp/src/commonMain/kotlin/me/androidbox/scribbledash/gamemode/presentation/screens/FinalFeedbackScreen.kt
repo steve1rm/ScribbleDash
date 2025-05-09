@@ -13,15 +13,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.SpeedDrawFeedbackCard
+import me.androidbox.scribbledash.theming.ScribbleDashTheme
 import me.androidbox.scribbledash.theming.labelXLarge
 import me.androidbox.scribbledash.theming.onBackgroundVariant
 import org.jetbrains.compose.resources.vectorResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
 
@@ -45,7 +48,10 @@ fun FinalFeedbackScreen(
                         contentDescription = "Close the feedback screen",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         },
         content = { paddingValues ->
@@ -74,5 +80,16 @@ fun FinalFeedbackScreen(
             }
         }
     )
+}
+
+@Preview()
+@Composable
+fun FinalFeedbackScreenPreview() {
+    ScribbleDashTheme {
+        FinalFeedbackScreen(
+            drawingCount = 5,
+            onCloseClicked = {}
+        )
+    }
 }
 

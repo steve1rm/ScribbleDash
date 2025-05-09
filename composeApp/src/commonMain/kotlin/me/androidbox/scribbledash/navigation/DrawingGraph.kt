@@ -74,7 +74,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
                         }
                         GameType.ENDLESS_MODE -> {
-                            navController.navigate(route = Route.SpeedDrawScreen(
+                            navController.navigate(route = Route.EndlessModeScreen(
                                 DifficultyLevelType.BEGINNER))
                         }
                     }
@@ -91,7 +91,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
                         }
                         GameType.ENDLESS_MODE -> {
-                            navController.navigate(route = Route.SpeedDrawScreen(
+                            navController.navigate(route = Route.EndlessModeScreen(
                                 DifficultyLevelType.MASTER))
                         }
                     }
@@ -108,7 +108,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
                         }
                         GameType.ENDLESS_MODE -> {
-                            navController.navigate(route = Route.SpeedDrawScreen(
+                            navController.navigate(route = Route.EndlessModeScreen(
                                 DifficultyLevelType.CHALLENGING))
                         }
                     }

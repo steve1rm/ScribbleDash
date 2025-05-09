@@ -3,7 +3,6 @@
 package me.androidbox.scribbledash.home.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -37,8 +36,7 @@ fun HomeScreen(
 ) {
 
     ScribbleDashLayout(
-        modifier = modifier
-            .background(color = MaterialTheme.colorScheme.background),
+        modifier = modifier,
         toolBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
