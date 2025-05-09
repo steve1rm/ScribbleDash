@@ -23,6 +23,8 @@ import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameW
 import me.androidbox.scribbledash.gamemode.presentation.screens.FinalFeedbackScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
+import me.androidbox.scribbledash.home.model.DifficultyLevelType
+import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
@@ -33,10 +35,18 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
     {
         this.composable<Route.HomeScreen> {
             HomeScreen(
-                onGameCardClicked = {
-                    navController.navigate(
-                        route = Route.DifficultyLevelScreen
-                    )
+                onGameCardClicked = { gameType ->
+                  when(gameType) {
+                      GameType.ONE_ROUND_WONDER -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                      GameType.SPEED_DRAW -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                      GameType.ENDLESS_MODE -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                  }
                 }
             )
         }
@@ -46,18 +56,62 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.DifficultyLevelScreen> {
+            val gameType = it.toRoute<Route.DifficultyLevelScreen>().gameType
+
             DifficultyLevelScreen(
                 closeClicked = {
                     navController.popBackStack()
                 },
                 beginnerClicked = {
-                    navController.navigate(route = Route.OneRoundWonderScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.BEGINNER))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.BEGINNER))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.BEGINNER))
+                        }
+                    }
                 },
                 challengingClicked = {
-                    navController.navigate(route = Route.EndlessModeScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.MASTER))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.MASTER))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.MASTER))
+                        }
+                    }
                 },
                 masterClicked = {
-                    navController.navigate(route = Route.OneRoundWonderScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.CHALLENGING))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.CHALLENGING))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.CHALLENGING))
+                        }
+                    }
                 }
             )
         }
@@ -65,6 +119,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.OneRoundWonderScreen> {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+
+            val difficultyLevelType = it.toRoute<Route.OneRoundWonderScreen>().difficultyLevelType
 
             observeEvents(
                 flow = drawingViewModel.eventChannel,
@@ -96,6 +152,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.SpeedDrawScreen> {
             val speedDrawViewModel = koinViewModel<SpeedDrawViewModel>()
             val drawingState by speedDrawViewModel.drawingState.collectAsStateWithLifecycle()
+
+            val difficultyLevelType = it.toRoute<Route.SpeedDrawScreen>().difficultyLevelType
 
             observeEvents(
                 flow = speedDrawViewModel.eventChannel,
@@ -172,6 +230,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.EndlessModeScreen> {
             val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
             val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
+
+            val difficultyLevelType = it.toRoute<Route.EndlessModeScreen>().difficultyLevelType
 
             EndlessModeScreen(
                 drawingState = drawingState,
