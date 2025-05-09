@@ -48,7 +48,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.DifficultyLevelScreen> {
             DifficultyLevelScreen(
                 closeClicked = {
-                    navController.navigateUp()
+                    navController.popBackStack()
                 },
                 beginnerClicked = {
                     navController.navigate(route = Route.OneRoundWonderScreen)
@@ -83,7 +83,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { drawingAction ->
                     when(drawingAction) {
                         is DrawingAction.OnClose -> {
-                            navController.navigateUp()
+                            navController.popBackStack()
                         }
                         else -> {
                             drawingViewModel.onAction(drawingAction)
@@ -116,7 +116,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { drawingAction ->
                     when(drawingAction) {
                         is DrawingAction.OnClose -> {
-                            navController.navigateUp()
+                            navController.popBackStack()
                         }
                         else -> {
                             speedDrawViewModel.onAction(drawingAction)
@@ -179,6 +179,9 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(drawingAction) {
                         DrawingAction.OnDone -> {
                             navController.navigate(Route.FeedbackEndlessModeScreen)
+                        }
+                        DrawingAction.OnClose -> {
+                            navController.popBackStack()
                         }
                         else -> {
                             endlessModeViewModel.onAction(drawingAction)
