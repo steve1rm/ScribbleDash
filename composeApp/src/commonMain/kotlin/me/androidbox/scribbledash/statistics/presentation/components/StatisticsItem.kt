@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -16,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.theming.onBackgroundVariant
 
@@ -45,6 +45,7 @@ fun StatisticsItem(
             Spacer(modifier = Modifier.width(16.dp))
 
             Text(
+                modifier = Modifier.weight(1f),
                 text = title,
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onBackgroundVariant
@@ -52,37 +53,15 @@ fun StatisticsItem(
 
             Text(
                 modifier = Modifier
-                    .wrapContentWidth(Alignment.End)
-                    .weight(1f),
+                    .width(86.dp),
                 text = percentage,
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onBackground
+                color = MaterialTheme.colorScheme.onBackground,
+                textAlign = TextAlign.End
             )
         }
     }
 }
-
-/*
-StatisticsItem(
-icon = {
-    Box(
-        modifier = Modifier
-            .size(52.dp)
-            .background(color = Color(0xff742efc).copy(alpha = 0.1f), shape = RoundedCornerShape(12.dp)),
-        contentAlignment = Alignment.Center
-    ) {
-        Icon(
-            modifier = Modifier.size(height = 32.dp, width = 28.dp),
-            imageVector = vectorResource(resource = Res.drawable.eggtimer),
-            contentDescription = null,
-            tint = Color.Unspecified)
-    }
-},
-title = "Nothing to track for now",
-percentage = 89,
-)
-*/
-
 
 /*
 @Preview

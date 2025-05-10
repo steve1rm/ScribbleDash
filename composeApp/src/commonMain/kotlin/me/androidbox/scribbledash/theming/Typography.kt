@@ -8,6 +8,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.resources.Font
 import scribbledash.composeapp.generated.resources.BagelFatOne_Regular
+import scribbledash.composeapp.generated.resources.Outfit_Medium
+import scribbledash.composeapp.generated.resources.Outfit_Regular
+import scribbledash.composeapp.generated.resources.Outfit_SemiBold
 import scribbledash.composeapp.generated.resources.Res
 
 private val bagelFatOne: FontFamily
@@ -15,6 +18,16 @@ private val bagelFatOne: FontFamily
     get() = FontFamily(
         Font(Res.font.BagelFatOne_Regular, FontWeight.Normal)
     )
+
+private val outFit: FontFamily
+@Composable
+get() {
+    return FontFamily(
+        Font(Res.font.Outfit_Medium, FontWeight.Medium),
+        Font(Res.font.Outfit_Regular, FontWeight.Normal),
+        Font(Res.font.Outfit_SemiBold, FontWeight.SemiBold)
+    )
+}
 
 val Typography.headLineXSmall: TextStyle
     @Composable
@@ -31,6 +44,7 @@ val Typography.labelXLarge: TextStyle
     @Composable
     get() {
         return TextStyle(
+            fontFamily = outFit,
             fontWeight = FontWeight.SemiBold,
             lineHeight = 28.sp,
             fontSize = 24.sp
@@ -72,9 +86,39 @@ fun appTypography(): Typography {
             lineHeight = 26.sp,
             fontSize = 18.sp
         ),
+        bodyLarge = TextStyle(
+            fontFamily = outFit,
+            fontWeight = FontWeight.Normal,
+            lineHeight = 18.sp,
+            fontSize = 14.sp
+        ),
+        bodyMedium = TextStyle(
+            fontFamily = outFit,
+            fontWeight = FontWeight.Normal,
+            lineHeight = 18.sp,
+            fontSize = 14.sp
+        ),
         bodySmall = TextStyle(
-            fontFamily = bagelFatOne,
-            fontWeight = FontWeight.W200,
+            fontFamily = outFit,
+            fontWeight = FontWeight.Normal,
+            lineHeight = 18.sp,
+            fontSize = 14.sp
+        ),
+        labelLarge = TextStyle(
+            fontFamily = outFit,
+            fontWeight = FontWeight.SemiBold,
+            lineHeight = 24.sp,
+            fontSize = 20.sp
+        ),
+        labelMedium = TextStyle(
+            fontFamily = outFit,
+            fontWeight = FontWeight.Medium,
+            lineHeight = 24.sp,
+            fontSize = 16.sp
+        ),
+        labelSmall = TextStyle(
+            fontFamily = outFit,
+            fontWeight = FontWeight.SemiBold,
             lineHeight = 18.sp,
             fontSize = 14.sp
         )

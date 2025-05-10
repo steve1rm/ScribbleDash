@@ -51,7 +51,9 @@ fun StatisticsScreen(
         },
         content = { paddingValues ->
             Column(
-                modifier = Modifier.padding(paddingValues = paddingValues)
+                modifier = Modifier
+                    .padding(paddingValues = paddingValues)
+                    .padding(horizontal = 12.dp)
             ) {
 
                 Spacer(modifier = Modifier.height(32.dp))
