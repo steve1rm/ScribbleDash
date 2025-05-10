@@ -1,12 +1,16 @@
 package me.androidbox.scribbledash.gamemode.presentation.screens.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -28,50 +32,59 @@ fun SpeedDrawFeedbackCard(
     drawingCount: String,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        Column(
-            modifier = Modifier
-                .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHigh,
-                    RoundedCornerShape(14.dp)
-                )
-                .padding(horizontal = 8.dp)
-                .padding(bottom = 16.dp, top = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+    Box {
+        ElevatedCard(
+            modifier = modifier.fillMaxWidth(),
+            shape = RoundedCornerShape(14.dp),
+            elevation = CardDefaults.elevatedCardElevation(defaultElevation = 4.dp)
         ) {
-            ResultTitleHeader(
-                percent = percent
-            )
+            Column(
+                modifier = Modifier
+                    .background(
+                        color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                        RoundedCornerShape(14.dp)
+                    )
+                    .padding(horizontal = 8.dp)
+                    .padding(bottom = 16.dp, top = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                ResultTitleHeader(
+                    percent = percent
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = rating,
-                style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+                Text(
+                    text = rating,
+                    style = MaterialTheme.typography.headlineLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = description,
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center
-            )
+                Text(
+                    text = description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    textAlign = TextAlign.Center
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            DisplayCounter(
-                imageRes = Res.drawable.plalet,
-                drawingCount = drawingCount,
-                backgroundColor = MaterialTheme.colorScheme.pink
-            )
+                DisplayCounter(
+                    imageRes = Res.drawable.plalet,
+                    drawingCount = drawingCount,
+                    backgroundColor = MaterialTheme.colorScheme.pink
+                )
+            }
         }
+
+        HighScoreBadge(
+            modifier = Modifier
+                .offset(
+                    y = -(16).dp
+                )
+                .align(alignment = Alignment.TopCenter))
     }
 }
 
