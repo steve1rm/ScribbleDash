@@ -27,7 +27,6 @@ val Typography.headLineXSmall: TextStyle
         )
     }
 
-
 val Typography.labelXLarge: TextStyle
     @Composable
     get() {
@@ -39,7 +38,7 @@ val Typography.labelXLarge: TextStyle
     }
 
 @Composable
-fun AppTypography(): Typography {
+fun appTypography(): Typography {
     val bagelFatOne = bagelFatOne
 
     return Typography(
@@ -72,6 +71,12 @@ fun AppTypography(): Typography {
             fontWeight = FontWeight.Normal,
             lineHeight = 26.sp,
             fontSize = 18.sp
+        ),
+        bodySmall = TextStyle(
+            fontFamily = bagelFatOne,
+            fontWeight = FontWeight.W200,
+            lineHeight = 18.sp,
+            fontSize = 14.sp
         )
     )
 }

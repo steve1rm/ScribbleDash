@@ -82,7 +82,7 @@ fun SpeedDrawFeedbackCard(
         HighScoreBadge(
             modifier = Modifier
                 .offset(
-                    y = -(16).dp
+                    y = -(12).dp
                 )
                 .align(alignment = Alignment.TopCenter))
     }
