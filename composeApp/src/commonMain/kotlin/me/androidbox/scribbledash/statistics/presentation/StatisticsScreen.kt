@@ -60,7 +60,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Highest SpeedDraw accuracy %",
-                    percentage = "100%",
+                    percentage = "80%",
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.eggtimer),
@@ -74,7 +74,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Most Meth + drawings in SpeedDraw",
-                    percentage = "12",
+                    percentage = "4",
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.lighting),
@@ -87,7 +87,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Highest Endless Mode accuracy %",
-                    percentage = "100%",
+                    percentage = "90%",
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.frame),
@@ -101,7 +101,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Most drawings completed in Endless Mode",
-                    percentage = "12",
+                    percentage = "2",
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.plalet),

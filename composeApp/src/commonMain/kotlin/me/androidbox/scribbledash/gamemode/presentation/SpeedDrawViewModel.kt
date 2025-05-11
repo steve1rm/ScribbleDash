@@ -130,7 +130,7 @@ class SpeedDrawViewModel(
             }
 
             DrawingAction.OnClose -> {
-
+                /** no-op */
             }
         }
     }

@@ -188,8 +188,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
             val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
             FinalFeedbackScreen(
-                drawingCount = drawingCount
-            ) {}
+                drawingCount = drawingCount,
+                onCloseClicked = {
+                    navController.navigate(Route.HomeScreen)
+                }
+            )
         }
 
         this.composable<Route.FeedbackScreen> {
