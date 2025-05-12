@@ -272,7 +272,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                         }
 
                         FeedbackAction.OnFinish -> {
-                            navController.navigate(Route.FinalFeedbackScreen(10))
+                            navController.navigate(Route.FinalFeedbackScreen(drawingState.drawingCount))
                         }
                     }
                 },
