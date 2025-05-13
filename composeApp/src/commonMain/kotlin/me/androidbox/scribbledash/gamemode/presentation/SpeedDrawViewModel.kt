@@ -46,7 +46,7 @@ class SpeedDrawViewModel(
             drawingState.copy(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
-                drawingCount = drawingState.drawingCount + 1
+                drawingCount = drawingState.drawingCount
             )
         }
 
@@ -127,6 +127,11 @@ class SpeedDrawViewModel(
                 /** For each click of done add another random example drawing */
                 onClearCanvas()
                 getExampleDrawing()
+                _drawingState.update { drawingState ->
+                    drawingState.copy(
+                        drawingCount = drawingState.drawingCount + 1
+                    )
+                }
             }
 
             DrawingAction.OnClose -> {

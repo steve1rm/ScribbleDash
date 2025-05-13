@@ -74,7 +74,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Most Meth + drawings in SpeedDraw",
-                    percentage = "4",
+                    percentage = "2",
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.lighting),
