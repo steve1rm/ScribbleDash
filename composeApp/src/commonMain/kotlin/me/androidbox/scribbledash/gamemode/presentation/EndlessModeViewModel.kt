@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
-import me.androidbox.scribbledash.statistics.presentation.StatisticsData
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
@@ -33,7 +32,7 @@ class EndlessModeViewModel(
     val eventChannel = _eventChannel.receiveAsFlow()
 
     init {
-        println("INIT VIEWMODEL")
+        println("VIEWMODEL EndlessViewModel Init")
         initializeDrawing()
     }
 
@@ -49,34 +48,11 @@ class EndlessModeViewModel(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
                 paths = emptyList(),
-                drawingCount = drawingState.drawingCount + StatisticsData.endlessDrawingCount
+                drawingCount = drawingState.drawingCount
             )
         }
 
         startCountdown()
-    }
-
-    private fun drawingCountdown() {
-        /** update the initial time so its continuous countdown until the end, otherwise the initial time will
-         *  always reset at 2.minutes */
-        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining)
-            .onEach { duration ->
-                _drawingState.update { drawingState ->
-                    drawingState.copy(
-                        drawingSecondsRemaining = duration,
-                        hasReachedFinalDuration = duration <= 30.seconds
-                    )
-                }
-            }
-            .onCompletion {
-                /** Navigate to the result screen */
-                _eventChannel.send(
-                    DrawingEvent.OnDone(
-                        numberOfDrawings = drawingState.value.drawingCount
-                    )
-                )
-            }
-            .launchIn(viewModelScope)
     }
 
     /** When the countdown for 3 seconds completes for start drawing, start the 2 minute countdown timer */
@@ -237,7 +213,7 @@ class EndlessModeViewModel(
     }
 
     override fun onCleared() {
-        println("VIEWMODEL SpeedDrawViewModel Cleared")
+        println("VIEWMODEL EndlessViewModel Cleared")
         super.onCleared()
     }
 }

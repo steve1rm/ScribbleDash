@@ -20,6 +20,7 @@ import me.androidbox.scribbledash.home.model.listOfNavigationItems
 import me.androidbox.scribbledash.home.screens.HomeNavigationBottomBar
 import me.androidbox.scribbledash.navigation.Route
 import me.androidbox.scribbledash.navigation.drawingGraph
+import me.androidbox.scribbledash.navigation.endlessModeGraph
 import me.androidbox.scribbledash.navigation.routeName
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
 
@@ -46,6 +47,7 @@ fun App() {
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     drawingGraph(navController)
+                    endlessModeGraph(navController)
                 }
             },
             bottomBar = {

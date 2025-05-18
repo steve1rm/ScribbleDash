@@ -15,13 +15,10 @@ import me.androidbox.scribbledash.core.presentation.utils.observeEvents
 import me.androidbox.scribbledash.gamemode.presentation.DrawingAction
 import me.androidbox.scribbledash.gamemode.presentation.DrawingEvent
 import me.androidbox.scribbledash.gamemode.presentation.DrawingViewModel
-import me.androidbox.scribbledash.gamemode.presentation.EndlessModeViewModel
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackEndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FinalFeedbackScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
@@ -228,79 +225,6 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
                         FeedbackAction.OnFinish -> {
                             /* no-op */
-                        }
-                    }
-                },
-                closeClicked = {
-                    navController.navigate(Route.HomeScreen) {
-                        this.popUpTo(navController.graph.id) {
-                            this.inclusive = true
-                        }
-                    }
-                }
-            )
-        }
-
-        this.composable<Route.EndlessModeScreen> {
-            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
-            val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
-
-            val difficultyLevelType = it.toRoute<Route.EndlessModeScreen>().difficultyLevelType
-
-            observeEvents(flow =endlessModeViewModel.eventChannel,
-                onEvent = { drawingEvent ->
-                    when(drawingEvent) {
-                        is DrawingEvent.OnDone -> {
-                            navController.navigate(Route.FeedbackEndlessModeScreen)
-                        }
-                    }
-                })
-            val drawingCount = it.savedStateHandle.get<Int>("drawing_count") ?: 0
-
-            EndlessModeScreen(
-                drawingState = drawingState,
-                onAction = { drawingAction ->
-                    when(drawingAction) {
-                       /* DrawingAction.OnDone -> {
-                            StatisticsData.endlessDrawingCount = drawingState.drawingCount + 1
-                            endlessModeViewModel.onClearCanvas()
-                            navController.navigate(Route.FeedbackEndlessModeScreen)
-                        }*/
-                        DrawingAction.OnClose -> {
-                            navController.popBackStack()
-                        }
-                        else -> {
-                            endlessModeViewModel.onAction(drawingAction)
-                        }
-                    }
-                }
-            )
-        }
-
-        this.composable<Route.FeedbackEndlessModeScreen> {
-            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
-            val feedbackViewModel = koinViewModel<FeedbackViewModel>()
-            val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
-            val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
-
-            StatisticsData.endlessDrawingCount = drawingState.drawingCount
-
-            FeedbackEndlessModeScreen(
-                paths = drawingState.paths,
-                exampleToDrawPath = drawingState.exampleToSavePath,
-                feedbackState= feedbackState,
-                onAction = { action ->
-                    when(action) {
-                        is FeedbackAction.OnRetry -> {
-                            endlessModeViewModel.initializeDrawing()
-                            navController.previousBackStackEntry
-                                ?.savedStateHandle
-                                ?.set("drawing_count", drawingState.drawingCount)
-                            navController.popBackStack()
-                        }
-
-                        FeedbackAction.OnFinish -> {
-                            navController.navigate(Route.FinalFeedbackScreen(StatisticsData.endlessDrawingCount))
                         }
                     }
                 },

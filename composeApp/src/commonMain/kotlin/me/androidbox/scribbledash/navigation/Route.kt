@@ -36,7 +36,9 @@ sealed interface Route {
     ) : Route
 
     @Serializable
-    data object FeedbackEndlessModeScreen : Route
+    data class FeedbackEndlessModeScreen(
+        val drawingCount: Int
+    ) : Route
 
     @Serializable
     data object StatisticsScreen : Route
@@ -50,6 +52,9 @@ sealed interface Route {
     // Graphs
     @Serializable
     data object DrawingGraph : Route
+
+    @Serializable
+    data object EndlessModeGraph : Route
 }
 
 val Route.routeName: String
