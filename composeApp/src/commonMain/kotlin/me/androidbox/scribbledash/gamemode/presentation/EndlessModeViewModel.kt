@@ -34,7 +34,30 @@ class EndlessModeViewModel(
     init {
         println("VIEWMODEL EndlessViewModel Init")
         initializeDrawing()
+
+/*
+        snapshotFlow { drawingState.value.isFirstLaunch }
+            .map { isRetry ->
+                if(isRetry) {
+                    initializeDrawing()
+                }
+                else {
+                    initializeDrawing()
+                }
+            }
+            .launchIn(viewModelScope)
+*/
+
+        /*drawingState.distinctUntilChanged { drawingState, _ ->
+            if(drawingState.isFirstLaunch) {
+                initializeDrawing()
+            }
+            else {
+                initializeDrawing()
+            }
+        }.launchIn(viewModelScope)*/
     }
+
 
     fun initializeDrawing() {
         getExampleDrawing()

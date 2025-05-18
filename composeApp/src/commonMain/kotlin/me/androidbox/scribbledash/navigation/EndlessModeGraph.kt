@@ -1,5 +1,6 @@
 package me.androidbox.scribbledash.navigation
 
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -47,8 +48,13 @@ fun NavGraphBuilder.endlessModeGraph(
                 })
 
             /** Using saved state handle */
-            val drawingCount = it.savedStateHandle.get<Int>("drawing_count") ?: 0
+            val isRetry = it.savedStateHandle.get<Boolean>("isRetry") ?: false
 
+            LaunchedEffect(isRetry) {
+                if(isRetry) {
+                    endlessModeViewModel.initializeDrawing()
+                }
+            }
             EndlessModeScreen(
                 drawingState = drawingState,
                 onAction = { drawingAction ->
@@ -88,7 +94,7 @@ fun NavGraphBuilder.endlessModeGraph(
                             //  endlessModeViewModel.initializeDrawing()
                             navController.previousBackStackEntry
                                 ?.savedStateHandle
-                                ?.set("drawing_count", drawingState.drawingCount)
+                                ?.set("isRetry", true)
 
                             println("Current Back Stack before navigateUp: ${navController.currentBackStack.value.joinToString { it.destination.route ?: "no_route" }}")
                             println("Current Destination: ${navController.currentDestination?.route}")
