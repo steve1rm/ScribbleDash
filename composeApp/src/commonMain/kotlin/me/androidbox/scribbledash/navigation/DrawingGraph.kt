@@ -1,5 +1,8 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.androidbox.scribbledash.navigation
 
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -26,6 +29,8 @@ import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
 import me.androidbox.scribbledash.home.model.DifficultyLevelType
 import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.home.screens.HomeScreen
+import me.androidbox.scribbledash.shop.ShopScreen
+import me.androidbox.scribbledash.statistics.presentation.StatisticsData
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -53,6 +58,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
         this.composable<Route.StatisticsScreen> {
             StatisticsScreen()
+        }
+
+        this.composable<Route.ShopScreen> {
+            ShopScreen()
         }
 
         this.composable<Route.DifficultyLevelScreen> {
@@ -161,6 +170,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(event) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
+                            StatisticsData.speedDrawCount = event.numberOfDrawings
                             navController.navigate(Route.FinalFeedbackScreen(
                                 drawingCount = event.numberOfDrawings
                             ))
@@ -187,6 +197,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.FinalFeedbackScreen> {
 
             val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
+
             FinalFeedbackScreen(
                 drawingCount = drawingCount,
                 onCloseClicked = {
@@ -236,13 +247,25 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
             val difficultyLevelType = it.toRoute<Route.EndlessModeScreen>().difficultyLevelType
 
+            observeEvents(flow =endlessModeViewModel.eventChannel,
+                onEvent = { drawingEvent ->
+                    when(drawingEvent) {
+                        is DrawingEvent.OnDone -> {
+                            navController.navigate(Route.FeedbackEndlessModeScreen)
+                        }
+                    }
+                })
+            val drawingCount = it.savedStateHandle.get<Int>("drawing_count") ?: 0
+
             EndlessModeScreen(
                 drawingState = drawingState,
                 onAction = { drawingAction ->
                     when(drawingAction) {
-                        DrawingAction.OnDone -> {
+                       /* DrawingAction.OnDone -> {
+                            StatisticsData.endlessDrawingCount = drawingState.drawingCount + 1
+                            endlessModeViewModel.onClearCanvas()
                             navController.navigate(Route.FeedbackEndlessModeScreen)
-                        }
+                        }*/
                         DrawingAction.OnClose -> {
                             navController.popBackStack()
                         }
@@ -260,6 +283,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
             val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
 
+            StatisticsData.endlessDrawingCount = drawingState.drawingCount
+
             FeedbackEndlessModeScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
@@ -268,11 +293,14 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                     when(action) {
                         is FeedbackAction.OnRetry -> {
                             endlessModeViewModel.initializeDrawing()
+                            navController.previousBackStackEntry
+                                ?.savedStateHandle
+                                ?.set("drawing_count", drawingState.drawingCount)
                             navController.popBackStack()
                         }
 
                         FeedbackAction.OnFinish -> {
-                            navController.navigate(Route.FinalFeedbackScreen(drawingState.drawingCount))
+                            navController.navigate(Route.FinalFeedbackScreen(StatisticsData.endlessDrawingCount))
                         }
                     }
                 },

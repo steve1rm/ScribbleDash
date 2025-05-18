@@ -74,7 +74,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Most Meth + drawings in SpeedDraw",
-                    percentage = "2",
+                    percentage = StatisticsData.speedDrawCount.toString(),
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.lighting),
@@ -101,7 +101,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Most drawings completed in Endless Mode",
-                    percentage = "2",
+                    percentage = StatisticsData.endlessDrawingCount.toString(),
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.plalet),

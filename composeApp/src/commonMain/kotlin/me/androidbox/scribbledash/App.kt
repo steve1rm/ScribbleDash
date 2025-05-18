@@ -31,8 +31,9 @@ fun App() {
 
         // Type-safe route check using destination.route
         val currentDestinationRoute = navBackStackEntry?.destination?.route
-        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) == true ||
-                currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) == true
+        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) == true
+                || currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) == true
+                || currentDestinationRoute?.endsWith(Route.ShopScreen.routeName) == true
 
         println("currentDestinationRoute $currentDestinationRoute | ${Route.StatisticsScreen::class.simpleName}")
         ScribbleDashLayout(
@@ -73,6 +74,14 @@ fun App() {
                                     ScribbleDashCategories.HOME -> {
                                         if (!currentDestinationRoute.endsWith(Route.StatisticsScreen.routeName)) {
                                             navController.navigate(Route.StatisticsScreen) {
+                                                popUpTo(0)
+                                            }
+                                        }
+                                    }
+
+                                    ScribbleDashCategories.SHOP -> {
+                                        if(!currentDestinationRoute.endsWith(Route.ShopScreen.routeName)) {
+                                            navController.navigate(Route.ShopScreen) {
                                                 popUpTo(0)
                                             }
                                         }

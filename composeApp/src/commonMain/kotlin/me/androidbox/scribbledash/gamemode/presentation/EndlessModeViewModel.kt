@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
+import me.androidbox.scribbledash.statistics.presentation.StatisticsData
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
@@ -48,7 +49,7 @@ class EndlessModeViewModel(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
                 paths = emptyList(),
-                drawingCount = drawingState.drawingCount
+                drawingCount = drawingState.drawingCount + StatisticsData.endlessDrawingCount
             )
         }
 
@@ -131,6 +132,7 @@ class EndlessModeViewModel(
                         drawingCount = drawingState.drawingCount + 1
                     )
                 }
+                _eventChannel.trySend(DrawingEvent.OnDone())
             }
 
             DrawingAction.OnClose -> {
@@ -224,7 +226,7 @@ class EndlessModeViewModel(
         }
     }
 
-    private fun onClearCanvas() {
+    fun onClearCanvas() {
         _drawingState.update { drawingState ->
             drawingState.copy(
                 currentPath = null,

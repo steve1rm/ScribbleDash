@@ -42,6 +42,9 @@ sealed interface Route {
     data object StatisticsScreen : Route
 
     @Serializable
+    data object ShopScreen : Route
+
+    @Serializable
     data object FeedbackScreen : Route
 
     // Graphs
