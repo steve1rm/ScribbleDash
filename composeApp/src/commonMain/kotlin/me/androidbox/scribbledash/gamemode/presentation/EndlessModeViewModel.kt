@@ -34,32 +34,10 @@ class EndlessModeViewModel(
     init {
         println("VIEWMODEL EndlessViewModel Init")
         initializeDrawing()
-
-/*
-        snapshotFlow { drawingState.value.isFirstLaunch }
-            .map { isRetry ->
-                if(isRetry) {
-                    initializeDrawing()
-                }
-                else {
-                    initializeDrawing()
-                }
-            }
-            .launchIn(viewModelScope)
-*/
-
-        /*drawingState.distinctUntilChanged { drawingState, _ ->
-            if(drawingState.isFirstLaunch) {
-                initializeDrawing()
-            }
-            else {
-                initializeDrawing()
-            }
-        }.launchIn(viewModelScope)*/
     }
 
-
     fun initializeDrawing() {
+        onClearCanvas()
         getExampleDrawing()
     }
 
@@ -124,8 +102,6 @@ class EndlessModeViewModel(
 
             DrawingAction.OnDone -> {
                 /** For each click of done add another random example drawing */
-                onClearCanvas()
-                getExampleDrawing()
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         drawingCount = drawingState.drawingCount + 1

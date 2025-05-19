@@ -59,11 +59,6 @@ fun NavGraphBuilder.endlessModeGraph(
                 drawingState = drawingState,
                 onAction = { drawingAction ->
                     when (drawingAction) {
-                        /* DrawingAction.OnDone -> {
-                             StatisticsData.endlessDrawingCount = drawingState.drawingCount + 1
-                             endlessModeViewModel.onClearCanvas()
-                             navController.navigate(Route.FeedbackEndlessModeScreen)
-                         }*/
                         DrawingAction.OnClose -> {
                             navController.popBackStack()
                         }
