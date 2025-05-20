@@ -79,6 +79,8 @@ fun NavGraphBuilder.endlessModeGraph(
 
             val drawingCount = it.toRoute<Route.FeedbackEndlessModeScreen>().drawingCount
 
+            StatisticsData.endlessDrawAccuracy = feedbackState.ratingPercent
+
             FeedbackEndlessModeScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
@@ -98,7 +100,12 @@ fun NavGraphBuilder.endlessModeGraph(
 
                         FeedbackAction.OnFinish -> {
                             StatisticsData.endlessDrawingCount = drawingState.drawingCount
-                            navController.navigate(Route.FinalFeedbackScreen(StatisticsData.endlessDrawingCount))
+                            StatisticsData.endlessDrawAccuracy = feedbackState.ratingPercent
+
+                            navController.navigate(Route.FinalFeedbackScreen(
+                                StatisticsData.endlessDrawingCount,
+                                StatisticsData.endlessDrawAccuracy
+                                ))
                         }
                     }
                 },

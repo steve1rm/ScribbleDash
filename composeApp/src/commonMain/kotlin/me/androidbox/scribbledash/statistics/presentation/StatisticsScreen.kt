@@ -60,7 +60,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Highest SpeedDraw accuracy %",
-                    percentage = "80%",
+                    percentage = StatisticsData.speedDrawAccuracy.toString(),
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.eggtimer),
@@ -87,7 +87,7 @@ fun StatisticsScreen(
 
                 StatisticsItem(
                     title = "Highest Endless Mode accuracy %",
-                    percentage = "90%",
+                    percentage = StatisticsData.endlessDrawAccuracy.toString(),
                     icon = {
                         Icon(
                             imageVector = vectorResource(resource = Res.drawable.frame),

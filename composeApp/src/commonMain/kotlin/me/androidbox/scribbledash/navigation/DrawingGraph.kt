@@ -168,8 +168,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
                             StatisticsData.speedDrawCount = event.numberOfDrawings
+                            StatisticsData.speedDrawAccuracy = event.numberOfDrawings
                             navController.navigate(Route.FinalFeedbackScreen(
-                                drawingCount = event.numberOfDrawings
+                                drawingCount = event.numberOfDrawings,
+                                percentageAccuracy = event.percentAccuracy
                             ))
                         }
                     }
@@ -194,9 +196,11 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.FinalFeedbackScreen> {
 
             val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
+            val percentAccuracy = it.toRoute<Route.FinalFeedbackScreen>().percentageAccuracy
 
             FinalFeedbackScreen(
                 drawingCount = drawingCount,
+                percentageAccuracy = percentAccuracy,
                 onCloseClicked = {
                     navController.navigate(Route.HomeScreen)
                 }

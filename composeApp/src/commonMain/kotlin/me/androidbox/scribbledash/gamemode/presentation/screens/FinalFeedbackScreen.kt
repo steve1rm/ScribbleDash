@@ -31,6 +31,7 @@ import scribbledash.composeapp.generated.resources.close_circle
 @Composable
 fun FinalFeedbackScreen(
     drawingCount: Int,
+    percentageAccuracy: Int,
     modifier: Modifier = Modifier,
     onCloseClicked: () -> Unit
 ) {
@@ -72,7 +73,7 @@ fun FinalFeedbackScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 SpeedDrawFeedbackCard(
-                    percent = "80",
+                    percent = percentageAccuracy.toString(),
                     rating = "Woohoo!",
                     description = "You've officially raised the bar!\nI'm going to need a ladder to reach it!\"",
                     drawingCount = drawingCount.toString()
@@ -88,6 +89,7 @@ fun FinalFeedbackScreenPreview() {
     ScribbleDashTheme {
         FinalFeedbackScreen(
             drawingCount = 5,
+            percentageAccuracy = 85,
             onCloseClicked = {}
         )
     }
