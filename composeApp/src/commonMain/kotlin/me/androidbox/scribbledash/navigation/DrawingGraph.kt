@@ -197,6 +197,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
 
             val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
             val percentAccuracy = it.toRoute<Route.FinalFeedbackScreen>().percentageAccuracy
+            StatisticsData.speedDrawAccuracy = percentAccuracy
 
             FinalFeedbackScreen(
                 drawingCount = drawingCount,
