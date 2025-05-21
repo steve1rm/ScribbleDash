@@ -18,6 +18,7 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackEndlessModeScreen
 import me.androidbox.scribbledash.home.model.DifficultyLevelType
+import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.statistics.presentation.StatisticsData
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -79,8 +80,6 @@ fun NavGraphBuilder.endlessModeGraph(
 
             val drawingCount = it.toRoute<Route.FeedbackEndlessModeScreen>().drawingCount
 
-            StatisticsData.endlessDrawAccuracy = feedbackState.ratingPercent
-
             FeedbackEndlessModeScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
@@ -104,8 +103,9 @@ fun NavGraphBuilder.endlessModeGraph(
 
                             navController.navigate(Route.FinalFeedbackScreen(
                                 StatisticsData.endlessDrawingCount,
-                                StatisticsData.endlessDrawAccuracy
-                                ))
+                                percentageAccuracy = feedbackState.ratingPercent,
+                                gameType = GameType.ENDLESS_MODE
+                            ))
                         }
                     }
                 },

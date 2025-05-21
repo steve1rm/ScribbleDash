@@ -33,7 +33,8 @@ sealed interface Route {
     @Serializable
     data class FinalFeedbackScreen(
         val drawingCount: Int,
-        val percentageAccuracy: Int
+        val percentageAccuracy: Int,
+        val gameType: GameType
     ) : Route
 
     @Serializable

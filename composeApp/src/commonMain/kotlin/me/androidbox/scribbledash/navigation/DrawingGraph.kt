@@ -171,7 +171,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                             StatisticsData.speedDrawAccuracy = event.numberOfDrawings
                             navController.navigate(Route.FinalFeedbackScreen(
                                 drawingCount = event.numberOfDrawings,
-                                percentageAccuracy = event.percentAccuracy
+                                percentageAccuracy = event.percentAccuracy,
+                                gameType = GameType.SPEED_DRAW
                             ))
                         }
                     }
@@ -194,10 +195,19 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.FinalFeedbackScreen> {
-
+            val gameType = it.toRoute<Route.FinalFeedbackScreen>().gameType
             val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
             val percentAccuracy = it.toRoute<Route.FinalFeedbackScreen>().percentageAccuracy
-            StatisticsData.speedDrawAccuracy = percentAccuracy
+
+            when(gameType) {
+                GameType.ONE_ROUND_WONDER -> { /** no-op */}
+                GameType.SPEED_DRAW -> {
+                    StatisticsData.speedDrawAccuracy = percentAccuracy
+                }
+                GameType.ENDLESS_MODE -> {
+                    StatisticsData.endlessDrawAccuracy = percentAccuracy
+                }
+            }
 
             FinalFeedbackScreen(
                 drawingCount = drawingCount,
