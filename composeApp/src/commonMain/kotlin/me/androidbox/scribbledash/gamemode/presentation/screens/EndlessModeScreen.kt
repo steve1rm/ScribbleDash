@@ -62,7 +62,8 @@ fun EndlessModeScreen(
                     DisplayCounter(
                         imageRes = Res.drawable.plalet,
                         drawingCount = drawingState.drawingCount.toString(),
-                        backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow
+                        backgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
+                        shouldShowHighScore = false
                     )
 
                     Spacer(modifier = Modifier.weight(1f))

@@ -212,6 +212,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             FinalFeedbackScreen(
                 drawingCount = drawingCount,
                 percentageAccuracy = percentAccuracy,
+                gameType = gameType,
                 onCloseClicked = {
                     navController.navigate(Route.HomeScreen)
                 }
