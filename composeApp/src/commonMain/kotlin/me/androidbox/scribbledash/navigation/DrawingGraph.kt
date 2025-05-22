@@ -18,10 +18,13 @@ import me.androidbox.scribbledash.gamemode.presentation.FeedbackViewModel
 import me.androidbox.scribbledash.gamemode.presentation.SpeedDrawViewModel
 import me.androidbox.scribbledash.gamemode.presentation.screens.DifficultyLevelScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.EndlessModeScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackEndlessModeScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackOneGameWonderScreen
-import me.androidbox.scribbledash.gamemode.presentation.screens.FeedbackSpeedDrawScreen
+import me.androidbox.scribbledash.gamemode.presentation.screens.FinalFeedbackScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.OneGameWonderScreen
 import me.androidbox.scribbledash.gamemode.presentation.screens.SpeedDrawScreen
+import me.androidbox.scribbledash.home.model.DifficultyLevelType
+import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.home.screens.HomeScreen
 import me.androidbox.scribbledash.statistics.presentation.StatisticsScreen
 import org.koin.compose.viewmodel.koinViewModel
@@ -32,10 +35,18 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
     {
         this.composable<Route.HomeScreen> {
             HomeScreen(
-                onGameCardClicked = {
-                    navController.navigate(
-                        route = Route.DifficultyLevelScreen
-                    )
+                onGameCardClicked = { gameType ->
+                  when(gameType) {
+                      GameType.ONE_ROUND_WONDER -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                      GameType.SPEED_DRAW -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                      GameType.ENDLESS_MODE -> {
+                          navController.navigate(Route.DifficultyLevelScreen(gameType))
+                      }
+                  }
                 }
             )
         }
@@ -45,18 +56,62 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.DifficultyLevelScreen> {
+            val gameType = it.toRoute<Route.DifficultyLevelScreen>().gameType
+
             DifficultyLevelScreen(
                 closeClicked = {
-                    navController.navigateUp()
+                    navController.popBackStack()
                 },
                 beginnerClicked = {
-                    navController.navigate(route = Route.OneRoundWonderScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.BEGINNER))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.BEGINNER))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.EndlessModeScreen(
+                                DifficultyLevelType.BEGINNER))
+                        }
+                    }
                 },
                 challengingClicked = {
-                    navController.navigate(route = Route.EndlessModeScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.MASTER))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.MASTER))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.EndlessModeScreen(
+                                DifficultyLevelType.MASTER))
+                        }
+                    }
                 },
                 masterClicked = {
-                    navController.navigate(route = Route.OneRoundWonderScreen)
+                    when(gameType) {
+                        GameType.ONE_ROUND_WONDER -> {
+                            navController.navigate(route = Route.OneRoundWonderScreen(
+                                DifficultyLevelType.CHALLENGING))
+                        }
+                        GameType.SPEED_DRAW -> {
+                            navController.navigate(route = Route.SpeedDrawScreen(
+                                DifficultyLevelType.CHALLENGING))
+
+                        }
+                        GameType.ENDLESS_MODE -> {
+                            navController.navigate(route = Route.EndlessModeScreen(
+                                DifficultyLevelType.CHALLENGING))
+                        }
+                    }
                 }
             )
         }
@@ -64,6 +119,8 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         this.composable<Route.OneRoundWonderScreen> {
             val drawingViewModel = it.getSharedViewModel<DrawingViewModel>(navController)
             val drawingState by drawingViewModel.drawingState.collectAsStateWithLifecycle()
+
+            val difficultyLevelType = it.toRoute<Route.OneRoundWonderScreen>().difficultyLevelType
 
             observeEvents(
                 flow = drawingViewModel.eventChannel,
@@ -82,7 +139,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { drawingAction ->
                     when(drawingAction) {
                         is DrawingAction.OnClose -> {
-                            navController.navigateUp()
+                            navController.popBackStack()
                         }
                         else -> {
                             drawingViewModel.onAction(drawingAction)
@@ -96,13 +153,15 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             val speedDrawViewModel = koinViewModel<SpeedDrawViewModel>()
             val drawingState by speedDrawViewModel.drawingState.collectAsStateWithLifecycle()
 
+            val difficultyLevelType = it.toRoute<Route.SpeedDrawScreen>().difficultyLevelType
+
             observeEvents(
                 flow = speedDrawViewModel.eventChannel,
                 onEvent = { event ->
                     when(event) {
                         is DrawingEvent.OnDone -> {
                             println("EVENT ${event.exampleDrawing} : ${event.userPath}")
-                            navController.navigate(Route.FeedbackSpeedDrawScreen(
+                            navController.navigate(Route.FinalFeedbackScreen(
                                 drawingCount = event.numberOfDrawings
                             ))
                         }
@@ -115,7 +174,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                 onAction = { drawingAction ->
                     when(drawingAction) {
                         is DrawingAction.OnClose -> {
-                            navController.navigateUp()
+                            navController.popBackStack()
                         }
                         else -> {
                             speedDrawViewModel.onAction(drawingAction)
@@ -125,12 +184,15 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             )
         }
 
-        this.composable<Route.FeedbackSpeedDrawScreen> {
+        this.composable<Route.FinalFeedbackScreen> {
 
-            val drawingCount = it.toRoute<Route.FeedbackSpeedDrawScreen>().drawingCount
-            FeedbackSpeedDrawScreen(
-                drawingCount = drawingCount
-            ) {}
+            val drawingCount = it.toRoute<Route.FinalFeedbackScreen>().drawingCount
+            FinalFeedbackScreen(
+                drawingCount = drawingCount,
+                onCloseClicked = {
+                    navController.navigate(Route.HomeScreen)
+                }
+            )
         }
 
         this.composable<Route.FeedbackScreen> {
@@ -142,7 +204,7 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
             FeedbackOneGameWonderScreen(
                 paths = drawingState.paths,
                 exampleToDrawPath = drawingState.exampleToSavePath,
-                feedbackState= feedbackState,
+                feedbackState = feedbackState,
                 onAction = { action ->
                     when(action) {
                         is FeedbackAction.OnRetry -> {
@@ -151,6 +213,10 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
                                     this.inclusive = true
                                 }
                             }
+                        }
+
+                        FeedbackAction.OnFinish -> {
+                            /* no-op */
                         }
                     }
                 },
@@ -165,12 +231,58 @@ fun NavGraphBuilder.drawingGraph(navController: NavController) {
         }
 
         this.composable<Route.EndlessModeScreen> {
-            val endlessModeViewModel = koinViewModel<EndlessModeViewModel>()
+            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
             val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
+
+            val difficultyLevelType = it.toRoute<Route.EndlessModeScreen>().difficultyLevelType
 
             EndlessModeScreen(
                 drawingState = drawingState,
-                onAction = endlessModeViewModel::onAction
+                onAction = { drawingAction ->
+                    when(drawingAction) {
+                        DrawingAction.OnDone -> {
+                            navController.navigate(Route.FeedbackEndlessModeScreen)
+                        }
+                        DrawingAction.OnClose -> {
+                            navController.popBackStack()
+                        }
+                        else -> {
+                            endlessModeViewModel.onAction(drawingAction)
+                        }
+                    }
+                }
+            )
+        }
+
+        this.composable<Route.FeedbackEndlessModeScreen> {
+            val endlessModeViewModel = it.getSharedViewModel<EndlessModeViewModel>(navController)
+            val feedbackViewModel = koinViewModel<FeedbackViewModel>()
+            val drawingState by endlessModeViewModel.drawingState.collectAsStateWithLifecycle()
+            val feedbackState by feedbackViewModel.feedbackState.collectAsStateWithLifecycle()
+
+            FeedbackEndlessModeScreen(
+                paths = drawingState.paths,
+                exampleToDrawPath = drawingState.exampleToSavePath,
+                feedbackState= feedbackState,
+                onAction = { action ->
+                    when(action) {
+                        is FeedbackAction.OnRetry -> {
+                            endlessModeViewModel.initializeDrawing()
+                            navController.popBackStack()
+                        }
+
+                        FeedbackAction.OnFinish -> {
+                            navController.navigate(Route.FinalFeedbackScreen(drawingState.drawingCount))
+                        }
+                    }
+                },
+                closeClicked = {
+                    navController.navigate(Route.HomeScreen) {
+                        this.popUpTo(navController.graph.id) {
+                            this.inclusive = true
+                        }
+                    }
+                }
             )
         }
     }

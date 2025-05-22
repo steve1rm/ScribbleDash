@@ -16,7 +16,7 @@ enum class FeedbackIconType(
 
     CORRECT(
         iconRes = Res.drawable.check,
-        background = { success }
+        background = { MaterialTheme.colorScheme.success }
     ),
     INCORRECT(
         iconRes = Res.drawable.cross,

@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import me.androidbox.scribbledash.gamemode.presentation.models.FeedbackIconType
 import org.jetbrains.compose.resources.getString
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.feedback_good_1
@@ -92,22 +93,26 @@ class FeedbackViewModel : ViewModel() {
             FeedbackAction.OnRetry -> {
                 /* no-op */
             }
+
+            FeedbackAction.OnFinish -> {
+                /* no-op */
+            }
         }
     }
 
     fun getRandomFeedbackResource(rate: Int) {
         viewModelScope.launch {
             val ratingArray = when (rate) {
-                in 0..40 -> oopsFeedbackList
-                in 40..90 -> goodFeedbackList
-                in 100..100 -> woohooFeedbackList
+                in 0..39 -> oopsFeedbackList
+                in 40..89 -> goodFeedbackList
+                in 90..100 -> woohooFeedbackList
                 else -> null
             }
 
             val ratingTitle = when(rate) {
-                in 0..40 -> "Oops"
-                in 40..90 -> "Good"
-                in 100..100 -> "Woohoo"
+                in 0..39 -> "Oops"
+                in 40..89 -> "Good"
+                in 90..100 -> "Woohoo"
                 else -> "Unknown"
             }
 
@@ -117,7 +122,8 @@ class FeedbackViewModel : ViewModel() {
                 feedbackState.copy(
                     ratingText = getString(ratingText),
                     ratingTitle = ratingTitle,
-                    ratingPercent = rate
+                    ratingPercent = rate,
+                    feedbackIconType = if(rate > 69) FeedbackIconType.CORRECT else FeedbackIconType.INCORRECT
                 )
             }
         }

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class)
+
 package me.androidbox.scribbledash.gamemode.presentation
 
 import androidx.compose.ui.geometry.Offset
@@ -19,7 +21,6 @@ import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
 class SpeedDrawViewModel(
     private val parseXmlDrawable: ParseXmlDrawable,
 ) : ViewModel() {
@@ -45,7 +46,7 @@ class SpeedDrawViewModel(
             drawingState.copy(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
-                drawingCount = drawingState.drawingCount + 1
+                drawingCount = drawingState.drawingCount
             )
         }
 
@@ -126,10 +127,15 @@ class SpeedDrawViewModel(
                 /** For each click of done add another random example drawing */
                 onClearCanvas()
                 getExampleDrawing()
+                _drawingState.update { drawingState ->
+                    drawingState.copy(
+                        drawingCount = drawingState.drawingCount + 1
+                    )
+                }
             }
 
             DrawingAction.OnClose -> {
-
+                /** no-op */
             }
         }
     }

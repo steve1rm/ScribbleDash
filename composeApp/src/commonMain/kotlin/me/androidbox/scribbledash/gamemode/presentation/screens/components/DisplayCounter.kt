@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import me.androidbox.scribbledash.theming.ScribbleDashTheme
 import me.androidbox.scribbledash.theming.pink
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.vectorResource
@@ -52,9 +53,8 @@ fun DisplayCounter(
                             color = backgroundColor,
                             shape = RoundedCornerShape(100f)),
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.Top
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-
                     Text(
                         text = drawingCount,
                         style = MaterialTheme.typography.headlineSmall,
@@ -74,8 +74,11 @@ fun DisplayCounter(
 @Preview
 @Composable
 fun DisplayCounterPreview() {
-    DisplayCounter(
-        imageRes = Res.drawable.paints,
-        drawingCount = "5",
-        backgroundColor = MaterialTheme.colorScheme.pink)
+    ScribbleDashTheme {
+        DisplayCounter(
+            imageRes = Res.drawable.paints,
+            drawingCount = "5",
+            backgroundColor = MaterialTheme.colorScheme.pink
+        )
+    }
 }

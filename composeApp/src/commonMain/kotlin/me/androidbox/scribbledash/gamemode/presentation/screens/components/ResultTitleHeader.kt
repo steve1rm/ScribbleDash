@@ -38,13 +38,6 @@ fun ResultTitleHeader(
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
-
-        HighScoreBadge(
-            modifier = Modifier
-                .offset(
-                    y = -(16).dp
-                )
-                .align(alignment = Alignment.TopCenter))
     }
 }
 

@@ -1,6 +1,8 @@
 package me.androidbox.scribbledash.navigation
 
 import kotlinx.serialization.Serializable
+import me.androidbox.scribbledash.home.model.DifficultyLevelType
+import me.androidbox.scribbledash.home.model.GameType
 
 @Serializable
 sealed interface Route {
@@ -9,21 +11,32 @@ sealed interface Route {
     data object HomeScreen : Route
 
     @Serializable
-    data object DifficultyLevelScreen : Route
+    data class DifficultyLevelScreen(
+        val gameType: GameType
+    ) : Route
 
     @Serializable
-    data object OneRoundWonderScreen : Route
+    data class OneRoundWonderScreen(
+        val difficultyLevelType: DifficultyLevelType
+    ) : Route
 
     @Serializable
-    data object SpeedDrawScreen : Route
+    data class SpeedDrawScreen(
+        val difficultyLevelType: DifficultyLevelType
+    ) : Route
 
     @Serializable
-    data class FeedbackSpeedDrawScreen(
+    data class EndlessModeScreen(
+        val difficultyLevelType: DifficultyLevelType
+    ) : Route
+
+    @Serializable
+    data class FinalFeedbackScreen(
         val drawingCount: Int
     ) : Route
 
     @Serializable
-    data object EndlessModeScreen : Route
+    data object FeedbackEndlessModeScreen : Route
 
     @Serializable
     data object StatisticsScreen : Route

@@ -91,7 +91,7 @@ fun DrawControls(
             shape = RoundedCornerShape(20.dp),
             elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = if(clearEnabled) success else MaterialTheme.colorScheme.surfaceContainerLowest
+                containerColor = if(clearEnabled) MaterialTheme.colorScheme.success else MaterialTheme.colorScheme.surfaceContainerLowest
             ),
             onClick = onClearClicked
         ) {

@@ -5,6 +5,7 @@ package me.androidbox.scribbledash.gamemode.presentation.screens
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,6 +22,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +33,10 @@ import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayou
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackAction
 import me.androidbox.scribbledash.gamemode.presentation.FeedbackState
 import me.androidbox.scribbledash.gamemode.presentation.PaintPath
+import me.androidbox.scribbledash.gamemode.presentation.models.FeedbackIconType
+import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackIcon
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.FeedbackImageItem
+import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.close_circle
@@ -60,7 +65,10 @@ fun FeedbackEndlessModeScreen(
                         contentDescription = "Close the feedback screen",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                )
             )
         },
         content = { paddingValues ->
@@ -81,30 +89,40 @@ fun FeedbackEndlessModeScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                Row(
+                Box(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.CenterHorizontally)
                 ) {
-                    FeedbackImageItem(
-                        modifier = Modifier.graphicsLayer {
-                            this.rotationZ = -10f
-                        },
-                        exampleToDrawPath = exampleToDrawPath,
-                        title = "Example",
-                        onAction = {}
-                    )
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(24.dp, alignment = Alignment.CenterHorizontally)
+                    ) {
+                        FeedbackImageItem(
+                            modifier = Modifier.graphicsLayer {
+                                this.rotationZ = -10f
+                            },
+                            exampleToDrawPath = exampleToDrawPath,
+                            title = "Example",
+                            onAction = {}
+                        )
 
-                    FeedbackImageItem(
-                        modifier = Modifier
-                            .graphicsLayer {
-                                this.rotationZ = 10f
-                            }
-                            .offset(
-                                y = 30.dp
-                            ),
-                        paths = paths,
-                        title = "Drawing",
-                        onAction = {}
+                        FeedbackImageItem(
+                            modifier = Modifier
+                                .graphicsLayer {
+                                    this.rotationZ = 10f
+                                }
+                                .offset(
+                                    y = 30.dp
+                                ),
+                            paths = paths,
+                            title = "Drawing",
+                            onAction = {}
+                        )
+                    }
+
+                    FeedbackIcon(
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                        icon = feedbackState.feedbackIconType.iconRes,
+                        background = feedbackState.feedbackIconType.background()
                     )
                 }
 
@@ -140,17 +158,46 @@ fun FeedbackEndlessModeScreen(
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary),
                     onClick = {
-                        onAction(FeedbackAction.OnRetry)
+                        onAction(FeedbackAction.OnFinish)
                     }
                 ) {
                     Text(
-                        text = "Try Again".uppercase(),
+                        text = "Finish".uppercase(),
                         style = MaterialTheme.typography.headlineSmall,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
+
+                if(feedbackState.feedbackIconType == FeedbackIconType.CORRECT) {
+                    Button(
+                        modifier = Modifier
+                            .height(height = 64.dp)
+                            .fillMaxWidth()
+                            .border(
+                                width = 8.dp,
+                                color = MaterialTheme.colorScheme.surfaceContainerHigh,
+                                shape = RoundedCornerShape(size = 20.dp)
+                            ),
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = ButtonDefaults.elevatedButtonElevation(2.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.success
+                        ),
+                        onClick = {
+                            onAction(FeedbackAction.OnRetry)
+                        }
+                    ) {
+                        Text(
+                            text = "Next Drawing".uppercase(),
+                            style = MaterialTheme.typography.headlineSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
             }
         }
     )

@@ -13,7 +13,7 @@ fun ScribbleDashTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = AppTypography(),
+        typography = appTypography(),
         shapes = Shapes,
         content = content
     )

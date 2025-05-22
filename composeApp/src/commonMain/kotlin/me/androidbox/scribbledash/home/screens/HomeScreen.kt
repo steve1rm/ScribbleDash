@@ -3,7 +3,6 @@
 package me.androidbox.scribbledash.home.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -21,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
+import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.home.screens.components.HomeGameCard
 import me.androidbox.scribbledash.theming.success
 import org.jetbrains.compose.resources.vectorResource
@@ -32,12 +32,11 @@ import scribbledash.composeapp.generated.resources.speed_draw
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    onGameCardClicked: () -> Unit
+    onGameCardClicked: (gameType: GameType) -> Unit
 ) {
 
     ScribbleDashLayout(
-        modifier = modifier
-            .background(color = MaterialTheme.colorScheme.background),
+        modifier = modifier,
         toolBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -80,7 +79,7 @@ fun HomeScreen(
 
                 HomeGameCard(
                     title = "One Round\nWonder",
-                    borderColor = success,
+                    borderColor = MaterialTheme.colorScheme.success,
                     modifier = Modifier.padding(horizontal = 16.dp),
                     image = {
                         Image(
@@ -90,7 +89,9 @@ fun HomeScreen(
                             contentDescription = null
                         )
                     },
-                    onGameCardClicked = onGameCardClicked
+                    onGameCardClicked = {
+                        onGameCardClicked(GameType.ONE_ROUND_WONDER)
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -107,7 +108,9 @@ fun HomeScreen(
                             contentDescription = null
                         )
                     },
-                    onGameCardClicked = onGameCardClicked
+                    onGameCardClicked = {
+                        onGameCardClicked(GameType.SPEED_DRAW)
+                    }
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -124,7 +127,9 @@ fun HomeScreen(
                             contentDescription = null
                         )
                     },
-                    onGameCardClicked = onGameCardClicked
+                    onGameCardClicked = {
+                        onGameCardClicked(GameType.ENDLESS_MODE)
+                    }
                 )
             }
         }
