@@ -28,12 +28,14 @@ import androidx.compose.ui.unit.sp
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun DrawingToolSelector() {
+fun DrawingToolSelector(
+    modifier: Modifier = Modifier
+) {
     var selectedTab by remember { mutableStateOf(0) }
     val contentColor = Color.White
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(Color(0xFFF5F5F5))
     ) {
