@@ -20,6 +20,7 @@ import me.androidbox.scribbledash.home.model.listOfNavigationItems
 import me.androidbox.scribbledash.home.screens.HomeNavigationBottomBar
 import me.androidbox.scribbledash.navigation.Route
 import me.androidbox.scribbledash.navigation.drawingGraph
+import me.androidbox.scribbledash.navigation.endlessModeGraph
 import me.androidbox.scribbledash.navigation.routeName
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
 
@@ -31,8 +32,9 @@ fun App() {
 
         // Type-safe route check using destination.route
         val currentDestinationRoute = navBackStackEntry?.destination?.route
-        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) == true ||
-                currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) == true
+        val showBottomBar = currentDestinationRoute?.endsWith(Route.HomeScreen.routeName) == true
+                || currentDestinationRoute?.endsWith(Route.StatisticsScreen.routeName) == true
+                || currentDestinationRoute?.endsWith(Route.ShopScreen.routeName) == true
 
         println("currentDestinationRoute $currentDestinationRoute | ${Route.StatisticsScreen::class.simpleName}")
         ScribbleDashLayout(
@@ -45,6 +47,7 @@ fun App() {
                     modifier = Modifier.padding(paddingValues)
                 ) {
                     drawingGraph(navController)
+                    endlessModeGraph(navController)
                 }
             },
             bottomBar = {
@@ -73,6 +76,14 @@ fun App() {
                                     ScribbleDashCategories.HOME -> {
                                         if (!currentDestinationRoute.endsWith(Route.StatisticsScreen.routeName)) {
                                             navController.navigate(Route.StatisticsScreen) {
+                                                popUpTo(0)
+                                            }
+                                        }
+                                    }
+
+                                    ScribbleDashCategories.SHOP -> {
+                                        if(!currentDestinationRoute.endsWith(Route.ShopScreen.routeName)) {
+                                            navController.navigate(Route.ShopScreen) {
                                                 popUpTo(0)
                                             }
                                         }

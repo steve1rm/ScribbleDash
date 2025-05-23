@@ -2,6 +2,7 @@
 <resources>
     <string name="drawing">Drawing</string>
     <string name="chart">chart</string>
+    <string name="shop">Shop</string>
 
     <!-- Oops - Meh Feedback -->
     <string name="feedback_oops_1">Looks like Picasso had a rough day!</string>

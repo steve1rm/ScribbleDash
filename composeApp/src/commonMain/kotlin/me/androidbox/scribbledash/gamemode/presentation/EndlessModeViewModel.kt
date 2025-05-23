@@ -32,11 +32,12 @@ class EndlessModeViewModel(
     val eventChannel = _eventChannel.receiveAsFlow()
 
     init {
-        println("INIT VIEWMODEL")
+        println("VIEWMODEL EndlessViewModel Init")
         initializeDrawing()
     }
 
     fun initializeDrawing() {
+        onClearCanvas()
         getExampleDrawing()
     }
 
@@ -53,29 +54,6 @@ class EndlessModeViewModel(
         }
 
         startCountdown()
-    }
-
-    private fun drawingCountdown() {
-        /** update the initial time so its continuous countdown until the end, otherwise the initial time will
-         *  always reset at 2.minutes */
-        countDownTimer(initialTime = drawingState.value.drawingSecondsRemaining)
-            .onEach { duration ->
-                _drawingState.update { drawingState ->
-                    drawingState.copy(
-                        drawingSecondsRemaining = duration,
-                        hasReachedFinalDuration = duration <= 30.seconds
-                    )
-                }
-            }
-            .onCompletion {
-                /** Navigate to the result screen */
-                _eventChannel.send(
-                    DrawingEvent.OnDone(
-                        numberOfDrawings = drawingState.value.drawingCount
-                    )
-                )
-            }
-            .launchIn(viewModelScope)
     }
 
     /** When the countdown for 3 seconds completes for start drawing, start the 2 minute countdown timer */
@@ -124,13 +102,12 @@ class EndlessModeViewModel(
 
             DrawingAction.OnDone -> {
                 /** For each click of done add another random example drawing */
-                onClearCanvas()
-                getExampleDrawing()
                 _drawingState.update { drawingState ->
                     drawingState.copy(
                         drawingCount = drawingState.drawingCount + 1
                     )
                 }
+                _eventChannel.trySend(DrawingEvent.OnDone())
             }
 
             DrawingAction.OnClose -> {
@@ -224,7 +201,7 @@ class EndlessModeViewModel(
         }
     }
 
-    private fun onClearCanvas() {
+    fun onClearCanvas() {
         _drawingState.update { drawingState ->
             drawingState.copy(
                 currentPath = null,
@@ -235,7 +212,7 @@ class EndlessModeViewModel(
     }
 
     override fun onCleared() {
-        println("VIEWMODEL SpeedDrawViewModel Cleared")
+        println("VIEWMODEL EndlessViewModel Cleared")
         super.onCleared()
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
 import me.androidbox.scribbledash.gamemode.presentation.screens.components.SpeedDrawFeedbackCard
+import me.androidbox.scribbledash.home.model.GameType
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
 import me.androidbox.scribbledash.theming.labelXLarge
 import me.androidbox.scribbledash.theming.onBackgroundVariant
@@ -31,6 +32,8 @@ import scribbledash.composeapp.generated.resources.close_circle
 @Composable
 fun FinalFeedbackScreen(
     drawingCount: Int,
+    percentageAccuracy: Int,
+    gameType: GameType,
     modifier: Modifier = Modifier,
     onCloseClicked: () -> Unit
 ) {
@@ -64,7 +67,7 @@ fun FinalFeedbackScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Text(
-                    text = "Time's up!",
+                    text = if(gameType == GameType.SPEED_DRAW) "Time's up!" else { "Game Over!" },
                     style = MaterialTheme.typography.labelXLarge,
                     color = MaterialTheme.colorScheme.onBackgroundVariant
                 )
@@ -72,10 +75,11 @@ fun FinalFeedbackScreen(
                 Spacer(modifier = Modifier.height(32.dp))
 
                 SpeedDrawFeedbackCard(
-                    percent = "80",
+                    percent = percentageAccuracy.toString(),
                     rating = "Woohoo!",
                     description = "You've officially raised the bar!\nI'm going to need a ladder to reach it!\"",
-                    drawingCount = drawingCount.toString()
+                    drawingCount = drawingCount.toString(),
+                    shouldShowHighScore = false
                 )
             }
         }
@@ -88,6 +92,8 @@ fun FinalFeedbackScreenPreview() {
     ScribbleDashTheme {
         FinalFeedbackScreen(
             drawingCount = 5,
+            percentageAccuracy = 85,
+            gameType = GameType.ENDLESS_MODE,
             onCloseClicked = {}
         )
     }
