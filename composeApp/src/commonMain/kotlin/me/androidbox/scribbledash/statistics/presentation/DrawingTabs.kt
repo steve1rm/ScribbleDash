@@ -23,6 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -107,9 +108,10 @@ private fun TabButton(
     Box(
         modifier = modifier
             .fillMaxHeight()
+            .clip(shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
             .background(
                 color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.5f),
-                shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
             )
             .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
@@ -161,7 +163,8 @@ private fun CanvasContent(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background), // Remove padding for full screen
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background,
+                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text(
