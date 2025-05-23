@@ -7,6 +7,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
+import me.androidbox.scribbledash.statistics.presentation.DrawingToolSelector
 import me.androidbox.scribbledash.theming.ScribbleDashTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -35,7 +36,7 @@ fun ShopScreen(
             )
         },
         content = { paddingValues ->
-
+            DrawingToolSelector()
         }
     )
 }
