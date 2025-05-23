@@ -3,8 +3,10 @@ package me.androidbox.scribbledash.shop
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import me.androidbox.scribbledash.core.presentation.components.ScribbleDashLayout
@@ -21,6 +23,9 @@ fun ShopScreen(
         modifier = modifier,
         toolBar = {
             TopAppBar(
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.background
+                ),
                 title = { },
                 actions = {
                     // Title

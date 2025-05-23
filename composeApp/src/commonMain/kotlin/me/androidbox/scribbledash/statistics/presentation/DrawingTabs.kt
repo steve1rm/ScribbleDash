@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -62,8 +63,8 @@ fun DrawingToolSelector(
                 .offset(y = (-8).dp)
         ) {
             when (selectedTab) {
-                0 -> PenContent()
-                1 -> CanvasContent()
+                0 -> PenContent(selectedTab == 0)
+                1 -> CanvasContent(selectedTab == 1)
             }
         }
     }
@@ -107,7 +108,7 @@ private fun TabButton(
         modifier = modifier
             .fillMaxHeight()
             .background(
-                color = if (isSelected) Color.White else Color(0xFFE0E0E0),
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background,
                 shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
             )
             .clickable(onClick = onClick),
@@ -117,16 +118,20 @@ private fun TabButton(
             text = title,
             fontSize = 18.sp,
             fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium,
-            color = if (isSelected) Color(0xFF333333) else Color(0xFF888888)
+            color = if (isSelected) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onSurface
         )
     }
 }
 
 @Composable
-private fun PenContent() {
+private fun PenContent(
+    isSelected: Boolean
+) {
     Box(
         modifier = Modifier
-            .fillMaxSize(), // Remove padding for full screen
+            .fillMaxSize()
+            .background(
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -140,10 +145,14 @@ private fun PenContent() {
 }
 
 @Composable
-private fun CanvasContent() {
+private fun CanvasContent(
+    isSelected: Boolean
+) {
     Box(
         modifier = Modifier
-            .fillMaxSize(), // Remove padding for full screen
+            .fillMaxSize()
+            .background(
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background), // Remove padding for full screen
         contentAlignment = Alignment.Center
     ) {
         Text(
@@ -192,8 +201,8 @@ fun DrawingToolSelectorCanvasTabPreview() {
                 .offset(y = (-8).dp)
         ) {
             when (selectedTab) {
-                0 -> PenContent()
-                1 -> CanvasContent()
+                0 -> PenContent(true)
+                1 -> CanvasContent(false)
             }
         }
     }
