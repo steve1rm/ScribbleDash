@@ -7,6 +7,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 data class DrawingState(
+    val isFirstLaunch: Boolean = false,
     val selectedColor: Color = Color.Black,
     val currentPath: PaintPath? = null,
     val paths: List<PaintPath> = emptyList(),
@@ -20,7 +21,8 @@ data class DrawingState(
     val countDownSecondsTextColor: Color = Color.Black,
     val hasReachedFinalDuration: Boolean = false,
     val bitmapToSave: ImageBitmap? = null,
-    val drawingCount: Int = 0
+    val drawingCount: Int = 0,
+    val percentAccuracy: Int = 0
 )
 
 data class PathData(

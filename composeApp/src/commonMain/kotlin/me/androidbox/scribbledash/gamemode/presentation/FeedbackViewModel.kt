@@ -46,7 +46,7 @@ class FeedbackViewModel : ViewModel() {
     val feedbackState = _feedbackState.asStateFlow()
 
     init {
-        getRandomFeedbackResource(rate = (1..100).random())
+        getRandomFeedbackResource(rate = (60..100).random())
     }
 
     val oopsFeedbackList = listOf(

@@ -30,6 +30,7 @@ fun SpeedDrawFeedbackCard(
     rating: String,
     description: String,
     drawingCount: String,
+    shouldShowHighScore: Boolean,
     modifier: Modifier = Modifier
 ) {
     Box {
@@ -74,17 +75,21 @@ fun SpeedDrawFeedbackCard(
                 DisplayCounter(
                     imageRes = Res.drawable.plalet,
                     drawingCount = drawingCount,
-                    backgroundColor = MaterialTheme.colorScheme.pink
+                    backgroundColor = MaterialTheme.colorScheme.pink,
+                    shouldShowHighScore = false
                 )
             }
         }
 
-        HighScoreBadge(
-            modifier = Modifier
-                .offset(
-                    y = -(12).dp
-                )
-                .align(alignment = Alignment.TopCenter))
+        if(shouldShowHighScore) {
+            HighScoreBadge(
+                modifier = Modifier
+                    .offset(
+                        y = -(12).dp
+                    )
+                    .align(alignment = Alignment.TopCenter)
+            )
+        }
     }
 }
 
@@ -96,7 +101,8 @@ fun SpeedDrawFeedbackCardPreview() {
             percent = "80",
             rating = "Woohoo!",
             description = "You've officially raised the bar!\nI'm going to need a ladder to reach it!\"",
-            drawingCount = "10"
+            drawingCount = "10",
+            shouldShowHighScore = false
         )
     }
 }

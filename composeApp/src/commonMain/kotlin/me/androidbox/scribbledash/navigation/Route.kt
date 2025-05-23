@@ -32,14 +32,21 @@ sealed interface Route {
 
     @Serializable
     data class FinalFeedbackScreen(
+        val drawingCount: Int,
+        val percentageAccuracy: Int,
+        val gameType: GameType
+    ) : Route
+
+    @Serializable
+    data class FeedbackEndlessModeScreen(
         val drawingCount: Int
     ) : Route
 
     @Serializable
-    data object FeedbackEndlessModeScreen : Route
+    data object StatisticsScreen : Route
 
     @Serializable
-    data object StatisticsScreen : Route
+    data object ShopScreen : Route
 
     @Serializable
     data object FeedbackScreen : Route
@@ -47,6 +54,9 @@ sealed interface Route {
     // Graphs
     @Serializable
     data object DrawingGraph : Route
+
+    @Serializable
+    data object EndlessModeGraph : Route
 }
 
 val Route.routeName: String

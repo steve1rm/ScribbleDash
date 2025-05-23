@@ -5,6 +5,7 @@ import org.jetbrains.compose.resources.StringResource
 import scribbledash.composeapp.generated.resources.Res
 import scribbledash.composeapp.generated.resources.chart
 import scribbledash.composeapp.generated.resources.home
+import scribbledash.composeapp.generated.resources.shop
 
 data class ScribbleNavigationItem(
     val title: StringResource,
@@ -25,6 +26,12 @@ val listOfNavigationItems = listOf(
         title = ScribbleDashCategories.HOME.titleRes,
         selectedIcon = Res.drawable.home,
         unSelectedIcon = Res.drawable.home
+    ),
+
+    ScribbleNavigationItem(
+        title = ScribbleDashCategories.HOME.titleRes,
+        selectedIcon = Res.drawable.shop,
+        unSelectedIcon = Res.drawable.shop
     ),
 )
 

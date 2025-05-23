@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import me.androidbox.scribbledash.core.presentation.utils.countDownTimer
 import me.androidbox.scribbledash.gamemode.presentation.utils.ParseXmlDrawable
+import kotlin.random.Random
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.ExperimentalTime
@@ -46,7 +47,8 @@ class SpeedDrawViewModel(
             drawingState.copy(
                 exampleToDrawPath = pathData,
                 exampleToSavePath = pathData,
-                drawingCount = drawingState.drawingCount
+                drawingCount = drawingState.drawingCount,
+                percentAccuracy = drawingState.percentAccuracy
             )
         }
 
@@ -69,7 +71,8 @@ class SpeedDrawViewModel(
                 /** Navigate to the result screen */
                 _eventChannel.send(
                     DrawingEvent.OnDone(
-                        numberOfDrawings = drawingState.value.drawingCount
+                        numberOfDrawings = drawingState.value.drawingCount,
+                        percentAccuracy = Random.nextInt(0, 100)
                     )
                 )
             }
