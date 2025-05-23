@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,9 +39,8 @@ fun DrawingToolSelector(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0xFFF5F5F5))
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
-        // Tabs container - no bottom padding to eliminate gap
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -108,7 +108,7 @@ private fun TabButton(
         modifier = modifier
             .fillMaxHeight()
             .background(
-                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background,
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.surfaceContainerLow.copy(alpha = 0.5f),
                 shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
             )
             .clickable(onClick = onClick),
@@ -120,6 +120,14 @@ private fun TabButton(
             fontWeight = if (isSelected) FontWeight.SemiBold else FontWeight.Medium,
             color = if (isSelected) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onSurface
         )
+
+        if(!isSelected) {
+            HorizontalDivider(
+                modifier = Modifier.align(alignment = Alignment.BottomCenter),
+                thickness = 2.dp,
+                color = MaterialTheme.colorScheme.background
+            )
+        }
     }
 }
 
@@ -131,7 +139,8 @@ private fun PenContent(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background),
+                color = if (isSelected) MaterialTheme.colorScheme.surfaceContainerLow else MaterialTheme.colorScheme.background,
+                shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)),
         contentAlignment = Alignment.Center
     ) {
         Text(
